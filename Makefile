@@ -1,9 +1,10 @@
 NAME_ASM=asm
 NAME_CWAR=corewar
 
-ASM_SRC_NAME=main.c
-COMMON_SRC_NAME=op.c
-CWAR_SRC_NAME=main.c
+ASM_SRC_NAME=check_file.c\
+			 verify_list.c\
+COMMON_SRC_NAME = 
+CWAR_SRC_NAME = 
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 CWAR_SRC=$(addprefix srcs/corewar/, $(CWAR_SRC_NAME))
