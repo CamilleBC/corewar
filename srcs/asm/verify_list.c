@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/08 11:52:36 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/12 19:48:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,13 @@ t_tok	*check_args(t_tok *token, t_tok **first)
 	int		j;
 
 	i = 0;
-	while (token->data != g_op_tab[i].opcode)
+	j = 0;
+	while (*(int *)token->data != g_op_tab[i].opcode)
 		i++;
 	while (j < g_op_tab[i].nb_arg)
 	{
 		token = token->next;
-		if (!check_arg(token, first, g_op_tab[i].arg[j]))
+		if (!check_arg(token, first, g_op_tab[i].args[j++]))
 			return (NULL);
 	}
 	return (find_next_line(token));

@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/08 12:00:46 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/12 19:45:00 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct		s_op
 {
 	char	*str;
 	int		nb_arg;
-	int		*args;
+	int		args[MAX_ARGS_NUMBER];
 	int		opcode;
 	int		cycle;
 	char	*description;

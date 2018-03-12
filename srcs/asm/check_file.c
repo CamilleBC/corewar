@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/08 11:56:10 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/12 19:45:17 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_tok_type	get_token(char *line)
 		return (TOK_NAME);
 	if (!ft_strncmp(COMMENT_CMD_STRING, line, 8) && is_space(line[8]))
 		return (TOK_COMMENT);
-	if (line[0] == COmmENT_CHAR || !line[0] || is_space(line[0]))
+	if (line[0] == COMMENT_CHAR || !line[0] || is_space(line[0]))
 		return (TOK_USELESS);
 	if (line[0] == DIRECT_CHAR && (ft_isdigit(line[1]) || line[1] == '-'))
 		return (TOK_DIR_NB);
