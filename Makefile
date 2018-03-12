@@ -2,9 +2,9 @@ NAME_ASM=asm
 NAME_VM=corewar
 
 ASM_SRC_NAME=check_file.c\
-			 verify_list.c\
-COMMON_SRC_NAME = 
-VM_SRC_NAME = 
+			 verify_list.c
+COMMON_SRC_NAME = op.c
+VM_SRC_NAME = main.c
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VM_SRC=$(addprefix srcs/vm/, $(VM_SRC_NAME))
