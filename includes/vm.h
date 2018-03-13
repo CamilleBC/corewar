@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/13 19:48:23 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/13 19:50:16 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,15 @@
 # define CHAMP_MAX_SIZE	(MEM_SIZE / 6)
 # define MAX_PLAYERS	4
 
-typedef char	t_ind[IND_SIZE];
-typedef char	t_dir[DIR_SIZE];
-typedef char	t_reg[REG_SIZE];
+typedef struct	s_dir
+{
+	uint8_t	value[DIR_SIZE];
+}				t_dir;
+
+typedef struct	s_ind
+{
+	uint8_t	value[IND_SIZE];
+}				t_ind;
 
 typedef struct	s_reg
 {
