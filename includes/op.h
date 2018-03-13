@@ -6,10 +6,12 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/13 19:31:22 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/13 20:21:22 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef OP_H
+# define OP_H
 
 # define IND_SIZE 2
 # define REG_SIZE 4
@@ -63,3 +65,5 @@ typedef struct		s_op
 }					t_op;
 
 t_op	*get_ops(void);
+
+#endif
