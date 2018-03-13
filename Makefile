@@ -1,16 +1,16 @@
 NAME_ASM=asm
-NAME_CWAR=corewar
+NAME_VM=corewar
 
 ASM_SRC_NAME=check_file.c\
-			 verify_list.c\
-COMMON_SRC_NAME = 
-CWAR_SRC_NAME = 
+			 verify_list.c
+COMMON_SRC_NAME = op.c
+VM_SRC_NAME = main.c
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
-CWAR_SRC=$(addprefix srcs/corewar/, $(CWAR_SRC_NAME))
+VM_SRC=$(addprefix srcs/vm/, $(VM_SRC_NAME))
 COMMON_SRC=$(addprefix srcs/, $(COMMON_SRC_NAME))
 ASM_OBJ=$(patsubst srcs/asm/%.c, obj/asm/%.o, $(ASM_SRC))
-CWAR_OBJ=$(patsubst srcs/corewar/%.c, obj/corewar/%.o, $(CWAR_SRC))
+VM_OBJ=$(patsubst srcs/vm/%.c, obj/vm/%.o, $(VM_SRC))
 COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=clang
@@ -19,17 +19,17 @@ CFLAGS=-Wall -Werror -Wextra $(INC)
 LIB=-Llibft -lft
 
 
-all: $(NAME_ASM) $(NAME_CWAR)
+all: $(NAME_ASM) $(NAME_VM)
 
 $(NAME_ASM): $(ASM_OBJ) $(COMMON_OBJ)
 	@make -C libft
 	@printf "==> compiling %s\n" $@
 	@$(CC) $(CFLAGS) -o $@ $(ASM_OBJ) $(COMMON_OBJ) $(LIB)
 
-$(NAME_CWAR): $(CWAR_OBJ) $(COMMON_OBJ)
+$(NAME_VM): $(VM_OBJ) $(COMMON_OBJ)
 	@make -C libft
 	@printf "==> compiling %s\n" $@
-	@$(CC) $(CFLAGS) -o $@ $(CWAR_OBJ) $(COMMON_OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -o $@ $(VM_OBJ) $(COMMON_OBJ) $(LIB)
 
 obj/%.o: srcs/%.c
 	@mkdir -p $(shell dirname $@)
@@ -43,6 +43,6 @@ clean:
 fclean: clean
 	@make -C libft fclean
 	@rm -f $(NAME_ASM)
-	@rm -f $(NAME_CWAR)
+	@rm -f $(NAME_VM)
 
 re: fclean all
