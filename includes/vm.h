@@ -6,15 +6,16 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/13 19:50:16 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:29:45 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+# include <errno.h>
 # include <stdint.h>
-# include <stdlib.h>
+# include <stdio.h>
 # include "op.h"
 
 /*
@@ -56,9 +57,17 @@ typedef struct	s_proc
 	t_reg		regs[REG_NUMBER];
 }				t_proc;
 
-typedef struct	s_player {
+typedef struct	s_player
+{
 	t_proc	*threads;
 	size_t	nb_threads;
 }				t_player;
+
+typedef struct	s_arena
+{
+	uint8_t		arena[MEM_SIZE];
+	t_player	players[MAX_PLAYERS];
+	uint64_t	end;
+}				t_arena;
 
 #endif
