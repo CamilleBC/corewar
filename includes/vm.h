@@ -6,16 +6,25 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/13 19:50:16 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:45:03 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+# include <errno.h>
 # include <stdint.h>
-# include <stdlib.h>
+# include <stdio.h>
+# include "libft.h"
 # include "op.h"
+
+/*
+** VM flags
+*/
+
+# define DUMP		(uint8_t)0
+# define VISUAL		(uint8_t)1
 
 /*
 ** VM arena defines
@@ -51,14 +60,44 @@ typedef struct	s_reg
 
 typedef struct	s_proc
 {
+	uint8_t		alive;
 	uint8_t		carry;
 	size_t		pc;
 	t_reg		regs[REG_NUMBER];
 }				t_proc;
 
-typedef struct	s_player {
-	t_proc	*threads;
-	size_t	nb_threads;
+typedef struct	s_player
+{
+	char		name[PROG_NAME_LENGTH + 1];
+	char		comment[COMMENT_LENGTH + 1];
+	uint8_t		instr[CHAMP_MAX_SIZE + 1];
+	size_t		instr_size;
+	uint32_t	id;
+	uint64_t	live;
+	t_proc		*threads;
+	size_t		nb_threads;
 }				t_player;
+
+typedef struct	s_arena
+{
+	uint8_t	hex;
+	int32_t	colour;
+}				t_arena;
+
+typedef struct	s_vm
+{
+	uint8_t		flags;
+	t_arena		arena[MEM_SIZE];
+	t_deque		*procs;
+	t_player	**players;
+	uint8_t		nb_players;
+	uint64_t	dump;
+	uint64_t	total_cycles;
+	uint64_t	cycles_to_die;
+}				t_vm;
+
+int8_t	init_vm(t_vm *vm);
+int8_t	init_arena_players(t_vm *vm);
+int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 #endif

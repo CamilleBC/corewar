@@ -4,9 +4,12 @@ NAME_VM=corewar
 ASM_SRC_NAME=check_file.c\
 			 verify_list.c
 COMMON_SRC_NAME = op.c
-INSTR_SRC_NAME=fork.c
-VM_SRC_NAME = main.c\
-			  $(addprefix instr/, $(INSTR_SRC_NAME))
+INSTR_SRC_NAME = fork.c
+VM_SRC_NAME	= init_players.c \
+				init_vm.c \
+				parse_args.c \
+				main.c \
+				$(addprefix instr/, $(INSTR_SRC_NAME))
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VM_SRC=$(addprefix srcs/vm/, $(VM_SRC_NAME))
@@ -15,9 +18,9 @@ ASM_OBJ=$(patsubst srcs/asm/%.c, obj/asm/%.o, $(ASM_SRC))
 VM_OBJ=$(patsubst srcs/vm/%.c, obj/vm/%.o, $(VM_SRC))
 COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
-CC=clang
+CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Werror -Wextra $(INC)
+CFLAGS=-Wall -Wextra $(INC)
 LIB=-Llibft -lft
 
 
