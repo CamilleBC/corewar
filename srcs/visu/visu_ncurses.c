@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 17:31:15 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 19:05:27 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:59:18 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,39 @@ void	init_visu(t_vm *vm)
 	init_pair(11, COLOR_GREEN, COLOR_BLACK);
 	init_pair(12, COLOR_BLACK, COLOR_GREEN);
 	curs_set(FALSE);
-	vm->arena_win = create_newwin(64, 100, 0, 0);
-	vm->stats_win = create_newwin(64, 28, 0, 100);
+	vm->arena_win = create_newwin(64, 120, 0, 0);
+	vm->stats_win = create_newwin(64, 28, 0, 120);
 	refresh();
 }
 
 void	print_arena(t_vm *vm)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 0;
+	j = 1;
 	erase();
 	while (i < MEM_SIZE)
 	{
 		if (vm->arena[i].new_value == 1)
 			attron(A_BOLD);
+		box(vm->arena_win, '|' , '-');
 		attron(COLOR_PAIR(vm->arena[i].colour));
-		wprintw(vm->arena_win, "%02x", 0xFF & vm->arena[i].hex);
+		// wprintw(vm->arena_win, "%02x", 0xFF & vm->arena[i].hex);
+		mvwprintw(vm->arena_win, j, ((i % 33) * 2), "%02x", 0xFF & vm->arena[i].hex);
 		attroff(COLOR_PAIR(vm->arena[i].colour));
 		if (vm->arena[i].new_value == 1)
 		{
 			attroff(A_BOLD);
 			vm->arena[i].new_value = 0;
 		}
-		wprintw(vm->arena_win, " ");
+		mvwprintw(vm->arena_win, j, ((i % 33) * 2) + 2, " ");
 		if ((i + 1) % 33 == 0)
-			wprintw(vm->arena_win, "\n");
+		{
+			mvwprintw(vm->arena_win, j, ((i % 33) * 2) + 2, "\n");
+			++j;
+		}
 		i++;
 	}
 	wrefresh(vm->arena_win);
