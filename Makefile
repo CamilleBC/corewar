@@ -8,18 +8,22 @@ VM_SRC_NAME		=	init_players.c \
 					init_vm.c \
 					parse_args.c \
 					main.c
+VISU_SRC_NAME	=	visu_ncurses.c \
+					windows.c
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
+VISU_SRC=$(addprefix srcs/visu/, $(VISU_SRC_NAME))
 VM_SRC=$(addprefix srcs/vm/, $(VM_SRC_NAME))
 COMMON_SRC=$(addprefix srcs/, $(COMMON_SRC_NAME))
 ASM_OBJ=$(patsubst srcs/asm/%.c, obj/asm/%.o, $(ASM_SRC))
+VISU_OBJ=$(patsubst srcs/visu/%.c, obj/visu/%.o, $(VISU_SRC))
 VM_OBJ=$(patsubst srcs/vm/%.c, obj/vm/%.o, $(VM_SRC))
 COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra $(INC)
-LIB=-Llibft -lft
+CFLAGS=-Wall -Wextra -g $(INC)
+LIB=-Llibft -lft -lncurses
 
 
 all: $(NAME_ASM) $(NAME_VM)
@@ -29,10 +33,10 @@ $(NAME_ASM): $(ASM_OBJ) $(COMMON_OBJ)
 	@printf "==> compiling %s\n" $@
 	@$(CC) $(CFLAGS) -o $@ $(ASM_OBJ) $(COMMON_OBJ) $(LIB)
 
-$(NAME_VM): $(VM_OBJ) $(COMMON_OBJ)
+$(NAME_VM): $(VM_OBJ) $(COMMON_OBJ) $(VISU_OBJ)
 	@make -C libft
 	@printf "==> compiling %s\n" $@
-	@$(CC) $(CFLAGS) -o $@ $(VM_OBJ) $(COMMON_OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -o $@ $(VM_OBJ) $(COMMON_OBJ) $(VISU_OBJ) $(LIB)
 
 obj/%.o: srcs/%.c
 	@mkdir -p $(shell dirname $@)

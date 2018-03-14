@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 15:42:20 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:38:35 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int8_t	init_player(t_player *player, t_vm *vm, size_t address)
 	while (i < player->instr_size)
 	{
 		vm->arena[address + i].hex = player->instr[i];
-		vm->arena[address + i].colour = player->id;
+		vm->arena[address + i].colour = player->colour;
 	}
 }
 

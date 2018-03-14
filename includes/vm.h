@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 15:45:03 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:43:57 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include "op.h"
+# include "visu.h"
 
 /*
 ** VM flags
@@ -72,7 +73,7 @@ typedef struct	s_player
 	char		comment[COMMENT_LENGTH + 1];
 	uint8_t		instr[CHAMP_MAX_SIZE + 1];
 	size_t		instr_size;
-	uint32_t	id;
+	uint32_t	colour;
 	uint64_t	live;
 	t_proc		*threads;
 	size_t		nb_threads;
@@ -82,6 +83,7 @@ typedef struct	s_arena
 {
 	uint8_t	hex;
 	int32_t	colour;
+	uint8_t	new_value;
 }				t_arena;
 
 typedef struct	s_vm
@@ -94,9 +96,11 @@ typedef struct	s_vm
 	uint64_t	dump;
 	uint64_t	total_cycles;
 	uint64_t	cycles_to_die;
+	WINDOW		*arena_win;
+	WINDOW		*stats_win;
 }				t_vm;
 
-int8_t	init_vm(t_vm *vm);
+t_vm	*init_vm(void);
 int8_t	init_arena_players(t_vm *vm);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
