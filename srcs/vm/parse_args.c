@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/14 15:46:35 by cbaillat         ###   ########.fr       */
+/*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
+/*   Updated: 2018/03/14 15:44:02 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "vm.h"
 
-int		main(int ac, char **av)
+int32_t	parse_args(t_vm *vm, int ac, char **av)
 {
 	int32_t	i;
-	t_vm	vm;
 
-	parse_args(&vm, ac, av);
-	init_vm(&vm);
-	i = -1;
-	while (++i < vm.nb_players)
-		ft_print("Player #%d: %s\n", i, vm.players[i]->name);
-	return (0);
+	i = 1;
+	while (av[i])
+	{
+		if (ft_strequ(av[i], "--visual") || ft_strequ(av[i], "-v"))
+			vm->flags |= (1 << VISUAL);
+		else if (ft_strequ(av[i], "--dump") || ft_strequ(av[i], "-d"))
+		{
+			if (av[i + 1])
+				vm->dump = ft_atoi64(av[++i]);
+			if (vm->dump <= INT32_MAX && vm->dump > 0)
+				vm->flags |= (1 << DUMP);
+		}
+		else
+			break;
+		++i;
+	}
+	return (i);
 }
