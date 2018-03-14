@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/13 20:21:22 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 13:47:04 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ typedef struct		s_op
 	int		opcode;
 	int		cycle;
 	char	*description;
-	int		carry1;
-	int		carry2;
+	int		carry;
+	int		octal;
 }					t_op;
 
 t_op	*get_ops(void);
