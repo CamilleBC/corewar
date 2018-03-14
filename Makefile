@@ -4,7 +4,7 @@ NAME_VM=corewar
 ASM_SRC_NAME=check_file.c\
 			 verify_list.c
 COMMON_SRC_NAME = op.c
-INSTR_SRC_NAME = fork.c
+INSTR_SRC_NAME = interpret.c
 VM_SRC_NAME	= init_players.c \
 				init_vm.c \
 				parse_args.c \

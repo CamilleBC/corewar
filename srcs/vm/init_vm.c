@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:00:30 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 15:46:58 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:50:40 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ int8_t	init_vm(t_vm *vm)
 	vm->players[1]->instr[3] = 0x40;
 	vm->players[1]->instr_size = 4;
 	vm->dump = 0;
+	return (SUCCESS);
 }

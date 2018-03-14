@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 15:45:03 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:08:27 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@
 
 # define CHAMP_MAX_SIZE	(MEM_SIZE / 6)
 # define MAX_PLAYERS	4
+
+typedef union	u_arg_val
+{
+	uint8_t	dir[DIR_SIZE];
+	uint8_t	ind[IND_SIZE];
+	uint8_t	reg[REG_SIZE];
+}				t_arg_val;
+
+typedef struct	s_arg
+{
+	t_arg_val	value;
+	int			code;
+}				t_arg;
 
 typedef struct	s_dir
 {
@@ -99,5 +112,7 @@ typedef struct	s_vm
 int8_t	init_vm(t_vm *vm);
 int8_t	init_arena_players(t_vm *vm);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
+
+int8_t	interpret_instr(uint8_t mem[MEM_SIZE], t_player *pl, t_proc *proc);
 
 #endif
