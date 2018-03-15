@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:45:26 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/08 11:59:28 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:04:49 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ typedef struct	s_tok
 	struct s_tok	*next;
 }				t_tok;
 
-int		verify_list(t_tok **first);
+int		verify_list(t_tok *first);
+void	debug(t_tok *first);

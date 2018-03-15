@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 11:26:46 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:32:21 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,25 @@ int			is_space(char c)
 	return (0);
 }
 
-t_tok		*push_token(t_tok **prev)
+t_tok		*push_token(t_tok *prev)
 {
 	t_tok	*new;
 
-	if (*prev == NULL)
+	if (prev == NULL)
 	{
-		if (!(*prev = (t_tok *)malloc(sizeof(t_tok))))
+		if (!(prev = (t_tok *)malloc(sizeof(t_tok))))
 			return (NULL);
-		(*prev)->tok = TOK_UNDEFINED;
-		(*prev)->data = NULL;
-		(*prev)->next = NULL;
-		return (*prev);
+		prev->tok = TOK_UNDEFINED;
+		prev->data = NULL;
+		prev->next = NULL;
+		return (prev);
 	}
 	if (!(new = (t_tok *)malloc(sizeof(t_tok))))
 		return (NULL);
 	new->tok = TOK_UNDEFINED;
 	new->data = NULL;
 	new->next = NULL;
-	(*prev)->next = new;
+	prev->next = new;
 	return (new);
 }
 
@@ -47,7 +47,7 @@ int			is_label(char *line)
 	int		count;
 
 	count = 0;
-	while (!is_space(line[count]))
+	while (line[count] && !is_space(line[count]))
 		count++;
 	if (line[count - 1] == LABEL_CHAR)
 		return (1);
@@ -62,7 +62,8 @@ int			is_op(char *line)
 	while (get_ops()[count].str != NULL)
 	{
 		if (!ft_strncmp(get_ops()[count].str, line,
-					ft_strlen(get_ops()[count].str)))
+			ft_strlen(get_ops()[count].str)) &&
+			is_space(line[ft_strlen(get_ops()[count].str)]))
 			return (count + 1);
 		count++;
 	}
@@ -123,7 +124,7 @@ char		*first_word(char *line, char c)
 			str[count] = line[count];
 		return (str);
 	}
-	while (line[count] != SEP_CHAR && !is_space(line[count]))
+	while (line[count] == SEP_CHAR || is_space(line[count]))
 		count++;
 	if (!(str = (char *)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
@@ -154,47 +155,53 @@ int			get_data(char *line, t_tok_type tok, void **data)
 
 int			go_next_token(char *line, t_tok_type tok)
 {
-	int		count;
+	int		c;
 
-	count = 1;
-	ft_print("%d\n", tok);
+	c = 1;
 	if (tok == TOK_STR || tok == TOK_USELESS)
-		while (line[count] && line[count] != '"')
-			count++;
+	{
+		while (line[c] && line[c] != '"')
+			c++;
+		if (line[c])
+			c++;
+	}
 	else
-		while (line[count] && line[count] != SEP_CHAR)
-			count++;
-	if (line[count] == '"' || line[count] == SEP_CHAR)
-		count++;
-	while (line[count] && is_space(line[count]))
-		count++;
-	return (count);
+	{
+		while (line[c] && !is_space(line[c]) && line[c] != SEP_CHAR)
+			c++;
+		while (line[c] && is_space(line[c]))
+			c++;
+	}
+	if (line[c] == SEP_CHAR)
+		c++;
+	while (is_space(line[c]))
+		c++;
+	return (c);
 }
 
-int			check_line(t_tok **first_tok, char *line)
+t_tok		*check_line(t_tok *first_tok, char *line)
 {
 	static int	i = 0;
 	int			count;
 	t_tok		*token;
 
-	token = *first_tok;
+	token = first_tok;
 	count = 0;
 	while (is_space(line[count]))
 		count++;
 	while (line[count])
 	{
-		ft_putendl(&(line[count]));
-		if (!(token = push_token(&token)) ||
-				((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
-				!get_data(&line[count], token->tok, &(token->data)))
-			return (0);
+		if (!(token = push_token(token)) ||
+			((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
+			!get_data(&line[count], token->tok, &(token->data)))
+			return (NULL);
 		count += go_next_token(&line[count], token->tok);
 		i++;
 	}
-	if (!(token = push_token(&token)))
-		return (0);
+	if (!(token = push_token(token)))
+		return (NULL);
 	token->tok = TOK_NEWLINE;
-	return (1);
+	return (token);
 }
 
 t_tok		*check_file(char *file)
@@ -203,21 +210,25 @@ t_tok		*check_file(char *file)
 	int		nb_line;
 	char	*line;
 	t_tok	*first_tok;
+	t_tok	*token;
 
 	first_tok = NULL;
+	first_tok = push_token(first_tok);
+	first_tok->data = (void *)file;
+	token = first_tok;
 	if ((fd = open(file, O_RDONLY)) <= 1)
 		return (NULL);
 	nb_line = 1;
 	while (get_next_line(fd, &line) > 0)
 	{
-		ft_print("%d\n", nb_line);
-		if (!check_line(&first_tok, line))
+		if (!(token = check_line(token, line)))
 			return (NULL);
 		free(line);
 		nb_line++;
 	}
-	if (!verify_list(&first_tok))
+	if (!verify_list(first_tok))
 		return (NULL);
+	debug(first_tok);
 	return (first_tok);
 }
 
@@ -225,6 +236,9 @@ int			main(int argc, char **argv)
 {
 	if (argc != 2)
 		return (0);
-	check_file(argv[1]);
+	if (!check_file(argv[1]))
+		ft_print("Error\n");
+	else
+		ft_print("Ok\n");
 	return (0);
 }
