@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/12 19:53:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 11:13:33 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		verify_list(t_tok **first)
 	token = *first;
 	while (token != NULL)
 	{
+		ft_putstr("QQQQQQQQQQQQQ\n");
 		if (token->tok == TOK_NAME || token->tok == TOK_COMMENT)
 			if (!(token = check_name_comment(token)))
 				return (0);
@@ -145,5 +146,6 @@ int		verify_list(t_tok **first)
 		prev = token;
 		token = token->next;
 	}
+	ft_putstr("CACA\n");
 	return (1);
 }

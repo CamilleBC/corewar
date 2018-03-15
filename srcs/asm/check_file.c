@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/12 19:53:40 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 11:26:46 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,12 @@ int			go_next_token(char *line, t_tok_type tok)
 	int		count;
 
 	count = 1;
+	ft_print("%d\n", tok);
 	if (tok == TOK_STR || tok == TOK_USELESS)
 		while (line[count] && line[count] != '"')
 			count++;
 	else
-		while (line[count] && !is_space(line[count]) && line[count] != SEP_CHAR)
+		while (line[count] && line[count] != SEP_CHAR)
 			count++;
 	if (line[count] == '"' || line[count] == SEP_CHAR)
 		count++;
@@ -182,6 +183,7 @@ int			check_line(t_tok **first_tok, char *line)
 		count++;
 	while (line[count])
 	{
+		ft_putendl(&(line[count]));
 		if (!(token = push_token(&token)) ||
 				((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
 				!get_data(&line[count], token->tok, &(token->data)))
@@ -190,10 +192,8 @@ int			check_line(t_tok **first_tok, char *line)
 		i++;
 	}
 	if (!(token = push_token(&token)))
-	{
-		token->tok = TOK_NEWLINE;
 		return (0);
-	}
+	token->tok = TOK_NEWLINE;
 	return (1);
 }
 
@@ -210,6 +210,7 @@ t_tok		*check_file(char *file)
 	nb_line = 1;
 	while (get_next_line(fd, &line) > 0)
 	{
+		ft_print("%d\n", nb_line);
 		if (!check_line(&first_tok, line))
 			return (NULL);
 		free(line);
