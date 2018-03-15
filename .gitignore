@@ -3,3 +3,5 @@
 /corewar
 /asm
 /compile_commands.json
+/default.nix
+/result

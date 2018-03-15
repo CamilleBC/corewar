@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/14 20:13:59 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:04:22 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_op	get_op(int opcode)
 	return (ops[idx - 1]);
 }
 
-static void fill_arg(uint8_t mem[MEM_SIZE], t_proc *proc, t_arg *arg)
+static void fill_arg(uint8_t mem[MEM_SIZE], t_proc *proc, t_arg *arg, int dir_size)
 {
 	if (arg->code == REG_CODE)
 	{
@@ -43,8 +43,8 @@ static void fill_arg(uint8_t mem[MEM_SIZE], t_proc *proc, t_arg *arg)
 	}
 	else if (arg->code == DIR_CODE)
 	{
-		ft_memcpy(arg->value.dir, mem + proc->pc, DIR_SIZE);
-		proc->pc += DIR_SIZE;
+		ft_memcpy(arg->value.dir, mem + proc->pc, dir_size);
+		proc->pc += dir_size;
 	}
 	else
 	{
@@ -66,11 +66,10 @@ static void	fill_args(uint8_t mem[MEM_SIZE], t_proc *proc, t_arg args[MAX_ARGS_N
 	while (idx < op.nb_arg)
 	{
 		if (octal)
-			args[idx].code = octal >> (4 - idx) & 0b11;
+			args[idx].code = octal >> ((3 - idx) * 2) & 0b11;
 		else
 			args[idx].code = op.args[idx];
-		//ft_print("octal: %b\n", args[idx].code);
-		fill_arg(mem, proc, args + idx);
+		fill_arg(mem, proc, args + idx, (op.dir_size ? DIR_SIZE / 2 : DIR_SIZE));
 		idx++;
 	}
 }
