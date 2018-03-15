@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 17:40:08 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:45:31 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 struct	s_vm;
 
 WINDOW	*create_newwin(int height, int width, int starty, int startx);
-void	destroy_visu(void);
+void	free_visu(struct s_vm *vm);
 void	init_visu(struct s_vm *vm);
 void	print_arena(struct s_vm *vm);
 void	print_header(struct s_vm *vm);
