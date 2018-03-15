@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/14 18:03:14 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:11:58 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,31 @@ void	test_interpret(char *file)
 	ft_bzero(&fake_proc, sizeof(t_proc));
 	ft_bzero(&fake_pl, sizeof(t_player));
 	fd = open(file, O_RDONLY);
-	char	buf[PROG_NAME_LENGTH + COMMENT_LENGTH + 1];
+	unsigned char	buf[PROG_NAME_LENGTH + COMMENT_LENGTH + 1 + 16];
 
 	// SKIP DESCRIPTION, JUST FOR DEBUG
-	read(fd, buf, PROG_NAME_LENGTH + COMMENT_LENGTH);
+	ft_print("read %x\n", read(fd, buf, PROG_NAME_LENGTH + COMMENT_LENGTH + 16));
+	unsigned int	size = 0;
+	for (int i = 0; i < 4; i++) {
+		size <<= 8;
+		size |= buf[i + PROG_NAME_LENGTH + 8];
+		ft_print("%x\n", buf[i + PROG_NAME_LENGTH + 8]);
+	}
+	ft_print("size %d\n", size);
+	if (size > CHAMP_MAX_SIZE)
+	{
+		ft_print("invalide\n");
+		return;
+	}
 	len = read(fd, fake_pl.instr, CHAMP_MAX_SIZE);
+	ft_print("%d %d\n", len, CHAMP_MAX_SIZE);
 	idx = 0;
 	while (idx < len)
 	{
 		interpret_instr(fake_pl.instr, &fake_pl, &fake_proc);
 		idx++;
 	}
+	ft_print("lives: %d\n", fake_pl.live);
 }
 
 int		main(int ac, char **av)

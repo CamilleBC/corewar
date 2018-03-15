@@ -6,11 +6,12 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/14 16:39:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:18:47 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include "vm.h"
 
 static t_op    g_op_tab[OP_COUNT] =
 {
@@ -39,7 +40,17 @@ static t_op    g_op_tab[OP_COUNT] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
+static t_instr	g_instr_tab[OP_COUNT] =
+{
+	{g_op_tab + 0, instr_live},
+};
+
 t_op		*get_ops(void)
 {
 	return (g_op_tab);
+}
+
+t_instr		*get_instrs(void)
+{
+	return (g_instr_tab);
 }

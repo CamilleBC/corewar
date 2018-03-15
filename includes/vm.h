@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 17:08:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:19:37 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,6 @@ typedef struct	s_arg
 	int			code;
 }				t_arg;
 
-typedef struct	s_dir
-{
-	uint8_t	value[DIR_SIZE];
-}				t_dir;
-
-typedef struct	s_ind
-{
-	uint8_t	value[IND_SIZE];
-}				t_ind;
 
 typedef struct	s_reg
 {
@@ -109,10 +100,22 @@ typedef struct	s_vm
 	uint64_t	cycles_to_die;
 }				t_vm;
 
+typedef void	t_instr_fn(uint8_t mem[MEM_SIZE], t_player *, t_proc *, t_arg args[MAX_ARGS_NUMBER]);
+
+typedef struct	s_instr
+{
+	t_op		*op;
+	t_instr_fn	*fn;
+}				t_instr;
+
+void	instr_live(uint8_t mem[MEM_SIZE], t_player *pl, t_proc *proc, t_arg args[MAX_ARGS_NUMBER]);
+
 int8_t	init_vm(t_vm *vm);
 int8_t	init_arena_players(t_vm *vm);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
+
 int8_t	interpret_instr(uint8_t mem[MEM_SIZE], t_player *pl, t_proc *proc);
+t_instr	*get_instrs(void);
 
 #endif
