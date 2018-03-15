@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 18:14:47 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/15 13:22:42 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int32_t	parse_args(t_vm *vm, int ac, char **av)
 	int32_t	i;
 
 	i = 1;
-	while (av[i])
+	while (i < ac)
 	{
 		if (ft_strequ(av[i], "--visual") || ft_strequ(av[i], "-v"))
 			vm->flags |= (1 << VISUAL);

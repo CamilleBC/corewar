@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:00:30 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 18:03:40 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/15 13:24:23 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_vm	*init_vm(void)
 		return (NULL);
 	vm->nb_players = 2;
 	if (!(vm->players = ft_memalloc(sizeof(t_player*) * vm->nb_players)))
-		return (ERROR);
+		return (NULL);
 	i = 0;
 	while (i < vm->nb_players)
 		if (!(vm->players[i++] = ft_memalloc(sizeof(t_player) * vm->nb_players)))
-			return (ERROR);
+			return (NULL); // free all player when returning
 	vm->players[0]->name[0] = 'B';
 	vm->players[0]->name[1] = 'O';
 	vm->players[0]->name[2] = 'B';
@@ -47,4 +47,6 @@ t_vm	*init_vm(void)
 	vm->players[1]->instr_size = 4;
 	vm->players[1]->colour = 1;
 	vm->dump = 0;
+	vm->flags = 0;
+	return (vm);
 }

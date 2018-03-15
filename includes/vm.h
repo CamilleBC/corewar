@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 17:43:57 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/15 15:14:29 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,12 @@ typedef struct	s_vm
 	uint64_t	total_cycles;
 	uint64_t	cycles_to_die;
 	WINDOW		*arena_win;
+	WINDOW		*header_win;
 	WINDOW		*stats_win;
 }				t_vm;
 
 t_vm	*init_vm(void);
-int8_t	init_arena_players(t_vm *vm);
+void	init_arena_players(t_vm *vm);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 #endif

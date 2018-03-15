@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/14 18:45:08 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:47:53 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ int		main(int ac, char **av)
 		init_visu(vm);
 	i = -1;
 	if (vm->flags & (1 << VISUAL))
+	{
 		print_arena(vm);
+		print_header(vm);
+		print_stats(vm);
+	}
 	touchwin(vm->arena_win);
 	touchwin(vm->stats_win);
 	while (1)

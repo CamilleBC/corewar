@@ -6,13 +6,13 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 17:38:35 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/15 13:23:21 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int8_t	init_player(t_player *player, t_vm *vm, size_t address)
+static void	init_player(t_player *player, t_vm *vm, size_t address)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@ static int8_t	init_player(t_player *player, t_vm *vm, size_t address)
 	}
 }
 
-int8_t			init_arena_players(t_vm *vm)
+void			init_arena_players(t_vm *vm)
 {
 	size_t	i;
 	size_t	address;
