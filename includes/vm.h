@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 09:19:37 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:56:53 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,15 @@ typedef union	u_arg_val
 {
 	uint8_t	dir[DIR_SIZE];
 	uint8_t	ind[IND_SIZE];
-	uint8_t	reg[REG_SIZE];
+	uint8_t	reg;
+	uint8_t	max[(DIR_SIZE > IND_SIZE ? DIR_SIZE : IND_SIZE)];
 }				t_arg_val;
 
 typedef struct	s_arg
 {
 	t_arg_val	value;
 	int			code;
+	size_t		size;
 }				t_arg;
 
 
@@ -100,7 +102,17 @@ typedef struct	s_vm
 	uint64_t	cycles_to_die;
 }				t_vm;
 
-typedef void	t_instr_fn(uint8_t mem[MEM_SIZE], t_player *, t_proc *, t_arg args[MAX_ARGS_NUMBER]);
+typedef struct	s_instr_fn_args
+{
+	uint8_t		*mem;
+	t_player	*pl;
+	t_proc		*proc;
+	t_arg		args[MAX_ARGS_NUMBER];
+	size_t		nb_args;
+}				t_instr_fn_args;
+
+// TODO: single struct for instr_fn
+typedef void	t_instr_fn(const t_instr_fn_args *);
 
 typedef struct	s_instr
 {
@@ -108,14 +120,15 @@ typedef struct	s_instr
 	t_instr_fn	*fn;
 }				t_instr;
 
-void	instr_live(uint8_t mem[MEM_SIZE], t_player *pl, t_proc *proc, t_arg args[MAX_ARGS_NUMBER]);
+void	instr_live(const t_instr_fn_args *args);
+void	instr_ld(const t_instr_fn_args *args);
 
 int8_t	init_vm(t_vm *vm);
 int8_t	init_arena_players(t_vm *vm);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 
-int8_t	interpret_instr(uint8_t mem[MEM_SIZE], t_player *pl, t_proc *proc);
+int8_t	interpret_instr(uint8_t *mem, t_player *pl, t_proc *proc);
 t_instr	*get_instrs(void);
 
 #endif

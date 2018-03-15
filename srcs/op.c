@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/15 09:18:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:17:29 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_op    g_op_tab[OP_COUNT] =
 static t_instr	g_instr_tab[OP_COUNT] =
 {
 	{g_op_tab + 0, instr_live},
+	{g_op_tab + 1, instr_ld},
 };
 
 t_op		*get_ops(void)

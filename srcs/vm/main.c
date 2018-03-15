@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/15 10:11:58 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:40:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ void	test_interpret(char *file)
 		idx++;
 	}
 	ft_print("lives: %d\n", fake_pl.live);
+	for (int i = 1; i <= REG_NUMBER; i++)
+	{
+		printf("r%d: ", i);
+		for (int j = 0; j < 4; j++)
+		{
+			printf("%02x ", fake_proc.regs[i - 1].value[j]);
+		}
+		printf("\n");
+		fflush(stdout);
+	}
 }
 
 int		main(int ac, char **av)
