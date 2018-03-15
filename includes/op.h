@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 09:18:15 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:10:01 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@
 
 # define OP_COUNT 17
 
-typedef struct        header_s
+typedef struct        s_header
 {
 	unsigned int        magic;
 	char                prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int        prog_size;
 	char                comment[COMMENT_LENGTH + 1];
-}                    header_t;
+}                    t_header;
 
 typedef struct		s_op
 {

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/15 10:40:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:22:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,22 @@ void	test_interpret(char *file)
 	ft_bzero(&fake_proc, sizeof(t_proc));
 	ft_bzero(&fake_pl, sizeof(t_player));
 	fd = open(file, O_RDONLY);
-	unsigned char	buf[PROG_NAME_LENGTH + COMMENT_LENGTH + 1 + 16];
+	unsigned char	buf[sizeof(t_header) + 1];
 
 	// SKIP DESCRIPTION, JUST FOR DEBUG
-	ft_print("read %x\n", read(fd, buf, PROG_NAME_LENGTH + COMMENT_LENGTH + 16));
-	unsigned int	size = 0;
-	for (int i = 0; i < 4; i++) {
-		size <<= 8;
-		size |= buf[i + PROG_NAME_LENGTH + 8];
-		ft_print("%x\n", buf[i + PROG_NAME_LENGTH + 8]);
-	}
-	ft_print("size %d\n", size);
-	if (size > CHAMP_MAX_SIZE)
+	ft_print("read %x\n", read(fd, buf, sizeof(t_header)));
+	t_header header;
+	ft_memcpy(&header, buf, sizeof(t_header));
+	header.prog_size = array_to_int(buf + sizeof(header.prog_name) + sizeof(header.magic) + sizeof(header.prog_size) - 1, sizeof(int));
+	unsigned char *b = buf + sizeof(header.prog_name) + sizeof(header.magic) + sizeof(header.magic);
+	printf("%02x %02x %02x %02x\n", b[0], b[1], b[2], b[3]);
+	//for (int i = 0; i < 4; i++) {
+	//	header.prog_size <<= 8;
+	//	header.prog_size |= buf[i + PROG_NAME_LENGTH + 8];
+	//	ft_print("%x\n", buf[i + PROG_NAME_LENGTH + 8]);
+	//}
+	ft_print("size %d\n", header.prog_size);
+	if (header.prog_size > CHAMP_MAX_SIZE)
 	{
 		ft_print("invalide\n");
 		return;
@@ -54,10 +58,7 @@ void	test_interpret(char *file)
 	for (int i = 1; i <= REG_NUMBER; i++)
 	{
 		printf("r%d: ", i);
-		for (int j = 0; j < 4; j++)
-		{
-			printf("%02x ", fake_proc.regs[i - 1].value[j]);
-		}
+		printf("%08x ", fake_proc.regs[i - 1]);
 		printf("\n");
 		fflush(stdout);
 	}

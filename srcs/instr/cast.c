@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld.c                                               :+:      :+:    :+:   */
+/*   cast.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/15 16:22:53 by briviere         ###   ########.fr       */
+/*   Created: 2018/03/15 15:03:32 by briviere          #+#    #+#             */
+/*   Updated: 2018/03/15 16:11:53 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_ld(const t_instr_fn_args *args)
+uint32_t	array_to_int(uint8_t arr[4], size_t size)
 {
-	uint8_t	reg;
+	uint32_t	val;
+	size_t		i;
 
-	if (args->nb_args != 2)
+	if (size > 4)
+		return (0);
+	val = 0;
+	i = 0;
+	while (i < size)
+	{
+		val <<= 8;
+		val |= arr[i];
+		i++;
+	}
+	return (val);
+}
+
+void		int_to_array(uint8_t arr[4], uint32_t val, size_t size)
+{
+	if (size > 4)
 		return ;
-	if (args->args[1].code != T_REG)
-		return ;
-	reg = args->args[1].value.reg - 1;
-	if (args->args[0].code == DIR_CODE)
-		args->proc->regs[reg] = args->args[0].value.dir;
-	else
-		args->proc->regs[reg] = array_to_int(args->mem + args->proc->pc +
-				args->args[0].value.ind, REG_SIZE);
+	while (size--)
+		arr[3 - size] = val >> size & 0xff;
 }

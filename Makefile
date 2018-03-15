@@ -6,12 +6,14 @@ ASM_SRC_NAME=check_file.c\
 COMMON_SRC_NAME = op.c \
 				  $(addprefix instr/, $(INSTR_SRC_NAME))
 INSTR_SRC_NAME = interpret.c \
+				 cast.c \
 				 live.c \
-				 ld.c
+				 ld.c \
+				 st.c
 VM_SRC_NAME	= init_players.c \
 				init_vm.c \
 				parse_args.c \
-				main.c \
+				main.c
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VM_SRC=$(addprefix srcs/vm/, $(VM_SRC_NAME))

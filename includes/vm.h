@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 10:56:53 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:01:09 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 
 typedef union	u_arg_val
 {
-	uint8_t	dir[DIR_SIZE];
-	uint8_t	ind[IND_SIZE];
-	uint8_t	reg;
-	uint8_t	max[(DIR_SIZE > IND_SIZE ? DIR_SIZE : IND_SIZE)];
+	uint32_t	dir;
+	uint16_t	ind;
+	uint8_t		reg;
+	uint8_t		arr[4];
 }				t_arg_val;
 
 typedef struct	s_arg
@@ -58,18 +58,12 @@ typedef struct	s_arg
 	size_t		size;
 }				t_arg;
 
-
-typedef struct	s_reg
-{
-	uint8_t	value[REG_SIZE];
-}				t_reg;
-
 typedef struct	s_proc
 {
 	uint8_t		alive;
 	uint8_t		carry;
 	size_t		pc;
-	t_reg		regs[REG_NUMBER];
+	uint32_t	regs[REG_NUMBER];
 }				t_proc;
 
 typedef struct	s_player
@@ -122,6 +116,7 @@ typedef struct	s_instr
 
 void	instr_live(const t_instr_fn_args *args);
 void	instr_ld(const t_instr_fn_args *args);
+void	instr_st(const t_instr_fn_args *args);
 
 int8_t	init_vm(t_vm *vm);
 int8_t	init_arena_players(t_vm *vm);
@@ -130,5 +125,8 @@ int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 int8_t	interpret_instr(uint8_t *mem, t_player *pl, t_proc *proc);
 t_instr	*get_instrs(void);
+
+uint32_t	array_to_int(uint8_t arr[4], size_t size);
+void		int_to_array(uint8_t dest[4], uint32_t val, size_t size);
 
 #endif
