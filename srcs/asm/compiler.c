@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/15 16:06:35 by chaydont         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:54:26 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			compile(t_tok *file)
 	fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	free(file_name);
 	header = get_header(file);
-	write_header(header, fd);
+	write(fd, &header, sizeof(t_header));
 	write_file(file, fd);
 	close(fd);
 	return (1);

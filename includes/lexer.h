@@ -6,9 +6,13 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:45:26 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 16:04:49 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:47:24 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LEXER_H
+
+# define LEXER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,3 +45,5 @@ typedef struct	s_tok
 
 int		verify_list(t_tok *first);
 void	debug(t_tok *first);
+
+#endif

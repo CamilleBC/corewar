@@ -6,10 +6,11 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 16:32:21 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:44:03 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "asm.h"
 #include "lexer.h"
 #include "op.h"
 
@@ -228,7 +229,7 @@ t_tok		*check_file(char *file)
 	}
 	if (!verify_list(first_tok))
 		return (NULL);
-	debug(first_tok);
+	compile(first_tok);
 	return (first_tok);
 }
 

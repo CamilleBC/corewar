@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/14 13:47:04 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:48:55 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@
 # define COMMENT_LENGTH            (2048)
 # define COREWAR_EXEC_MAGIC        0xea83f3
 
-typedef struct        header_s
+typedef struct        s_header
 {
 	unsigned int        magic;
 	char                prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int        prog_size;
 	char                comment[COMMENT_LENGTH + 1];
-}                    header_t;
+}                    t_header;
 
 typedef struct		s_op
 {

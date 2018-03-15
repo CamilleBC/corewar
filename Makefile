@@ -3,6 +3,9 @@ NAME_VM=corewar
 
 ASM_SRC_NAME=check_file.c\
 			 verify_list.c\
+			 compiler.c\
+			 get_label_pos.c\
+			 write.c\
 			 error.c
 COMMON_SRC_NAME = op.c
 VM_SRC_NAME = main.c
