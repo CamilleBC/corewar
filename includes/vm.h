@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 10:10:43 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:13:51 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,19 @@ typedef struct	s_arena
 	uint8_t	new_value;
 }				t_arena;
 
+struct			s_win;
+
 typedef struct	s_vm
 {
-	uint8_t		flags;
-	t_arena		arena[MEM_SIZE];
-	t_deque		*procs;
-	t_player	**players;
-	uint8_t		nb_players;
-	uint64_t	dump;
-	uint64_t	total_cycles;
-	uint64_t	cycles_to_die;
-	WINDOW		*arena_win;
-	WINDOW		*header_win;
-	WINDOW		*stats_win;
+	uint8_t			flags;
+	t_arena			arena[MEM_SIZE];
+	t_deque			*procs;
+	t_player		**players;
+	uint8_t			nb_players;
+	uint64_t		dump;
+	uint64_t		total_cycles;
+	uint64_t		cycles_to_die;
+	struct s_win	wins;
 }				t_vm;
 
 typedef struct	s_instr_fn_args

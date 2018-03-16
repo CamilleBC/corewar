@@ -6,11 +6,11 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/16 10:53:15 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 12:59:09 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 int g_arg1[16] = {1, 2, 2, 3, 3, 3, 3, 3, 1, 3, 3, 1, 2, 3, 1, 1};
 
@@ -48,11 +48,10 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 {
 	int *op;
 	int nb_arg;
-	int *arg;
+	int arg;
 
 	op = file->data;
 	nb_arg = g_arg1[*op - 1];
-	arg = 0;
 	ft_putchar_fd(*op, fd);
 	if (*op != 9 && *op != 12 && *op != 1)
 		ft_putchar_fd(get_param_code(file->next, nb_arg), fd);
@@ -60,16 +59,16 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 	{
 		file = file->next;
 		if (file->tok == TOK_INDIR_LB || file->tok == TOK_DIR_LB)
-			*arg = get_label_pos(first_nod, file->data) - cursor;
+			arg = get_label_pos(first_nod, file->data) - cursor;
 		else
-			arg = file->data;
+			arg = *(int *)file->data;
 		if (file->tok == TOK_REG)
-			ft_putchar_fd((char)*arg, fd);
+			ft_putchar_fd((char)arg, fd);
 		else if (file->tok == TOK_INDIR_NB || file->tok == TOK_INDIR_LB ||
 				*op == 9 || *op == 10 || *op == 11 || *op == 14)
-			ft_putshort_fd((short)*arg, fd);
+			ft_putshort_fd((short)arg, fd);
 		else if (file->tok == TOK_DIR_NB || file->tok == TOK_DIR_LB)
-			ft_putint_fd(*arg, fd);
+			ft_putint_fd(arg, fd);
 	}
 }
 
@@ -97,7 +96,7 @@ int			compile(t_tok *file)
 	char		*file_name;
 	t_header	header;
 
-	file_name = ft_strjoin(file->data, ".coor");
+	file_name = ft_strjoin(file->data, ".cor");
 	file = file->next;
 	fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	free(file_name);
