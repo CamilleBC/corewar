@@ -1,12 +1,9 @@
 NAME_ASM=asm
 NAME_VM=corewar
 
-ASM_SRC_NAME=check_file.c \
-			 verify_list.c \
-			 compiler.c \
-			 error.c \
-			 get_label_pos.c \
-			 write.c
+ASM_SRC_NAME=check_file.c\
+<<<<<<< HEAD
+			 verify_list.c
 COMMON_SRC_NAME = op.c \
 				  $(addprefix instr/, $(INSTR_SRC_NAME))
 INSTR_SRC_NAME = interpret.c \
@@ -21,6 +18,15 @@ VM_SRC_NAME	= init_players.c \
 				init_vm.c \
 				parse_args.c \
 				main.c
+=======
+			 verify_list.c\
+			 compiler.c\
+			 get_label_pos.c\
+			 write.c\
+			 error.c
+COMMON_SRC_NAME = op.c
+VM_SRC_NAME = main.c
+>>>>>>> 16838abada8979e3721c181ae29e99a14c8ebb6c
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VISU_SRC=$(addprefix srcs/visu/, $(VISU_SRC_NAME))

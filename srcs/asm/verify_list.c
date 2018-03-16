@@ -6,14 +6,14 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/12 19:53:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:36:23 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "op.h"
 
-t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok **first)
+t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first)
 {
 	if (prev)
 	{
@@ -23,9 +23,9 @@ t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok **first)
 	}
 	else
 	{
-		first = &token->next;
+		first->next = token->next;
 		free(token);
-		token = *first;
+		token = first->next;
 	}
 	return (token);
 }
@@ -36,11 +36,11 @@ t_tok	*find_next_line(t_tok *token)
 
 	prev = token;
 	token = token->next;
-	while (token->next && token->tok != TOK_NEWLINE)
+	while (token && token->tok != TOK_NEWLINE)
 	{
 		if (token->tok != TOK_USELESS)
 			return (NULL);
-		token = rm_tok(token, prev, &token);
+		token = rm_tok(token, prev, token);
 		token = token->next;
 	}
 	return (token);
@@ -53,22 +53,28 @@ t_tok	*check_name_comment(t_tok *token)
 	if (token->tok != TOK_NAME && token->tok != TOK_COMMENT)
 		return ((header != 3 ? NULL : token));
 	if (token->tok == TOK_NAME)
+	{
 		if (ft_strlen(token->next->data) > PROG_NAME_LENGTH ||
 				!(token = find_next_line(token->next)))
 			return (NULL);
+		header += 2;
+	}
 	if (token->tok == TOK_COMMENT)
+	{
 		if (ft_strlen(token->next->data) > COMMENT_LENGTH ||
 				!(token = find_next_line(token->next)))
 			return (NULL);
+		header += 1;
+	}
 	return (token);
 }
 
-int		find_label(char *label, t_tok **first)
+int		find_label(char *label, t_tok *first)
 {
 	t_tok *token;
 
-	token = *first;
-	while (token != NULL)
+	token = first->next;
+	while (token)
 	{
 		if (token->tok == TOK_LABEL && !ft_strcmp(token->data, label))
 			return (1);
@@ -77,7 +83,7 @@ int		find_label(char *label, t_tok **first)
 	return (0);
 }
 
-int		check_arg(t_tok *token, t_tok **first, int args)
+int		check_arg(t_tok *token, t_tok *first, int args)
 {
 	if (token->tok == TOK_INDIR_LB || token->tok == TOK_DIR_LB)
 		if (!find_label(token->data, first))
@@ -98,14 +104,12 @@ int		check_arg(t_tok *token, t_tok **first, int args)
 		args -= T_DIR;
 	}
 	if (args >= T_REG)
-	{
 		if (token->tok == TOK_REG)
 			return (1);
-	}
 	return (0);
 }
 
-t_tok	*check_args(t_tok *token, t_tok **first)
+t_tok	*check_args(t_tok *token, t_tok *first)
 {
 	int		i;
 	int		j;
@@ -123,23 +127,27 @@ t_tok	*check_args(t_tok *token, t_tok **first)
 	return (find_next_line(token));
 }
 
-int		verify_list(t_tok **first)
+int		verify_list(t_tok *first)
 {
 	t_tok	*prev;
 	t_tok	*token;
 
 	prev = NULL;
-	token = *first;
-	while (token != NULL)
+	token = first->next;
+	while (token)
 	{
 		if (token->tok == TOK_NAME || token->tok == TOK_COMMENT)
+		{
 			if (!(token = check_name_comment(token)))
 				return (0);
-		if (token->tok == TOK_OP)
+		}
+		else if (token->tok == TOK_OP)
+		{
 			if (!(token = check_args(token, first)) ||
 					!check_name_comment(token))
 				return (0);
-		if (token->tok == TOK_USELESS ||
+		}
+		else if (token->tok == TOK_USELESS ||
 				(token->tok == TOK_NEWLINE && prev->tok == TOK_NEWLINE))
 			token = rm_tok(token, prev, first);
 		prev = token;
