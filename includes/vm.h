@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 16:01:09 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 09:25:34 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,8 @@ typedef struct	s_proc
 
 typedef struct	s_player
 {
-	char		name[PROG_NAME_LENGTH + 1];
-	char		comment[COMMENT_LENGTH + 1];
-	uint8_t		instr[CHAMP_MAX_SIZE + 1];
-	size_t		instr_size;
+	t_header	header;
+	uint8_t		prog[CHAMP_MAX_SIZE + 1];
 	uint32_t	id;
 	uint64_t	live;
 	t_proc		*threads;
@@ -118,8 +116,8 @@ void	instr_live(const t_instr_fn_args *args);
 void	instr_ld(const t_instr_fn_args *args);
 void	instr_st(const t_instr_fn_args *args);
 
-int8_t	init_vm(t_vm *vm);
-int8_t	init_arena_players(t_vm *vm);
+int8_t	init_vm(t_vm *vm, int *fds);
+int8_t	init_players(t_vm *vm, int *fds);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 
