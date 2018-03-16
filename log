@@ -26,3 +26,6 @@ setting: r5
 add -> idx=0 code=1
 add -> idx=1 code=1
 add -> idx=2 code=1
+sub -> idx=0 code=1
+sub -> idx=1 code=1
+sub -> idx=2 code=1

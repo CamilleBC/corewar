@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:56:47 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 13:57:10 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:25:48 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 
 void	instr_sub(const t_instr_fn_args *args)
 {
-	(void)args;
+	uint32_t	res;
+
+	if (args->nb_args != 3)
+		return ;
+	res = args->proc->regs[args->args[0].value.reg - 1];
+	res -= args->proc->regs[args->args[1].value.reg - 1];
+	args->proc->regs[args->args[2].value.reg - 1] = res;
 }
