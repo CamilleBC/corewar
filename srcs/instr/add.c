@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:56:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 17:24:56 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:27:52 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ void	instr_add(const t_instr_fn_args *args)
 	res = args->proc->regs[args->args[0].value.reg - 1];
 	res += args->proc->regs[args->args[1].value.reg - 1];
 	args->proc->regs[args->args[2].value.reg - 1] = res;
+	args->proc->carry = 1;
 }

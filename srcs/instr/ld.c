@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 17:08:40 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:27:46 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	instr_ld(const t_instr_fn_args *args)
 	else
 		args->proc->regs[reg] = array_to_int_arena(args->vm->arena +
 				args->proc->pc + args->args[0].value.ind, REG_SIZE);
+	args->proc->carry = 1;
 }
