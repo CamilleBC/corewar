@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 13:19:09 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:20:16 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,3 @@ t_tok		*check_file(char *file, t_error *error)
 	compile(first_tok);
 	return (first_tok);
 }
-
