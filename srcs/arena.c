@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:42:42 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 14:58:33 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:18:23 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len)
 	while (i < len)
 	{
 		arena[idx + i].hex = new_val[i];
-		arena[idx + i].new_value = new_val[i];
+		arena[idx + i].new_value = 5;
+		arena[idx + i].colour = 1;
 		i++;
 	}
 }

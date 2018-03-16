@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 17:31:15 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 13:21:59 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:17:49 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	print_arena(t_vm *vm)
 			j++;
 			wmove(vm->wins.arena_win, j, 3);
 		}
-		if (vm->arena[i].new_value == 1)
-			attron(A_BOLD);
-		attron(COLOR_PAIR(vm->arena[i].colour));
+		if (vm->arena[i].new_value)
+			wattron(vm->wins.arena_win, A_BOLD);
+		wattron(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));
 		wprintw(vm->wins.arena_win, "%02x", 0xFF & vm->arena[i].hex);
-		attroff(COLOR_PAIR(vm->arena[i].colour));
-		if (vm->arena[i].new_value == 1)
+		wattroff(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));
+		if (vm->arena[i].new_value)
 		{
-			attroff(A_BOLD);
-			vm->arena[i].new_value = 0;
+			wattroff(vm->wins.arena_win, A_BOLD);
+			vm->arena[i].new_value -= 1;
 		}
 		wprintw(vm->wins.arena_win, " ");
 		i++;

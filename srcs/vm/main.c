@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 17:05:43 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:16:29 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	test_interpret(t_vm vm)
 		}
 		wrefresh(vm.wins.stats_win);
 		//usleep(500000);
-		//sleep(5);
+		sleep(1);
 	}
 	while (1)
 	{

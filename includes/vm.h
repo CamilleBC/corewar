@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 14:46:50 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:13:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ typedef struct	s_player
 
 typedef struct	s_arena
 {
-	uint8_t	hex;
-	int32_t	colour;
-	uint8_t	new_value;
+	uint8_t		hex;
+	int32_t		colour;
+	uint32_t	new_value;
 }				t_arena;
 
 struct			s_win;
