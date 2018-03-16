@@ -6,12 +6,11 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 15:56:30 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 16:22:36 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/16 12:59:03 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "op.h"
+#include "asm.h"
 
 void	debug(t_tok *first)
 {

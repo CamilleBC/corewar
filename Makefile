@@ -3,10 +3,13 @@ NAME_VM=corewar
 
 ASM_SRC_NAME=check_file.c \
 			 verify_list.c \
+			 check_fcts.c \
+			 get_data.c \
 			 compiler.c \
 			 error.c \
 			 get_label_pos.c \
-			 write.c
+			 write.c \
+			 main.c
 COMMON_SRC_NAME = op.c \
 				  $(addprefix instr/, $(INSTR_SRC_NAME))
 INSTR_SRC_NAME = interpret.c \
@@ -33,7 +36,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -g $(INC)
+CFLAGS=-Wall -Wextra -g $(INC) -fsanitize=address
 LIB=-Llibft -lft -lncurses
 
 
