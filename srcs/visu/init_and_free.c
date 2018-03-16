@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 11:13:01 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:22:27 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	init_colors(void)
 {
 	init_color(COLOR_WHITEPLUS, 1000, 1000, 1000);
-	init_color(COLOR_WHITE, 600, 600, 600);
+	init_color(COLOR_WHITE, 500, 500, 500);
 	init_pair(1, COLOR_BLUE, COLOR_BLACK);
 	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(3, COLOR_CYAN, COLOR_BLACK);
