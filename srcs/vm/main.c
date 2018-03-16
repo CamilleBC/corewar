@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 09:28:16 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:27:48 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@ void	test_interpret(t_vm vm)
 {
 	while (interpret_instr(vm.players[0]->prog, vm.players[0], vm.procs->head->data) == SUCCESS)
 		;
-	ft_print("lives: %d\n", vm.players[0]->live);
-	for (int i = 1; i <= REG_NUMBER; i++)
-	{
-		printf("r%d: ", i);
-		printf("%08x ", ((t_proc *)vm.procs->head->data)->regs[i - 1]);
-		printf("\n");
-		fflush(stdout);
-	}
 }
 
 int		main(int ac, char **av)

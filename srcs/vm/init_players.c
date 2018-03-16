@@ -6,25 +6,11 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 09:58:02 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:26:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-static uint64_t	reverse_bits(uint64_t val)
-{
-	uint64_t	res;
-
-	res = 0;
-	while (val)
-	{
-		res <<= 8;
-		res |= val & 0xff;
-		val >>= 8;
-	}
-	return (res);
-}
 
 static int8_t	read_prog(t_player *player, int fd)
 {

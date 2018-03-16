@@ -11,6 +11,7 @@ ASM_SRC_NAME=check_file.c \
 			 write.c \
 			 main.c
 COMMON_SRC_NAME = op.c \
+				  bits.c \
 				  $(addprefix instr/, $(INSTR_SRC_NAME))
 INSTR_SRC_NAME = interpret.c \
 				 cast.c \

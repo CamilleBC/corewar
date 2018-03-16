@@ -6,12 +6,14 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 11:15:02 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:25:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_H
 # define OP_H
+
+# include "stdint.h"
 
 # define IND_SIZE 2
 # define REG_SIZE 4
@@ -66,6 +68,7 @@ typedef struct		s_op
 	int		dir_size;
 }					t_op;
 
-t_op	*get_ops(void);
+t_op		*get_ops(void);
+uint64_t	reverse_bits(uint64_t val);
 
 #endif
