@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 17:04:52 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:59:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ t_tok		*check_file(char *file)
 	first_tok = push_token(first_tok);
 	first_tok->data = (void *)file;
 	token = first_tok;
-	if ((fd = open(file, O_RDONLY)) <= 1)
+	if ((fd = open(file, O_RDONLY)) < 0)
 		return (NULL);
 	nb_line = 1;
 	while (get_next_line(fd, &line) > 0)

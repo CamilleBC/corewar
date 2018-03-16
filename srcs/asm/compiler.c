@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/15 16:54:26 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:53:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 
 	op = file->data;
 	nb_arg = g_arg1[*op - 1];
+	arg = 0;
 	ft_putchar_fd(*op, fd);
 	if (*op != 9 && *op != 12 && *op != 1)
 		ft_putchar_fd(get_param_code(file->next, nb_arg), fd);
