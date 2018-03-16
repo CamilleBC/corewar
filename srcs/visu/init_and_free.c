@@ -6,51 +6,72 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 13:22:27 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:46:34 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 #include "vm.h"
 
+void	free_visu(t_win windows, uint8_t nb_players)
+{
+	int32_t	i;
+
+	i = -1;
+	if (windows.arena_win)
+		delwin(windows.arena_win);
+	if (windows.header_win)
+		delwin(windows.arena_win);
+	if (windows.stats_win)
+		delwin(windows.arena_win);
+	if (windows.children)
+		while (++i < nb_players)
+			if (windows.children[i])
+				delwin(windows.children[i]);
+	endwin();
+}
 static void	init_colors(void)
 {
 	init_color(COLOR_WHITEPLUS, 1000, 1000, 1000);
 	init_color(COLOR_WHITE, 500, 500, 500);
-	init_pair(1, COLOR_BLUE, COLOR_BLACK);
-	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(3, COLOR_CYAN, COLOR_BLACK);
-	init_pair(4, COLOR_RED, COLOR_BLACK);
-	init_pair(5, COLOR_BLACK, COLOR_BLUE);
-	init_pair(6, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(7, COLOR_BLACK, COLOR_CYAN);
-	init_pair(8, COLOR_BLACK, COLOR_RED);
-	init_pair(9, COLOR_WHITE, COLOR_BLACK);
-	init_pair(10, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
-	init_pair(12, COLOR_GREEN, COLOR_BLACK);
-	init_pair(13, COLOR_BLACK, COLOR_GREEN);
-	init_pair(14, COLOR_WHITEPLUS, COLOR_BLACK);
-	init_pair(15, COLOR_BLACK, COLOR_WHITEPLUS);
+	init_pair(BLUE_BLACK, COLOR_BLUE, COLOR_BLACK);
+	init_pair(MAGENTA_BLACK, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(CYAN_BLACK, COLOR_CYAN, COLOR_BLACK);
+	init_pair(RED_BLACK, COLOR_RED, COLOR_BLACK);
+	init_pair(BLACK_BLUE, COLOR_BLACK, COLOR_BLUE);
+	init_pair(BLACK_MAGENTA, COLOR_BLACK, COLOR_MAGENTA);
+	init_pair(BLACK_CYAN, COLOR_BLACK, COLOR_CYAN);
+	init_pair(BLACK_RED, COLOR_BLACK, COLOR_RED);
+	init_pair(WHITE_BLACK, COLOR_WHITE, COLOR_BLACK);
+	init_pair(BLACK_WHITE, COLOR_BLACK, COLOR_WHITE);
+	init_pair(YELLOW_BLACK, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(BLACK_YELLOW, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(GREEN_BLACK, COLOR_GREEN, COLOR_BLACK);
+	init_pair(BLACK_GREEN, COLOR_BLACK, COLOR_GREEN);
+	init_pair(WHITEP_BLACK, COLOR_WHITEPLUS, COLOR_BLACK);
+	init_pair(BLACK_WHITEP, COLOR_BLACK, COLOR_WHITEPLUS);
 }
 
 void		init_visu(t_vm *vm)
 {
+	int	i;
+
 	initscr();
 	noecho();
 	start_color();
 	init_colors();
 	curs_set(FALSE);
-	vm->wins.header_win = create_newwin(HEADER_HEIGHT, HEADER_WIDTH, 0, 0);
-	vm->wins.arena_win = create_newwin(ARENA_HEIGHT, ARENA_WIDTH, HEADER_HEIGHT, 0);
-	vm->wins.stats_win = create_newwin(ARENA_HEIGHT, STATS_WIDTH, HEADER_HEIGHT, ARENA_WIDTH);
-	refresh();
-}
-
-void		free_visu(t_vm *vm)
-{
-	delwin(vm->wins.arena_win);
-	delwin(vm->wins.header_win);
-	delwin(vm->wins.stats_win);
-	endwin();
+	if (!(vm->wins.header_win = create_newwin(HEADER_H, HEADER_W, 0, 0)))
+		return (free_visu(vm->wins, vm->nb_players)) ;
+	if (!(vm->wins.arena_win = create_newwin(ARENA_H, ARENA_W, HEADER_H, 0)))
+		return (free_visu(vm->wins, vm->nb_players)) ;
+	if (!(vm->wins.stats_win = create_newwin(ARENA_H, STATS_W, HEADER_H, ARENA_W)))
+		return (free_visu(vm->wins, vm->nb_players)) ;
+	if (!(vm->wins.children = ft_memalloc(sizeof(WINDOW*) * vm->nb_players)))
+		return (free_visu(vm->wins, vm->nb_players)) ;
+	i = -1;
+	while (++i < vm->nb_players)
+		if (!(vm->wins.children[i] = derwin(vm->wins.stats_win, CHILD_H ,
+			CHILD_W, i * CHILD_H + CHILD_OFFSET, 1)))
+			return (free_visu(vm->wins, vm->nb_players)) ;
 }

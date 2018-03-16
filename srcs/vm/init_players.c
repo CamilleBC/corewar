@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 13:26:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 18:55:20 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int8_t			init_players(t_vm *vm, int *fds)
 	address = 0;
 	while (i < vm->nb_players)
 	{
-		vm->players[i]->id = i;
+		vm->players[i]->id = i + 1;
 		init_player(vm->players[i], vm, address, fds[i]);
 		ft_deque_push_back(vm->procs, ft_memalloc(sizeof(t_proc)));
 		i++;

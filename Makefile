@@ -18,9 +18,12 @@ INSTR_SRC_NAME = interpret.c \
 				 live.c \
 				 ld.c \
 				 st.c
-VISU_SRC_NAME=init_and_free.c \
-			  visu_ncurses.c \
-			  windows.c
+VISU_SRC_NAME=	arena.c \
+				header.c \
+				init_and_free.c \
+				stats.c \
+				visu_ncurses.c \
+				windows.c
 VM_SRC_NAME	= init_players.c \
 				init_vm.c \
 				parse_args.c \
