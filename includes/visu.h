@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 17:45:31 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:40:09 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@
 # define HEADER_LINE_5		"\\____/\\____/_/   \\___/|__/|__/\\__,_/_/     "
 
 struct	s_vm;
+
+typedef struct	s_win
+{
+	WINDOW	*arena_win;
+	WINDOW	*header_win;
+	WINDOW	*stats_win;
+}				t_win;
 
 WINDOW	*create_newwin(int height, int width, int starty, int startx);
 void	free_visu(struct s_vm *vm);

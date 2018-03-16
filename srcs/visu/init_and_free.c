@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 17:50:18 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:22:27 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	init_colors(void)
 {
 	init_color(COLOR_WHITEPLUS, 1000, 1000, 1000);
-	init_color(COLOR_WHITE, 600, 600, 600);
+	init_color(COLOR_WHITE, 500, 500, 500);
 	init_pair(1, COLOR_BLUE, COLOR_BLACK);
 	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(3, COLOR_CYAN, COLOR_BLACK);
@@ -41,16 +41,16 @@ void		init_visu(t_vm *vm)
 	start_color();
 	init_colors();
 	curs_set(FALSE);
-	vm->header_win = create_newwin(HEADER_HEIGHT, HEADER_WIDTH, 0, 0);
-	vm->arena_win = create_newwin(ARENA_HEIGHT, ARENA_WIDTH, HEADER_HEIGHT, 0);
-	vm->stats_win = create_newwin(ARENA_HEIGHT, STATS_WIDTH, HEADER_HEIGHT, ARENA_WIDTH);
+	vm->wins.header_win = create_newwin(HEADER_HEIGHT, HEADER_WIDTH, 0, 0);
+	vm->wins.arena_win = create_newwin(ARENA_HEIGHT, ARENA_WIDTH, HEADER_HEIGHT, 0);
+	vm->wins.stats_win = create_newwin(ARENA_HEIGHT, STATS_WIDTH, HEADER_HEIGHT, ARENA_WIDTH);
 	refresh();
 }
 
 void		free_visu(t_vm *vm)
 {
-	delwin(vm->arena_win);
-	delwin(vm->header_win);
-	delwin(vm->stats_win);
+	delwin(vm->wins.arena_win);
+	delwin(vm->wins.header_win);
+	delwin(vm->wins.stats_win);
 	endwin();
 }

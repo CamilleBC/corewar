@@ -1,16 +1,30 @@
 NAME_ASM=asm
 NAME_VM=corewar
 
-ASM_SRC_NAME	=	check_file.c\
-					verify_list.c
-COMMON_SRC_NAME =	op.c
-VM_SRC_NAME		=	init_players.c \
-					init_vm.c \
-					parse_args.c \
-					main.c
-VISU_SRC_NAME	=	init_and_free.c \
-					visu_ncurses.c \
-					windows.c
+ASM_SRC_NAME=check_file.c \
+			 verify_list.c \
+			 check_fcts.c \
+			 get_data.c \
+			 compiler.c \
+			 error.c \
+			 get_label_pos.c \
+			 write.c \
+			 main.c
+COMMON_SRC_NAME = op.c \
+				  bits.c \
+				  $(addprefix instr/, $(INSTR_SRC_NAME))
+INSTR_SRC_NAME = interpret.c \
+				 cast.c \
+				 live.c \
+				 ld.c \
+				 st.c
+VISU_SRC_NAME=init_and_free.c \
+			  visu_ncurses.c \
+			  windows.c
+VM_SRC_NAME	= init_players.c \
+				init_vm.c \
+				parse_args.c \
+				main.c
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VISU_SRC=$(addprefix srcs/visu/, $(VISU_SRC_NAME))
@@ -23,7 +37,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -g $(INC)
+CFLAGS=-Wall -Wextra -g $(INC) -fsanitize=address
 LIB=-Llibft -lft -lncurses
 
 

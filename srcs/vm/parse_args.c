@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 13:22:42 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:23:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int32_t	parse_args(t_vm *vm, int ac, char **av)
 				vm->dump = ft_atoi64(av[++i]);
 			if (vm->dump <= INT32_MAX && vm->dump > 0)
 				vm->flags |= (1 << DUMP);
-			ft_print("dump\n");
 		}
 		else
 			break;

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/15 15:14:29 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:13:51 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,36 +44,34 @@
 # define CHAMP_MAX_SIZE	(MEM_SIZE / 6)
 # define MAX_PLAYERS	4
 
-typedef struct	s_dir
+typedef union	u_arg_val
 {
-	uint8_t	value[DIR_SIZE];
-}				t_dir;
+	uint32_t	dir;
+	uint16_t	ind;
+	uint8_t		reg;
+	uint8_t		arr[4];
+}				t_arg_val;
 
-typedef struct	s_ind
+typedef struct	s_arg
 {
-	uint8_t	value[IND_SIZE];
-}				t_ind;
-
-typedef struct	s_reg
-{
-	uint8_t	value[REG_SIZE];
-}				t_reg;
+	t_arg_val	value;
+	int			code;
+	size_t		size;
+}				t_arg;
 
 typedef struct	s_proc
 {
 	uint8_t		alive;
 	uint8_t		carry;
 	size_t		pc;
-	t_reg		regs[REG_NUMBER];
+	uint32_t	regs[REG_NUMBER];
 }				t_proc;
 
 typedef struct	s_player
 {
-	char		name[PROG_NAME_LENGTH + 1];
-	char		comment[COMMENT_LENGTH + 1];
-	uint8_t		instr[CHAMP_MAX_SIZE + 1];
-	size_t		instr_size;
-	uint32_t	colour;
+	t_header	header;
+	uint8_t		prog[CHAMP_MAX_SIZE + 1];
+	uint32_t	id;
 	uint64_t	live;
 	t_proc		*threads;
 	size_t		nb_threads;
@@ -86,23 +84,50 @@ typedef struct	s_arena
 	uint8_t	new_value;
 }				t_arena;
 
+struct			s_win;
+
 typedef struct	s_vm
 {
-	uint8_t		flags;
-	t_arena		arena[MEM_SIZE];
-	t_deque		*procs;
-	t_player	**players;
-	uint8_t		nb_players;
-	uint64_t	dump;
-	uint64_t	total_cycles;
-	uint64_t	cycles_to_die;
-	WINDOW		*arena_win;
-	WINDOW		*header_win;
-	WINDOW		*stats_win;
+	uint8_t			flags;
+	t_arena			arena[MEM_SIZE];
+	t_deque			*procs;
+	t_player		**players;
+	uint8_t			nb_players;
+	uint64_t		dump;
+	uint64_t		total_cycles;
+	uint64_t		cycles_to_die;
+	struct s_win	wins;
 }				t_vm;
 
-t_vm	*init_vm(void);
-void	init_arena_players(t_vm *vm);
+typedef struct	s_instr_fn_args
+{
+	uint8_t		*mem;
+	t_player	*pl;
+	t_proc		*proc;
+	t_arg		args[MAX_ARGS_NUMBER];
+	size_t		nb_args;
+}				t_instr_fn_args;
+
+// TODO: single struct for instr_fn
+typedef void	t_instr_fn(const t_instr_fn_args *);
+
+typedef struct	s_instr
+{
+	t_op		*op;
+	t_instr_fn	*fn;
+}				t_instr;
+
+uint32_t	array_to_int(uint8_t arr[4], size_t size);
+t_instr	*get_instrs(void);
+
+void	instr_live(const t_instr_fn_args *args);
+void	instr_ld(const t_instr_fn_args *args);
+void	instr_st(const t_instr_fn_args *args);
+
+int8_t	interpret_instr(uint8_t *mem, t_player *pl, t_proc *proc);
+
+int8_t	init_vm(t_vm *vm, int *fds);
+int8_t	init_players(t_vm *vm, int *fds);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 #endif

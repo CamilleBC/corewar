@@ -6,13 +6,14 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/12 19:53:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:17:29 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include "vm.h"
 
-static t_op    g_op_tab[17] =
+static t_op    g_op_tab[OP_COUNT] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -39,7 +40,18 @@ static t_op    g_op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
+static t_instr	g_instr_tab[OP_COUNT] =
+{
+	{g_op_tab + 0, instr_live},
+	{g_op_tab + 1, instr_ld},
+};
+
 t_op		*get_ops(void)
 {
 	return (g_op_tab);
+}
+
+t_instr		*get_instrs(void)
+{
+	return (g_instr_tab);
 }
