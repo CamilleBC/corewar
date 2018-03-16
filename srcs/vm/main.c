@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 12:38:25 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 17:05:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,37 @@
 
 void	test_interpret(t_vm vm)
 {
-	while (interpret_instr(vm.players[0]->prog, vm.players[0], vm.procs->head->data) == SUCCESS)
+	t_proc	*proc;
+
+	proc = vm.procs->head->data;
+	while (interpret_instr(&vm, vm.players[0], proc) == SUCCESS)
 	{
 		print_arena(&vm);
 		print_header(&vm);
 		print_stats(&vm);
-		usleep(50000);
+		mvwprintw(vm.wins.stats_win, 1, 1, "%d", proc->pc);
+		mvwprintw(vm.wins.stats_win, 2, 1, "%d", vm.arena[proc->pc].hex);
+		for (int i = 0; i < REG_NUMBER; i++)
+		{
+			mvwprintw(vm.wins.stats_win, 3 + i, 1, "r%d: %08x", i + 1, proc->regs[i]);
+		}
+		wrefresh(vm.wins.stats_win);
+		//usleep(500000);
+		//sleep(5);
 	}
+	while (1)
+	{
+		print_arena(&vm);
+		print_header(&vm);
+		print_stats(&vm);
+		sleep(1);
+	}
+	dprintf(2, "lives: %ld\n", vm.players[0]->live);
 	ft_print("lives: %d\n", vm.players[0]->live);
 	for (int i = 1; i <= REG_NUMBER; i++)
 	{
-		printf("r%d: ", i);
-		printf("%08x ", ((t_proc *)vm.procs->head->data)->regs[i - 1]);
-		printf("\n");
+		dprintf(2, "r%d: ", i);
+		dprintf(2, "%08x\n", ((t_proc *)vm.procs->head->data)->regs[i - 1]);
 		fflush(stdout);
 	}
 }
@@ -51,11 +69,11 @@ int		main(int ac, char **av)
 	vm.nb_players = ac - 1;
 	if (init_vm(&vm, fds) == ERROR)
 		return (0);
-	if (vm.flags & (1 << VISUAL))
+	//if (vm.flags & (1 << VISUAL))
 		init_visu(&vm);
-	i = -1;
-	while (++i < vm.nb_players)
-		ft_print("Player #%d: %s\n", i, vm.players[i]->header.prog_name);
+	//i = -1;
+	//while (++i < vm.nb_players)
+	//	ft_print("Player #%d: %s\n", i, vm.players[i]->header.prog_name);
 	test_interpret(vm);
 	free_visu(&vm);
 	return (0);

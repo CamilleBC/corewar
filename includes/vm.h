@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 11:13:51 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 14:46:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct	s_vm
 
 typedef struct	s_instr_fn_args
 {
-	uint8_t		*mem;
+	t_vm		*vm;
 	t_player	*pl;
 	t_proc		*proc;
 	t_arg		args[MAX_ARGS_NUMBER];
@@ -118,16 +118,34 @@ typedef struct	s_instr
 }				t_instr;
 
 uint32_t	array_to_int(uint8_t arr[4], size_t size);
+uint32_t	array_to_int_arena(t_arena arena[4], size_t size);
+void		int_to_array(uint8_t arr[4], uint32_t val, size_t size);
 t_instr	*get_instrs(void);
 
 void	instr_live(const t_instr_fn_args *args);
 void	instr_ld(const t_instr_fn_args *args);
 void	instr_st(const t_instr_fn_args *args);
+void	instr_add(const t_instr_fn_args *args);
+void	instr_sub(const t_instr_fn_args *args);
+void	instr_and(const t_instr_fn_args *args);
+void	instr_or(const t_instr_fn_args *args);
+void	instr_xor(const t_instr_fn_args *args);
+void	instr_zjmp(const t_instr_fn_args *args);
+void	instr_ldi(const t_instr_fn_args *args);
+void	instr_sti(const t_instr_fn_args *args);
+void	instr_fork(const t_instr_fn_args *args);
+void	instr_lld(const t_instr_fn_args *args);
+void	instr_lldi(const t_instr_fn_args *args);
+void	instr_lfork(const t_instr_fn_args *args);
+void	instr_aff(const t_instr_fn_args *args);
 
-int8_t	interpret_instr(uint8_t *mem, t_player *pl, t_proc *proc);
+int8_t	interpret_instr(t_vm *vm, t_player *pl, t_proc *proc);
 
 int8_t	init_vm(t_vm *vm, int *fds);
 int8_t	init_players(t_vm *vm, int *fds);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
+
+void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len);
+uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
 
 #endif

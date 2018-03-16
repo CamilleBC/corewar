@@ -12,12 +12,26 @@ ASM_SRC_NAME=check_file.c \
 			 main.c
 COMMON_SRC_NAME = op.c \
 				  bits.c \
+				  arena.c \
 				  $(addprefix instr/, $(INSTR_SRC_NAME))
 INSTR_SRC_NAME = interpret.c \
 				 cast.c \
 				 live.c \
 				 ld.c \
-				 st.c
+				 st.c \
+				 add.c \
+				 sub.c \
+				 and.c \
+				 or.c \
+				 xor.c \
+				 zjmp.c \
+				 ldi.c \
+				 sti.c \
+				 fork.c \
+				 lld.c \
+				 lldi.c \
+				 lfork.c \
+				 aff.c
 VISU_SRC_NAME=init_and_free.c \
 			  visu_ncurses.c \
 			  windows.c
@@ -37,7 +51,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -g $(INC) -fsanitize=address
+CFLAGS=-Wall -Wextra -Werror -g $(INC)
 LIB=-Llibft -lft -lncurses
 
 
