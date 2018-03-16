@@ -1,6 +1,7 @@
 NAME_ASM=asm
 NAME_VM=corewar
 
+<<<<<<< HEAD
 ASM_SRC_NAME=check_file.c\
 			 verify_list.c
 COMMON_SRC_NAME = op.c \
@@ -10,13 +11,22 @@ INSTR_SRC_NAME = interpret.c \
 				 live.c \
 				 ld.c \
 				 st.c
-VISU_SRC_NAME=init_and_free.c \
-			  visu_ncurses.c \
-			  windows.c
 VM_SRC_NAME	= init_players.c \
 				init_vm.c \
 				parse_args.c \
 				main.c
+=======
+ASM_SRC_NAME	=	check_file.c\
+					verify_list.c
+COMMON_SRC_NAME =	op.c
+VM_SRC_NAME		=	init_players.c \
+					init_vm.c \
+					parse_args.c \
+					main.c
+VISU_SRC_NAME	=	init_and_free.c \
+					visu_ncurses.c \
+					windows.c
+>>>>>>> origin/vm-arena
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VISU_SRC=$(addprefix srcs/visu/, $(VISU_SRC_NAME))
@@ -29,8 +39,13 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
+<<<<<<< HEAD
+CFLAGS=-Wall -Wextra -Werror -g $(INC)
+LIB=-Llibft -lft
+=======
 CFLAGS=-Wall -Wextra -g $(INC)
 LIB=-Llibft -lft -lncurses
+>>>>>>> origin/vm-arena
 
 
 all: $(NAME_ASM) $(NAME_VM)
