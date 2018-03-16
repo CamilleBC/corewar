@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 17:31:15 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 11:19:01 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:21:59 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	print_arena(t_vm *vm)
 
 	i = 0;
 	j = 2;
-	erase();
+	clear();
+	refresh();
 	wattron(vm->wins.arena_win,COLOR_PAIR(14));
 	box(vm->wins.arena_win, '|' , '-');
 	wattroff(vm->wins.arena_win,COLOR_PAIR(14));

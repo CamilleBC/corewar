@@ -49,11 +49,13 @@ int		main(int ac, char **av)
 	while (++i < ac)
 		fds[i - 1] = open(av[i], O_RDONLY);
 	vm.nb_players = ac - 1;
-	init_vm(&vm, fds);
-	init_visu(&vm);
-	//i = -1;
-	//while (++i < vm.nb_players)
-	//	ft_print("Player #%d: %s\n", i, vm.players[i]->header.prog_name);
+	if (init_vm(&vm, fds) == ERROR)
+		return (0);
+	if (vm.flags & (1 << VISUAL))
+		init_visu(&vm);
+	i = -1;
+	while (++i < vm.nb_players)
+		ft_print("Player #%d: %s\n", i, vm.players[i]->header.prog_name);
 	test_interpret(vm);
 	free_visu(&vm);
 	return (0);
