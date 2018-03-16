@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/14 15:45:03 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:10:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,14 @@ typedef struct	s_instr
 	t_instr_fn	*fn;
 }				t_instr;
 
+uint32_t	array_to_int(uint8_t arr[4], size_t size);
+t_instr	*get_instrs(void);
+
 void	instr_live(const t_instr_fn_args *args);
 void	instr_ld(const t_instr_fn_args *args);
 void	instr_st(const t_instr_fn_args *args);
+
+int8_t	interpret_instr(uint8_t *mem, t_player *pl, t_proc *proc);
 
 int8_t	init_vm(t_vm *vm, int *fds);
 int8_t	init_players(t_vm *vm, int *fds);
