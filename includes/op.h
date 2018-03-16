@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 10:15:33 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:15:02 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 
 # define LABEL_CHARS "abcdefghijklmnopqrstuvwxyz_0123456789"
 
-# define NAME_CMD_STRING     ".name"
-# define COMMENT_CMD_STRING ".comment"
+# define NAME_CMD     ".name"
+# define COMMENT_CMD ".comment"
 
 # define T_REG                    1
 # define T_DIR                    2

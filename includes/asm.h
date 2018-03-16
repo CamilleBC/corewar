@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:36:00 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/15 16:55:30 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:08:33 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,15 @@ void			ft_putshort_fd(short n, int fd);
 int				get_label_pos(t_tok *file, char *label);
 t_header		get_header(t_tok *file);
 int				get_op_length(t_tok *file);
+t_tok			*push_token(t_tok *token);
+t_tok_type		get_token(char *line);
+int				get_data(char *line, t_tok_type tok, void **data);
+int				find_label(char *label, t_tok *first);
+t_tok			*check_name_comment(t_tok *token);
+t_tok			*find_next_line(t_tok *token);
+int				is_label(char *line);
+int				is_op(char *line);
+t_tok			*check_file(char *file, t_error *error);
+void			*super_free(t_tok *token, char *line, int fd);
 
 #endif

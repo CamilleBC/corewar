@@ -6,12 +6,11 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/15 16:36:23 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/16 12:58:40 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "op.h"
+#include "asm.h"
 
 t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first)
 {
@@ -44,43 +43,6 @@ t_tok	*find_next_line(t_tok *token)
 		token = token->next;
 	}
 	return (token);
-}
-
-t_tok	*check_name_comment(t_tok *token)
-{
-	static int	header;
-
-	if (token->tok != TOK_NAME && token->tok != TOK_COMMENT)
-		return ((header != 3 ? NULL : token));
-	if (token->tok == TOK_NAME)
-	{
-		if (ft_strlen(token->next->data) > PROG_NAME_LENGTH ||
-				!(token = find_next_line(token->next)))
-			return (NULL);
-		header += 2;
-	}
-	if (token->tok == TOK_COMMENT)
-	{
-		if (ft_strlen(token->next->data) > COMMENT_LENGTH ||
-				!(token = find_next_line(token->next)))
-			return (NULL);
-		header += 1;
-	}
-	return (token);
-}
-
-int		find_label(char *label, t_tok *first)
-{
-	t_tok *token;
-
-	token = first->next;
-	while (token)
-	{
-		if (token->tok == TOK_LABEL && !ft_strcmp(token->data, label))
-			return (1);
-		token = token->next;
-	}
-	return (0);
 }
 
 int		check_arg(t_tok *token, t_tok *first, int args)
