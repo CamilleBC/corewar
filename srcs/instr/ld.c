@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 17:27:46 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/17 17:53:30 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	instr_ld(const t_instr_fn_args *args)
 {
 	uint8_t	reg;
+	int		addr;
 
 	if (args->nb_args != 2)
 		return ;
@@ -25,7 +26,14 @@ void	instr_ld(const t_instr_fn_args *args)
 	if (args->args[0].code == DIR_CODE)
 		args->proc->regs[reg] = args->args[0].value.dir;
 	else
-		args->proc->regs[reg] = array_to_int_arena(args->vm->arena +
-				args->proc->pc + args->args[0].value.ind, REG_SIZE);
+	{
+		addr = args->proc->pc + args->args[0].value.ind;
+		if (addr < 0)
+			addr += MEM_SIZE;
+		else
+			addr %= MEM_SIZE;
+		args->proc->regs[reg] = array_to_int_arena(args->vm->arena + addr,
+				REG_SIZE);
+	}
 	args->proc->carry = 1;
 }

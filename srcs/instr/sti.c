@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 17:08:07 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/17 17:51:08 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,9 @@ void	instr_sti(const t_instr_fn_args *args)
 	else
 		addr += (args->proc->regs[args->args[2].value.reg] % IDX_MOD);
 	// FIXME:
+	if (addr < 0)
+		addr += MEM_SIZE;
+	else
+		addr %= MEM_SIZE;
 	write_arena(args->vm->arena, reg_val, addr, 4);
 }
