@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 13:59:41 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:16:39 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@
 # define ARENA_W		197
 # define ARENA_H		68
 # define COLOR_WHITEPLUS	9
-
+# define COLOR_WHITERED		101
+# define COLOR_WHITEBLUE	102
+# define COLOR_WHITEYELLOW	103
+# define COLOR_WHITEGREEN	104
 /*
 ** HEADER Corewar
 */
