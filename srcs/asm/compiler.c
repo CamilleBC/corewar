@@ -6,13 +6,11 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 15:31:32 by chaydont         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:07:05 by chaydont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-int g_arg1[16] = {1, 2, 2, 3, 3, 3, 3, 3, 1, 3, 3, 1, 2, 3, 1, 1};
 
 /*
 ** Lit les prochains arguments en renvois le param_code correspondant
@@ -46,14 +44,15 @@ static int	get_param_code(t_tok *file, int nb)
 
 static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 {
-	int *op;
-	int nb_arg;
-	int arg;
+	int		*op;
+	int		nb_arg;
+	int		arg;
+	t_op	*op_tab;
 
 	op = file->data;
-	nb_arg = g_arg1[*op - 1];
+	nb_arg = (op_tab = get_ops())[*op - 1].nb_arg;
 	ft_putchar_fd(*op, fd);
-	if (*op != 9 && *op != 12 && *op != 1)
+	if (op_tab[*op - 1].octal)
 		ft_putchar_fd(get_param_code(file->next, nb_arg), fd);
 	while (nb_arg-- >= 1)
 	{
@@ -65,7 +64,7 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 		if (file->tok == TOK_REG)
 			ft_putchar_fd((char)arg, fd);
 		else if (file->tok == TOK_INDIR_NB || file->tok == TOK_INDIR_LB ||
-				*op == 9 || *op == 10 || *op == 11 || *op == 14 || *op == 12)
+				op_tab[*op - 1].dir_size)
 			ft_putshort_fd((short)arg, fd);
 		else if (file->tok == TOK_DIR_NB || file->tok == TOK_DIR_LB)
 			ft_putint_fd(arg, fd);

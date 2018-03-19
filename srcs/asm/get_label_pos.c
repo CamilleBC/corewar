@@ -6,13 +6,11 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 15:53:42 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 15:30:58 by chaydont         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:17:11 by chaydont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-int g_arg[16] = {1, 2, 2, 3, 3, 3, 3, 3, 1, 3, 3, 1, 2, 3, 1, 1};
 
 /*
 ** Renvois la longueur en octet d'une operation
@@ -20,25 +18,27 @@ int g_arg[16] = {1, 2, 2, 3, 3, 3, 3, 3, 1, 3, 3, 1, 2, 3, 1, 1};
 
 int			get_op_length(t_tok *file)
 {
-	int i;
-	int nb_arg;
-	int *op;
+	int		i;
+	int		nb_arg;
+	int		*op;
+	t_op *op_tab;
 
 	i = 1;
+	op_tab = get_ops();
 	op = file->data;
-	nb_arg = g_arg[*op - 1];
-	if (nb_arg != 1 || *op == 16)
+	nb_arg = op_tab[*op - 1].nb_arg;
+	if (op_tab[*op - 1].octal)
 		i++;
 	while (nb_arg-- >= 1)
 	{
 		file = file->next;
 		if (file->tok == TOK_REG)
-			i += 1;
-		else if ((file->tok == TOK_DIR_NB || file->tok == TOK_DIR_LB) &&
-				!(*op == 10 || *op == 11 || *op == 14 || *op == 9 || *op == 12))
-			i += 4;
+			i++;
+		else if (file->tok == TOK_INDIR_NB || file->tok == TOK_INDIR_LB ||
+				op_tab[*op - 1].dir_size)
+			i += IND_SIZE;
 		else
-			i += 2;
+			i += DIR_SIZE;
 	}
 	return (i);
 }
