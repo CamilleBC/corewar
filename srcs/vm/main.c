@@ -46,7 +46,7 @@ void	test_interpret(t_vm vm)
 			print_stats(&vm);
 			sleep(1);
 		}
-	dprintf(2, "lives: %llu\n", vm.players[0]->live);
+	dprintf(2, "lives: %lu\n", vm.players[0]->live);
 	ft_print("lives: %d\n", vm.players[0]->live);
 	for (int i = 1; i <= REG_NUMBER; i++)
 	{
