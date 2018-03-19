@@ -6,48 +6,60 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 13:51:42 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:40:12 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int32_t	players_alive(t_vm *vm)
+static void	entropy(t_vm *vm)
 {
-	uint8_t	i;
-	int32_t	is_alive;
+	uint64_t		lives;
+	t_proc			*proc;
+	t_deque_elmt	*queue_elmt;
+	t_deque_elmt	*proc_elmt;
 
-	i = 1;
-	is_alive = -1;
-	while (i < vm->nb_players)
+	lives = 0;
+	queue_elmt = vm->procs->head;
+	while (queue_elmt)
 	{
-		if (vm->players[i]->alive)
-			++is_alive;
-		++i;
+		proc = (t_proc*)queue_elmt->data;
+		proc_elmt = queue_elmt;
+		queue_elmt = queue_elmt->next;
+		if (!proc->live)
+			ft_deque_pop_elmt(vm->procs, proc_elmt);
+		lives += proc->live;
 	}
-	return (is_alive);
+	if (lives >= NBR_LIVE)
+		vm->cycles_to_die -= CYCLE_DELTA;
 }
 
-// Pseudocode
+static void	exec_instr(t_vm *vm)
+{
+	t_proc			*proc;
+	t_deque_elmt	*queue_elmt;
+
+	queue_elmt = vm->procs->head;
+	while (queue_elmt)
+	{
+		proc = (t_proc*)queue_elmt->data;
+		if (proc->delay)
+			proc->delay -= 1;
+		else
+			interpret_instr(vm, proc->owner, proc);
+		queue_elmt = queue_elmt->next;
+	}
+}
+
 void	run_vm(t_vm *vm)
 {
-	t_deque_elmt	*queue_elmt;
-	t_proc			*proc;
-
-	while (players_alive(vm) > 0 || !vm->dump)
+	while (vm->dump && vm->procs->head)
 	{
-		queue_elmt = vm->procs->head;
-		while (queue_elmt)
-		{
-			proc = (t_proc*)queue_elmt->data;
-			if (proc->alive)
-			{
-				interpret_instr(vm, proc->owner, proc);
-			}
-			queue_elmt = queue_elmt->next;
-		}
+		vm->total_cycles += 1;
 		if (vm->flags & (1 << DUMP))
 			vm->dump -= 1;
-		vm->total_cycles += 1;
+		if (!(vm->total_cycles % vm->cycles_to_die))
+			entropy(vm);
+		exec_instr(vm);
 	}
 }
