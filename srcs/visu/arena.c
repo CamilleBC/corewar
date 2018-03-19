@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 15:18:56 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:36:08 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_pc(int pos, t_deque_elmt *elem)
 	while (elem)
 	{
 		if (((t_proc *)elem->data)->pc == (size_t)pos)
-			return (1);
+			return (((t_proc *)elem->data)->owner->id + 1);
 		elem = elem->next;
 	}
 	return (0);
@@ -30,8 +30,8 @@ static int	create_color(int color, int player)
 	short		back;
 
 	pair_content(color, &front, &back);
-	init_pair(ARENA_PLAYER, front, player + 100);
-	return (COLOR_PAIR(ARENA_PLAYER));
+	init_pair(ARENA_PLAYER1 + player - 1, front, player + 100);
+	return (COLOR_PAIR(ARENA_PLAYER1 + player - 1));
 }
 
 static void	print_hex(t_vm *vm, int i)

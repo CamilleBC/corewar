@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 15:16:39 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:35:37 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@
 # define WHITEP_BLACK	14
 # define BLACK_WHITEP	15
 # define ARENA			99
-# define ARENA_PLAYER	100
-# define TEST			101
+# define ARENA_PLAYER1	101
+# define ARENA_PLAYER2	102
+# define ARENA_PLAYER3	103
+# define ARENA_PLAYER4	104
+# define TEST			1000
 
 struct	s_vm;
 
