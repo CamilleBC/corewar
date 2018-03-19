@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 12:58:14 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:00:35 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			main(int argc, char **argv)
 		return (0);
 	error->line = 0;
 	if (!(tmp = check_file(argv[1], error)))
-		ft_print("Error [%d]\n", error->line);
+		ft_print("Error at line [%d]\n", error->line);
 	else
 	{
 		ft_print("Ok\n");

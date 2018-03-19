@@ -6,14 +6,16 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 13:21:04 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:59:44 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first)
+t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 {
+	if (token->tok == TOK_NEWLINE && error)
+		error->line++;
 	if (prev)
 	{
 		prev->next = token->next;
@@ -39,7 +41,7 @@ t_tok	*find_next_line(t_tok *token)
 	{
 		if (token->tok != TOK_USELESS)
 			return (NULL);
-		token = rm_tok(token, prev, token);
+		token = rm_tok(token, prev, token, NULL);
 		token = token->next;
 	}
 	return (token);
@@ -89,29 +91,29 @@ t_tok	*check_args(t_tok *token, t_tok *first)
 	return (find_next_line(token));
 }
 
-int		verify_list(t_tok *first)
+int		verify_list(t_tok *first, t_error *error)
 {
 	t_tok	*prev;
 	t_tok	*token;
 
+	error->line = 0;
 	prev = NULL;
 	token = first->next;
 	while (token)
 	{
 		if (token->tok == TOK_NAME || token->tok == TOK_COMMENT)
 		{
-			if (!(token = check_name_comment(token)))
+			if (!(token = check_strline(token)))
 				return (0);
 		}
 		else if (token->tok == TOK_OP)
 		{
-			if (!(token = check_args(token, first)) ||
-					!check_name_comment(token))
+			if (!(token = check_args(token, first)) || !check_strline(token))
 				return (0);
 		}
 		else if (token->tok == TOK_USELESS ||
 				(token->tok == TOK_NEWLINE && prev->tok == TOK_NEWLINE))
-			token = rm_tok(token, prev, first);
+			token = rm_tok(token, prev, first, error);
 		prev = token;
 		token = token->next;
 	}

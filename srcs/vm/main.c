@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:21:12 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:36:43 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	test_interpret(t_vm vm)
 			print_stats(&vm);
 			sleep(1);
 		}
-	dprintf(2, "lives: %ld\n", vm.players[0]->live);
+	dprintf(2, "lives: %llu\n", vm.players[0]->live);
 	ft_print("lives: %d\n", vm.players[0]->live);
 	for (int i = 1; i <= REG_NUMBER; i++)
 	{

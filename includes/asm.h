@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:36:00 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/16 13:31:58 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:52:39 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tok			*push_token(t_tok *token);
 t_tok_type		get_token(char *line);
 int				get_data(char *line, t_tok_type tok, void **data);
 int				find_label(char *label, t_tok *first);
-t_tok			*check_name_comment(t_tok *token);
+t_tok			*check_strline(t_tok *token);
 t_tok			*find_next_line(t_tok *token);
 int				is_label(char *line);
 int				is_op(char *line);

@@ -6,13 +6,13 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 12:57:57 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:52:12 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_tok	*check_name_comment(t_tok *token)
+t_tok	*check_strline(t_tok *token)
 {
 	static int	header;
 

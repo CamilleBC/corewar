@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:45:26 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 11:15:48 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:53:35 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_error
 	int	colon;
 }				t_error;
 
-int		verify_list(t_tok *first);
+int		verify_list(t_tok *first, t_error *error);
 void	debug(t_tok *first);
 
 #endif
