@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:21:12 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:55:57 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	test_interpret(t_vm vm)
 				mvwprintw(vm.wins.stats_win, 3 + i, 1, "r%d: %08x", i + 1, proc->regs[i]);
 			}
 			wrefresh(vm.wins.stats_win);
-			//usleep(500000);
-			sleep(1);
+			usleep(200000);
+			//sleep(1);
 		}
 	}
 	if (vm.flags & (1 << VISUAL))

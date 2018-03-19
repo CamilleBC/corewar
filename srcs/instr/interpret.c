@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 17:07:10 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:23:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 	else if (arg->code == DIR_CODE)
 	{
 		arg->value.dir = array_to_int_arena(mem + proc->pc, dir_size);
+		if (dir_size == (DIR_SIZE / 2))
+			arg->value.dir = (int16_t)arg->value.dir;
 		//ft_memcpy((uint8_t *)&arg->value.dir, mem + proc->pc, dir_size);
 		proc->pc += dir_size;
 		arg->size = dir_size;
@@ -113,8 +115,11 @@ int8_t	interpret_instr(t_vm *vm, t_player *pl, t_proc *proc)
 		return (ERROR);
 	len += fill_args(&args, op);
 	args.proc->pc -= len;
+	dprintf(2, "pc %ld\n", args.proc->pc);
 	if (instr.fn)
 		instr.fn(&args);
-	args.proc->pc += len;
+	// check if instr wasn't zjmp
+	if (instr.op->opcode != 9)
+		args.proc->pc += len;
 	return (SUCCESS);
 }

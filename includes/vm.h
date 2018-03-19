@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 09:21:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:19:47 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 
 typedef union	u_arg_val
 {
-	uint32_t	dir;
+	int32_t		dir;
 	uint16_t	ind;
 	uint8_t		reg;
 	uint8_t		arr[4];
