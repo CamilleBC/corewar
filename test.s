@@ -13,5 +13,4 @@ st:
 	add r4, r5, r6
 	sub r6, r5, r7
 	live %0
-	fork %:st
-	zjmp %:start
+	fork %10
