@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 16:37:41 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:12:03 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ static int	display_pc(t_deque_elmt *elem, t_vm *vm)
 
 static void	print_hex(t_vm *vm, int i)
 {
-	int	player;
-
-	player = 0;
 	if (vm->arena[i].new_value)
 			wattron(vm->wins.arena_win, A_BOLD);
 	// init_pair(ARENA, vm->arena[i].colour, vm->arena[i].background);
@@ -72,7 +69,8 @@ void		print_arena(t_vm *vm)
 
 	i = 0;
 	j = 2;
-	refresh();
+	// clear();
+	// refresh();
 	wattron(vm->wins.arena_win,COLOR_PAIR(WHITEP_BLACK));
 	box(vm->wins.arena_win, '|' , '-');
 	wattroff(vm->wins.arena_win,COLOR_PAIR(WHITEP_BLACK));
