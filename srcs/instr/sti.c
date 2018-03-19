@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:27:19 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:36:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	instr_sti(const t_instr_fn_args *args)
 	if (args->args[1].code == IND_CODE)
 		addr = args->proc->pc + (args->args[1].value.ind % IDX_MOD);
 	else if (args->args[1].code == DIR_CODE)
-		addr = array_to_int_arena(args->vm->arena + addr_to_arena(args->args[1].value.dir), 2);
+		addr = array_to_int_arena(args->vm->arena + addr_to_arena(args->proc->pc +
+					args->args[1].value.dir), 2);
 	else
 	{
 		if (!is_valid_reg(args->args[1].value.reg))

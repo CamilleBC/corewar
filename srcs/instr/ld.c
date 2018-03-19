@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:17:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:35:57 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	instr_ld(const t_instr_fn_args *args)
 		return ;
 	}
 	if (args->args[0].code == DIR_CODE)
-		args->proc->regs[reg - 1] = args->args[0].value.dir;
+		args->proc->regs[reg - 1] = addr_to_arena(args->proc->pc + args->args[0].value.dir);
 	else if (args->args[0].code == IND_CODE)
 	{
 		addr = addr_to_arena(args->proc->pc + args->args[0].value.ind);
