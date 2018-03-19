@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 13:20:06 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:55:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int8_t			init_players(t_vm *vm, int *fds)
 			return (ERROR);
 		proc->owner = vm->players[i];
 		proc->pc = address;
+		vm->players[i]->nb_threads = 1;
+		vm->players[i]->threads = ft_memalloc(sizeof(t_proc) * 10);
+		vm->players[i]->threads[0] = proc;
 		ft_deque_push_back(vm->procs, proc);
 		i++;
 		address += div;

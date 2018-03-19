@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 13:40:08 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:11:00 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ void	test_interpret(t_vm vm)
 
 	while ((proc = ft_deque_pop_front(vm.procs)))
 	{
+		//dprintf(2, "pc: %ld\n", proc->pc);
+		//dprintf(2, "player %d\n", proc->owner->id);
+		//for (int i = 1; i <= REG_NUMBER; i++)
+		//{
+		//	dprintf(2, "r%d: ", i);
+		//	dprintf(2, "%08x\n", proc->regs[i - 1]);
+		//	fflush(stdout);
+		//}
+		//dprintf(2, "\n");
 		interpret_instr(&vm, proc);
 		ft_deque_push_back(vm.procs, proc);
 		if (vm.flags & (1 << VISUAL))
@@ -28,14 +37,7 @@ void	test_interpret(t_vm vm)
 			print_arena(&vm);
 			print_header(&vm);
 			print_stats(&vm);
-			//dprintf(2, "player %d\n", proc->owner->id);
-			//for (int i = 1; i <= REG_NUMBER; i++)
-			//{
-			//	dprintf(2, "r%d: ", i);
-			//	dprintf(2, "%08x\n", proc->regs[i - 1]);
-			//	fflush(stdout);
-			//}
-			usleep(500000);
+			usleep(50000);
 			//sleep(1);
 		}
 	}

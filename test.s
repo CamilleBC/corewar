@@ -9,6 +9,7 @@ start:
 	sti r1, %0, %4
 	ld %4, r4
 	ld %5, r5
+	fork %:start
 	add r4, r5, r6
 	sub r6, r5, r7
 	live %0
