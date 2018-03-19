@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 15:35:56 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:42:22 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,38 @@
 #include "vm.h"
 #include <fcntl.h>
 
+size_t	ft_deque_len(t_deque *deq)
+{
+	size_t	i;
+	t_deque_elmt *e;
+
+	i = 0;
+	e = deq->head;
+	while (e)
+	{
+		i++;
+		e = e->next;
+	}
+	return (i);
+}
+
 
 void	test_interpret(t_vm vm)
 {
 	t_proc	*proc;
+	size_t	i;
+	size_t	len;
 
-	while ((proc = ft_deque_pop_front(vm.procs)))
+	while (1)
 	{
-		//dprintf(2, "pc: %ld\n", proc->pc);
-		//dprintf(2, "player %d\n", proc->owner->id);
-		//for (int i = 1; i <= REG_NUMBER; i++)
-		//{
-		//	dprintf(2, "r%d: ", i);
-		//	dprintf(2, "%08x\n", proc->regs[i - 1]);
-		//	fflush(stdout);
-		//}
-		//dprintf(2, "\n");
-		interpret_instr(&vm, proc);
-		ft_deque_push_back(vm.procs, proc);
+		i = 0;
+		len = ft_deque_len(vm.procs);
+		while (i++ < len)
+		{
+			proc = ft_deque_pop_back(vm.procs);
+			interpret_instr(&vm, proc);
+			ft_deque_push_front(vm.procs, proc);
+		}
 		if (vm.flags & (1 << VISUAL))
 		{
 			print_arena(&vm);
