@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 17:39:37 by tgunzbur         ###   ########.fr       */
+/*   Created: 2018/03/19 17:17:47 by chaydont          #+#    #+#             */
+/*   Updated: 2018/03/19 17:43:45 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 	t_op	*op_tab;
 
 	op_tab = get_ops();
+<<<<<<< HEAD
 	op = file->data;
+=======
+	op = (int*)file->data;
+>>>>>>> f160a5151107fa0f4e7d2f6566e493e98a6fb18a
 	nb_arg = op_tab[*op - 1].nb_arg;
 	ft_putchar_fd(*op, fd);
 	if (op_tab[*op - 1].octal)
