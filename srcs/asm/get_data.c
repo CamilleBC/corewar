@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/16 12:59:18 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 14:43:58 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char		*first_word(char *line, char c)
 	{
 		while (line[count] && line[count] != c)
 			count++;
-		if (!(str = (char *)malloc(sizeof(char) * (count + 1))))
+		if (!(str = (char *)ft_memalloc(sizeof(char) * (count + 1))))
 			return (NULL);
 		count = -1;
 		while (line[++count] && line[count] != c)
@@ -91,7 +91,7 @@ char		*first_word(char *line, char c)
 	}
 	while (line[count] && line[count] != SEP_CHAR && !ft_isspace(line[count]))
 		count++;
-	if (!(str = (char *)malloc(sizeof(char) * (count + 1))))
+	if (!(str = (char *)ft_memalloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	count = -1;
 	while (line[++count] && line[count] != SEP_CHAR && !ft_isspace(line[count]))

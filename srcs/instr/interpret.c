@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 12:54:46 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:10:55 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,10 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	args.nb_args = 0;
 	ft_bzero(args.args, sizeof(t_arg) * MAX_ARGS_NUMBER);
 	op = get_op(vm->arena[proc->pc++].hex);
-	len = 1;
 	instr = get_instr(op);
 	if (op.str == 0)
 		return (ERROR);
-	len += fill_args(&args, op);
+	len = fill_args(&args, op) + 2;
 	args.proc->pc -= len;
 	if (instr.fn)
 		instr.fn(&args);
