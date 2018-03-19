@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:00:30 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 18:17:24 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:39:55 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int8_t	init_vm(t_vm *vm, int *fds)
 			return (ERROR);
 	i = -1;
 	while (++i < MEM_SIZE)
-		vm->arena[i].colour = COLOR_WHITE;
+		vm->arena[i].colour = WHITE_BLACK;
 	if (init_players(vm, fds) == ERROR)
 		return (ERROR);
 	vm->dump = 0;
