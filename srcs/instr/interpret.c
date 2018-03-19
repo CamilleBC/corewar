@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 15:16:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:50:57 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 		proc->pc += dir_size;
 		arg->size = dir_size;
 	}
+	proc->pc = addr_to_arena(proc->pc);
 	return (arg->size);
 }
 
@@ -108,15 +109,20 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	args.nb_args = 0;
 	ft_bzero(args.args, sizeof(t_arg) * MAX_ARGS_NUMBER);
 	op = get_op(vm->arena[proc->pc++].hex);
+	args.proc->pc = addr_to_arena(args.proc->pc);
 	instr = get_instr(op);
 	if (op.str == 0)
 		return (ERROR);
 	len = fill_args(&args, op) + 1;
 	args.proc->pc -= len;
+	args.proc->pc = addr_to_arena(args.proc->pc);
 	if (instr.fn)
 		instr.fn(&args);
 	// check if instr wasn't zjmp
 	if (instr.op->opcode != 9)
+	{
 		args.proc->pc += len;
+		args.proc->pc = addr_to_arena(args.proc->pc);
+	}
 	return (SUCCESS);
 }

@@ -13,4 +13,8 @@ start:
 	add r4, r5, r6
 	sub r6, r5, r7
 	live %0
+<<<<<<< HEAD
 	zjmp %:start
+=======
+	fork %10
+>>>>>>> d9fe8bb52e650b4a11e49d5c96a795a1605d5d00

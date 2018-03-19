@@ -6,7 +6,11 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/03/19 16:34:28 by chaydont         ###   ########.fr       */
+=======
+/*   Updated: 2018/03/19 17:02:33 by tgunzbur         ###   ########.fr       */
+>>>>>>> d9fe8bb52e650b4a11e49d5c96a795a1605d5d00
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +99,14 @@ int			compile(t_tok *file)
 	char		*file_name;
 	t_header	header;
 
-	file_name = ft_strjoin(file->data, ".coor");
+	file_name = ft_strjoin(file->data, ".cor");
 	file = file->next;
 	fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-	free(file_name);
 	header = get_header(file);
 	write_header(header, fd);
 	write_file(file, fd);
 	close(fd);
+	ft_print("Writing output program to %s\n", file_name);
+	free(file_name);
 	return (1);
 }

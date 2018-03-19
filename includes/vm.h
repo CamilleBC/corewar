@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 13:56:13 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:10:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 
 # define CHAMP_MAX_SIZE	(MEM_SIZE / 6)
 # define MAX_PLAYERS	4
+
+# define THREADS_ALLOC 20
 
 typedef union	u_arg_val
 {
