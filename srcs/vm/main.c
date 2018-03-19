@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 19:06:12 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/19 09:53:47 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	test_interpret(t_vm vm)
 			}
 			wrefresh(vm.wins.stats_win);
 			//usleep(500000);
-			sleep(1);
+			sleep(10);
 		}
 	}
 	if (vm.flags & (1 << VISUAL))
@@ -44,7 +44,7 @@ void	test_interpret(t_vm vm)
 			print_arena(&vm);
 			print_header(&vm);
 			print_stats(&vm);
-			sleep(1);
+			sleep(10);
 		}
 	dprintf(2, "lives: %ld\n", vm.players[0]->live);
 	ft_print("lives: %d\n", vm.players[0]->live);
@@ -69,27 +69,23 @@ int		main(int ac, char **av)
 		return (-1);
 	i = 0;
 	i_fd = 0;
-	// TODO: check errors
 	while (++i < ac)
 	{
 		if (av[i][0] != '-')
-			fds[i_fd++] = open(av[i], O_RDONLY);
+		{
+			if ((fds[i_fd++] = open(av[i], O_RDONLY)) < 0)
+			{
+				ft_putendl_fd("invalid file", 2);
+				return (1);
+			}
+		}
 	}
 	vm.nb_players = i_fd;
 	if (init_vm(&vm, fds) == ERROR)
 		return (0);
 	if (vm.flags & (1 << VISUAL))
 		init_visu(&vm);
-	//i = -1;
-	//while (++i < vm.nb_players)
-	//	ft_print("Player #%d: %s\n", i, vm.players[i]->header.prog_name);
 	test_interpret(vm);
-	// if (vm.flags & (1 << VISUAL))
-	// {
-	// 	print_arena(&vm);
-		// print_header(&vm);
-		// print_stats(&vm);
-	// }
 	while (1)
 		;
 	if (vm.flags & (1 << VISUAL))

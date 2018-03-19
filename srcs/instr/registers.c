@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   or.c                                               :+:      :+:    :+:   */
+/*   registers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/16 13:57:24 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:22:54 by briviere         ###   ########.fr       */
+/*   Created: 2018/03/19 09:03:05 by briviere          #+#    #+#             */
+/*   Updated: 2018/03/19 09:06:42 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_or(const t_instr_fn_args *args)
+inline int8_t	is_valid_reg(uint8_t reg)
 {
-	//uint32_t	res;
+	return (reg >= 1 && reg <= REG_NUMBER);
+}
 
-	if (args->nb_args != 3)
-	{
-		args->proc->carry = 0;
-		return ;
-	}
-	// TODO:
+inline int8_t	are_valid_regs(uint8_t *regs, size_t size)
+{
+	while (size--)
+		if (!is_valid_reg(regs[size]))
+			return (0);
+	return (1);
 }

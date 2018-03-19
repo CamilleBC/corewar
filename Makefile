@@ -31,7 +31,8 @@ INSTR_SRC_NAME = interpret.c \
 				 lld.c \
 				 lldi.c \
 				 lfork.c \
-				 aff.c
+				 aff.c \
+				 registers.c
 VISU_SRC_NAME=	arena.c \
 				header.c \
 				init_and_free.c \
@@ -54,8 +55,9 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -g $(INC)
+CFLAGS=-Wall -Wextra -Werror -g $(INC)
 LIB=-Llibft -lft -lncurses
+
 
 all: $(NAME_ASM) $(NAME_VM)
 

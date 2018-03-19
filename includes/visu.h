@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 18:40:40 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/19 09:47:33 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,22 @@
 ** Colour Pairs
 */
 
-# define BLUE_BLACK		1
-# define MAGENTA_BLACK	2
-# define CYAN_BLACK		3
-# define RED_BLACK		4
-# define BLACK_BLUE		5
-# define BLACK_MAGENTA	6
-# define BLACK_CYAN		7
-# define BLACK_RED		8
-# define WHITE_BLACK	9
-# define BLACK_WHITE	10
-# define YELLOW_BLACK	11
-# define BLACK_YELLOW	12
-# define GREEN_BLACK	13
-# define BLACK_GREEN	14
-# define WHITEP_BLACK	15
-# define BLACK_WHITEP	16
+# define RED_BLACK		1
+# define GREEN_BLACK	2
+# define YELLOW_BLACK	3
+# define BLUE_BLACK		4
+# define BLACK_RED		5
+# define BLACK_GREEN	6
+# define BLACK_YELLOW	7
+# define BLACK_BLUE		6
+# define MAGENTA_BLACK	8
+# define CYAN_BLACK		9
+# define BLACK_MAGENTA	10
+# define BLACK_CYAN		11
+# define WHITE_BLACK	12
+# define BLACK_WHITE	13
+# define WHITEP_BLACK	14
+# define BLACK_WHITEP	15
 # define ARENA			99
 
 struct	s_vm;

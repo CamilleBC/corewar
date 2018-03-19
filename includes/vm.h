@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 17:13:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 09:21:27 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef struct	s_instr_fn_args
 	size_t		nb_args;
 }				t_instr_fn_args;
 
-// TODO: single struct for instr_fn
 typedef void	t_instr_fn(const t_instr_fn_args *);
 
 typedef struct	s_instr
@@ -148,5 +147,8 @@ int32_t	parse_args(t_vm *vm, int ac, char **av);
 
 void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len);
 uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
+int32_t		addr_to_arena(int32_t addr);
+int8_t		is_valid_reg(uint8_t reg);
+int8_t		are_valid_regs(uint8_t *regs, size_t size);
 
 #endif
