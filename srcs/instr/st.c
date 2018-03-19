@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:14:51 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:05:14 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	instr_st(const t_instr_fn_args *args)
 	if (arg.code == IND_CODE)
 	{
 		addr = addr_to_arena(args->proc->pc + (arg.value.ind % IDX_MOD));
-		write_arena(args->vm->arena, val, addr, 4);
+		write_arena(args->vm->arena, val, addr, 4, args->proc->owner->id + 1);
 	}
 	else if (arg.code == REG_CODE)
 	{

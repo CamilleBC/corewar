@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 11:36:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:05:09 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void	instr_sti(const t_instr_fn_args *args)
 		return ;
 	}
 	addr = addr_to_arena(addr);
-	write_arena(args->vm->arena, reg_val, addr, 4);
+	write_arena(args->vm->arena, reg_val, addr, 4, args->proc->owner->id + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:42:42 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:14:13 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:04:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,18 @@ inline int32_t	addr_to_arena(int32_t addr)
 	return (addr % MEM_SIZE);
 }
 
-void	write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len)
+void	write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len, int colour)
 {
 	uint8_t		new_val[len];
 	size_t		i;
 
-	dprintf(2, "%d\n", val);
 	int_to_array(new_val, val, len);
 	i = 0;
 	while (i < len)
 	{
 		arena[idx + i].hex = new_val[i];
 		arena[idx + i].new_value = 5;
-		arena[idx + i].colour = 1;
+		arena[idx + i].colour = colour;
 		i++;
 	}
 }

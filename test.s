@@ -11,4 +11,5 @@ start:
 	ld %5, r5
 	add r4, r5, r6
 	sub r6, r5, r7
+	live %0
 	zjmp %:start

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 13:58:16 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:42:47 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void	instr_fork(const t_instr_fn_args *args)
 {
+	if (args->nb_args != 1)
+		return ;
 	(void)args;
 }

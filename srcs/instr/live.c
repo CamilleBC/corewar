@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:19:25 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/15 10:25:56 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:58:31 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	instr_live(const t_instr_fn_args *args)
 {
-	args->pl->live++;
+	args->proc->owner->live++;
 }

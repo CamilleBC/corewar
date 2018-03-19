@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 12:02:43 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:54:22 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	test_interpret(t_vm vm)
 {
 	t_proc	*proc;
 
-	proc = vm.procs->head->data;
-	while (interpret_instr(&vm, vm.players[0], proc) == SUCCESS)
+	while ((proc = ft_deque_pop_front(vm.procs)))
 	{
+		interpret_instr(&vm, proc);
 		if (vm.flags & (1 << VISUAL))
 		{
 			print_arena(&vm);
@@ -30,6 +30,7 @@ void	test_interpret(t_vm vm)
 			usleep(500000);
 			//sleep(1);
 		}
+		ft_deque_push_back(vm.procs, proc);
 	}
 	if (vm.flags & (1 << VISUAL))
 		while (1)

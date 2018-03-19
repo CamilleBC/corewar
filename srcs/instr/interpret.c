@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 12:01:24 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:54:46 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 	else if (arg->code == IND_CODE)
 	{
 		arg->value.ind = array_to_int_arena(mem + proc->pc, IND_SIZE);
-		//ft_memcpy((uint8_t *)&arg->value.ind, mem + proc->pc, IND_SIZE);
 		proc->pc += IND_SIZE;
 		arg->size = IND_SIZE;
 	}
@@ -63,7 +62,6 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 		arg->value.dir = array_to_int_arena(mem + proc->pc, dir_size);
 		if (dir_size == (DIR_SIZE / 2))
 			arg->value.dir = (int16_t)arg->value.dir;
-		//ft_memcpy((uint8_t *)&arg->value.dir, mem + proc->pc, dir_size);
 		proc->pc += dir_size;
 		arg->size = dir_size;
 	}
@@ -95,7 +93,7 @@ static size_t	fill_args(t_instr_fn_args *args, t_op op)
 	return (arg_size);
 }
 
-int8_t	interpret_instr(t_vm *vm, t_player *pl, t_proc *proc)
+int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 {
 	t_instr_fn_args	args;
 	t_op	op;
@@ -103,7 +101,6 @@ int8_t	interpret_instr(t_vm *vm, t_player *pl, t_proc *proc)
 	size_t	len;
 
 	args.vm = vm;
-	args.pl = pl;
 	args.proc = proc;
 	args.nb_args = 0;
 	ft_bzero(args.args, sizeof(t_arg) * MAX_ARGS_NUMBER);

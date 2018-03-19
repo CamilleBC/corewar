@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 11:19:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:04:29 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,18 @@ typedef struct	s_arg
 	size_t		size;
 }				t_arg;
 
+typedef struct	s_player t_player;
+
 typedef struct	s_proc
 {
 	uint8_t		alive;
 	uint8_t		carry;
 	size_t		pc;
 	uint32_t	regs[REG_NUMBER];
+	t_player	*owner;
 }				t_proc;
 
-typedef struct	s_player
+struct			s_player
 {
 	t_header	header;
 	uint8_t		prog[CHAMP_MAX_SIZE + 1];
@@ -75,7 +78,7 @@ typedef struct	s_player
 	uint64_t	live;
 	t_proc		*threads;
 	size_t		nb_threads;
-}				t_player;
+};
 
 typedef struct	s_arena
 {
@@ -103,7 +106,6 @@ typedef struct	s_vm
 typedef struct	s_instr_fn_args
 {
 	t_vm		*vm;
-	t_player	*pl;
 	t_proc		*proc;
 	t_arg		args[MAX_ARGS_NUMBER];
 	size_t		nb_args;
@@ -139,13 +141,13 @@ void	instr_lldi(const t_instr_fn_args *args);
 void	instr_lfork(const t_instr_fn_args *args);
 void	instr_aff(const t_instr_fn_args *args);
 
-int8_t	interpret_instr(t_vm *vm, t_player *pl, t_proc *proc);
+int8_t	interpret_instr(t_vm *vm, t_proc *proc);
 
 int8_t	init_vm(t_vm *vm, int *fds);
 int8_t	init_players(t_vm *vm, int *fds);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
 
-void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len);
+void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len, int colour);
 uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
 int32_t		addr_to_arena(int32_t addr);
 int8_t		is_valid_reg(uint8_t reg);
