@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 15:53:42 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 16:17:11 by chaydont         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:32:13 by chaydont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			get_op_length(t_tok *file)
 	int		i;
 	int		nb_arg;
 	int		*op;
-	t_op *op_tab;
+	t_op	*op_tab;
 
 	i = 1;
 	op_tab = get_ops();
