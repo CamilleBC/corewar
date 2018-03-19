@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 15:00:10 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:18:56 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	create_color(int color, int player)
 	short		back;
 
 	pair_content(color, &front, &back);
-	init_pair(ARENA_PLAYER, front, player);
+	init_pair(ARENA_PLAYER, front, player + 100);
 	return (COLOR_PAIR(ARENA_PLAYER));
 }
 
