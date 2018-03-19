@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 17:46:34 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:10:12 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		init_visu(t_vm *vm)
 	start_color();
 	init_colors();
 	curs_set(FALSE);
+	clear();
 	if (!(vm->wins.header_win = create_newwin(HEADER_H, HEADER_W, 0, 0)))
 		return (free_visu(vm->wins, vm->nb_players)) ;
 	if (!(vm->wins.arena_win = create_newwin(ARENA_H, ARENA_W, HEADER_H, 0)))
