@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/16 13:32:10 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:31:32 by chaydont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 		if (file->tok == TOK_REG)
 			ft_putchar_fd((char)arg, fd);
 		else if (file->tok == TOK_INDIR_NB || file->tok == TOK_INDIR_LB ||
-				*op == 9 || *op == 10 || *op == 11 || *op == 14)
+				*op == 9 || *op == 10 || *op == 11 || *op == 14 || *op == 12)
 			ft_putshort_fd((short)arg, fd);
 		else if (file->tok == TOK_DIR_NB || file->tok == TOK_DIR_LB)
 			ft_putint_fd(arg, fd);
@@ -96,7 +96,7 @@ int			compile(t_tok *file)
 	char		*file_name;
 	t_header	header;
 
-	file_name = ft_strjoin(file->data, ".cor");
+	file_name = ft_strjoin(file->data, ".coor");
 	file = file->next;
 	fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	free(file_name);

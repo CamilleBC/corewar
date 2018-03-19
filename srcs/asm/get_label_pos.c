@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 15:53:42 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/16 12:58:53 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:30:58 by chaydont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			get_op_length(t_tok *file)
 		if (file->tok == TOK_REG)
 			i += 1;
 		else if ((file->tok == TOK_DIR_NB || file->tok == TOK_DIR_LB) &&
-				!(*op == 10 || *op == 11 || *op == 14 || *op == 9))
+				!(*op == 10 || *op == 11 || *op == 14 || *op == 9 || *op == 12))
 			i += 4;
 		else
 			i += 2;
