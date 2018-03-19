@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:36:00 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 10:52:39 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:41:03 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "lexer.h"
 
 int				compile(t_tok *file);
+int				verify_list(t_tok *first, t_error *error);
 void			ft_putint_fd(int n, int fd);
 void			ft_putshort_fd(short n, int fd);
 int				get_label_pos(t_tok *file, char *label);

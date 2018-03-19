@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:16:27 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 17:02:33 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:39:37 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 	int		arg;
 	t_op	*op_tab;
 
+	op_tab = get_ops();
 	op = file->data;
-	nb_arg = (op_tab = get_ops())[*op - 1].nb_arg;
+	nb_arg = op_tab[*op - 1].nb_arg;
 	ft_putchar_fd(*op, fd);
 	if (op_tab[*op - 1].octal)
 		ft_putchar_fd(get_param_code(file->next, nb_arg), fd);
 	while (nb_arg-- >= 1)
 	{
-		file = file->next;
-		if (file->tok == TOK_INDIR_LB || file->tok == TOK_DIR_LB)
+		if ((file = file->next)->tok == TOK_INDIR_LB || file->tok == TOK_DIR_LB)
 			arg = get_label_pos(first_nod, file->data) - cursor;
 		else
 			arg = *(int *)file->data;

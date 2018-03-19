@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/19 17:03:04 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:24:50 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ t_tok		*check_file(char *file, t_error *error)
 	token = first_tok;
 	if ((fd = open(file, O_RDONLY)) < 0)
 		return (super_free(first_tok, NULL, fd));
-	while ((error->gnl = get_next_line(fd, &line)) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (!line || !(token = check_line(token, line)))
 			return (super_free(first_tok, line, fd));
 		error->line++;
 		free(line);
 	}
-	if (!first_tok->next || error->gnl < 0 || !verify_list(first_tok, error))
+	if (!first_tok->next || !verify_list(first_tok, error))
 		return (super_free(first_tok, line, fd));
 	free(line);
 	close(fd);

@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/19 16:58:54 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:34:45 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 {
-	if (token->tok == TOK_NEWLINE && error)
+	if (token->tok == TOK_NEWLINE && prev->tok != TOK_NEWLINE)
 		error->line++;
-	if (prev)
+	else if (prev)
 	{
 		prev->next = token->next;
 		free(token);
@@ -96,7 +96,7 @@ int		verify_list(t_tok *first, t_error *error)
 	t_tok	*prev;
 	t_tok	*token;
 
-	error->line = 0;
+	error->line = 1;
 	prev = NULL;
 	token = first->next;
 	while (token)
@@ -111,7 +111,7 @@ int		verify_list(t_tok *first, t_error *error)
 			if (!(token = check_args(token, first)) || !check_strline(token))
 				return (0);
 		}
-		else if (token->tok == TOK_USELESS ||
+		else if (token->tok == TOK_USELESS || token->tok == TOK_NEWLINE ||
 				(token->tok == TOK_NEWLINE && prev->tok == TOK_NEWLINE))
 			token = rm_tok(token, prev, first, error);
 		prev = token;

@@ -6,7 +6,6 @@ ASM_SRC_NAME=check_file.c \
 			 check_fcts.c \
 			 get_data.c \
 			 compiler.c \
-			 error.c \
 			 get_label_pos.c \
 			 write.c \
 			 main.c
