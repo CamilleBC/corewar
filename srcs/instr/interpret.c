@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 11:23:45 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:39:04 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static size_t	fill_args(t_instr_fn_args *args, t_op op)
 			args->args[idx].code = octal >> ((3 - idx) * 2) & 0b11;
 		else
 			args->args[idx].code = op.args[idx];
-		dprintf(2, "%s -> idx=%d code=%d\n", op.str, idx, args->args[idx].code);
+		// dprintf(2, "%s -> idx=%d code=%d\n", op.str, idx, args->args[idx].code);
 		arg_size += fill_arg(args->vm->arena, args->proc, args->args + idx,
 				(op.dir_size ? DIR_SIZE / 2 : DIR_SIZE));
 		args->nb_args++;

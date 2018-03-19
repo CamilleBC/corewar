@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   arena.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:42:42 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:14:13 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:33:09 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include "visu.h"
 #include "vm.h"
 
 inline int32_t	addr_to_arena(int32_t addr)
@@ -32,7 +33,7 @@ void	write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len)
 	{
 		arena[idx + i].hex = new_val[i];
 		arena[idx + i].new_value = 5;
-		arena[idx + i].colour = 1;
+		arena[idx + i].colour = RED_BLACK;
 		i++;
 	}
 }

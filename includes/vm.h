@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 11:19:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:19:22 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ typedef struct	s_arg
 	size_t		size;
 }				t_arg;
 
+struct			s_player;
+
 typedef struct	s_proc
 {
-	uint8_t		alive;
-	uint8_t		carry;
-	size_t		pc;
+	uint8_t			alive;
+	uint8_t			carry;
+	size_t			pc;
+	struct s_player	*owner;
 	uint32_t	regs[REG_NUMBER];
 }				t_proc;
+
 
 typedef struct	s_player
 {
@@ -73,6 +77,7 @@ typedef struct	s_player
 	uint8_t		prog[CHAMP_MAX_SIZE + 1];
 	uint32_t	id;
 	uint64_t	live;
+	uint8_t		alive;
 	t_proc		*threads;
 	size_t		nb_threads;
 }				t_player;
