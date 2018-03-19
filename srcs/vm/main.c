@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 18:51:21 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 09:21:12 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,16 @@ int		main(int ac, char **av)
 		return (-1);
 	i = 0;
 	i_fd = 0;
-	// TODO: check errors
 	while (++i < ac)
 	{
 		if (av[i][0] != '-')
-			fds[i_fd++] = open(av[i], O_RDONLY);
+		{
+			if ((fds[i_fd++] = open(av[i], O_RDONLY)) < 0)
+			{
+				ft_putendl_fd("invalid file", 2);
+				return (1);
+			}
+		}
 	}
 	vm.nb_players = i_fd;
 	if (init_vm(&vm, fds) == ERROR)

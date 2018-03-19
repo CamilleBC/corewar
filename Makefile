@@ -31,7 +31,8 @@ INSTR_SRC_NAME = interpret.c \
 				 lld.c \
 				 lldi.c \
 				 lfork.c \
-				 aff.c
+				 aff.c \
+				 registers.c
 VISU_SRC_NAME=init_and_free.c \
 			  visu_ncurses.c \
 			  windows.c
