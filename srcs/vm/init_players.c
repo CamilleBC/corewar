@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 09:47:42 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:23:56 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int8_t	init_player(t_player *player, t_vm *vm, size_t address, int fd)
 	while (i < player->header.prog_size)
 	{
 		vm->arena[address + i].hex = player->prog[i];
-		vm->arena[address + i].colour = player->id;
+		vm->arena[address + i].colour = player->id + 1;
 		i++;
 	}
 	return (SUCCESS);
@@ -52,7 +52,7 @@ int8_t			init_players(t_vm *vm, int *fds)
 	address = 0;
 	while (i < vm->nb_players)
 	{
-		vm->players[i]->id = i + 1;
+		vm->players[i]->id = i;
 		init_player(vm->players[i], vm, address, fds[i]);
 		ft_deque_push_back(vm->procs, ft_memalloc(sizeof(t_proc)));
 		i++;
