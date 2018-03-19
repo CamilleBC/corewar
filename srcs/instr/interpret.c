@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 15:10:55 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:16:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ static size_t	fill_args(t_instr_fn_args *args, t_op op)
 	octal = 0;
 	arg_size = 0;
 	if (op.octal)
+	{
+		arg_size++;
 		octal = args->vm->arena[args->proc->pc++].hex;
+	}
 	idx = 0;
 	while (idx < op.nb_arg)
 	{
@@ -108,7 +111,7 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	instr = get_instr(op);
 	if (op.str == 0)
 		return (ERROR);
-	len = fill_args(&args, op) + 2;
+	len = fill_args(&args, op) + 1;
 	args.proc->pc -= len;
 	if (instr.fn)
 		instr.fn(&args);
