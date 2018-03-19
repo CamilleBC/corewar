@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 16:10:38 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:10:23 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ typedef struct	s_player t_player;
 
 typedef struct	s_proc
 {
-	uint8_t		alive;
-	uint8_t		carry;
-	size_t		pc;
+	uint8_t			carry;
+	size_t			pc;
+	uint32_t		delay;
+	uint64_t		live;
 	uint32_t	regs[REG_NUMBER];
 	t_player	*owner;
 }				t_proc;
@@ -148,6 +149,7 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc);
 int8_t	init_vm(t_vm *vm, int *fds);
 int8_t	init_players(t_vm *vm, int *fds);
 int32_t	parse_args(t_vm *vm, int ac, char **av);
+void	run_vm(t_vm *vm);
 
 void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len, int colour);
 uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
