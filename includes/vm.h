@@ -79,9 +79,10 @@ typedef struct	s_player
 
 typedef struct	s_arena
 {
-	uint8_t		hex;
-	int32_t		colour;
-	uint32_t	new_value;
+	uint8_t	hex;
+	int32_t	colour;
+	int32_t	background;
+	uint8_t	new_value;
 }				t_arena;
 
 struct			s_win;

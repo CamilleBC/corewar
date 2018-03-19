@@ -6,13 +6,14 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 17:31:15 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 17:17:49 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/16 19:04:40 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 #include "vm.h"
 
+/*
 void	print_arena(t_vm *vm)
 {
 	int	i;
@@ -72,3 +73,4 @@ void	print_stats(t_vm *vm)
 	wattroff(vm->wins.stats_win,COLOR_PAIR(14));
 	wrefresh(vm->wins.stats_win);
 }
+*/

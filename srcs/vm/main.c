@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 10:36:43 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/19 09:53:47 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ int		main(int ac, char **av)
 		return (0);
 	if (vm.flags & (1 << VISUAL))
 		init_visu(&vm);
-	//i = -1;
-	//while (++i < vm.nb_players)
-	//	ft_print("Player #%d: %s\n", i, vm.players[i]->header.prog_name);
 	test_interpret(vm);
+	while (1)
+		;
 	if (vm.flags & (1 << VISUAL))
-		free_visu(&vm);
+		free_visu(vm.wins, vm.nb_players);
 	return (0);
 }
