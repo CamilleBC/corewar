@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 14:24:55 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:13:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	instr_sti(const t_instr_fn_args *args)
 	}
 	reg_val = args->proc->regs[reg - 1];
 	addr = args->proc->pc;
-	dprintf(2, "addr st %d\n", addr);
 	if (args->args[1].code == IND_CODE)
 		addr += args->args[1].value.ind % IDX_MOD;
 	else if (args->args[1].code == DIR_CODE)
@@ -45,7 +44,6 @@ void	instr_sti(const t_instr_fn_args *args)
 		}
 		addr += args->proc->regs[args->args[1].value.reg - 1] % IDX_MOD;
 	}
-	dprintf(2, "addr mid %d\n", addr);
 	if (args->args[2].code == DIR_CODE)
 		addr += (args->args[2].value.dir % IDX_MOD);
 	else if (args->args[2].code == REG_CODE)
@@ -63,6 +61,5 @@ void	instr_sti(const t_instr_fn_args *args)
 		return ;
 	}
 	addr = addr_to_arena(addr);
-	dprintf(2, "writing to %d\n", addr);
 	write_arena(args->vm->arena, reg_val, addr, 4, args->proc->owner->id + 1);
 }
