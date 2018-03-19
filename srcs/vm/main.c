@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 12:54:22 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:40:08 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ void	test_interpret(t_vm vm)
 	while ((proc = ft_deque_pop_front(vm.procs)))
 	{
 		interpret_instr(&vm, proc);
+		ft_deque_push_back(vm.procs, proc);
 		if (vm.flags & (1 << VISUAL))
 		{
 			print_arena(&vm);
 			print_header(&vm);
 			print_stats(&vm);
+			//dprintf(2, "player %d\n", proc->owner->id);
+			//for (int i = 1; i <= REG_NUMBER; i++)
+			//{
+			//	dprintf(2, "r%d: ", i);
+			//	dprintf(2, "%08x\n", proc->regs[i - 1]);
+			//	fflush(stdout);
+			//}
 			usleep(500000);
 			//sleep(1);
 		}
-		ft_deque_push_back(vm.procs, proc);
 	}
 	if (vm.flags & (1 << VISUAL))
 		while (1)
@@ -40,14 +47,6 @@ void	test_interpret(t_vm vm)
 			print_stats(&vm);
 			sleep(1);
 		}
-	dprintf(2, "lives: %lu\n", vm.players[0]->live);
-	ft_print("lives: %d\n", vm.players[0]->live);
-	for (int i = 1; i <= REG_NUMBER; i++)
-	{
-		dprintf(2, "r%d: ", i);
-		dprintf(2, "%08x\n", ((t_proc *)vm.procs->head->data)->regs[i - 1]);
-		fflush(stdout);
-	}
 }
 
 int		main(int ac, char **av)
