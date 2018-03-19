@@ -6,29 +6,13 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 16:42:22 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:08:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "vm.h"
 #include <fcntl.h>
-
-size_t	ft_deque_len(t_deque *deq)
-{
-	size_t	i;
-	t_deque_elmt *e;
-
-	i = 0;
-	e = deq->head;
-	while (e)
-	{
-		i++;
-		e = e->next;
-	}
-	return (i);
-}
-
 
 void	test_interpret(t_vm vm)
 {
@@ -39,7 +23,7 @@ void	test_interpret(t_vm vm)
 	while (1)
 	{
 		i = 0;
-		len = ft_deque_len(vm.procs);
+		len = vm.procs->size;
 		while (i++ < len)
 		{
 			proc = ft_deque_pop_back(vm.procs);
