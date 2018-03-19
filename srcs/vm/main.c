@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 11:37:33 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:02:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,7 @@ void	test_interpret(t_vm vm)
 			print_arena(&vm);
 			print_header(&vm);
 			print_stats(&vm);
-			mvwprintw(vm.wins.stats_win, 1, 1, "%d", proc->pc);
-			mvwprintw(vm.wins.stats_win, 2, 1, "%d", vm.arena[proc->pc].hex);
-			for (int i = 0; i < REG_NUMBER; i++)
-			{
-				mvwprintw(vm.wins.stats_win, 3 + i, 1, "r%d: %08x", i + 1, proc->regs[i]);
-			}
-			wrefresh(vm.wins.stats_win);
-			usleep(200000);
+			usleep(500000);
 			//sleep(1);
 		}
 	}
