@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:50:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 13:17:43 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:02:56 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void		debug_print_arena(t_arena *arena, uint32_t pc, size_t len)
 		i++;
 		if (i < len)
 			ft_putchar(' ');
-		pc = addr_to_arena(pc + 1);
+		pc = (pc + 1) % MEM_SIZE;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 15:26:49 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:01:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 
 typedef union	u_arg_val
 {
-	int32_t		dir;
+	uint32_t	dir;
 	uint16_t	ind;
 	uint8_t		reg;
 	uint8_t		arr[4];
@@ -83,7 +83,7 @@ typedef struct	s_instr
 struct			s_proc
 {
 	uint8_t			carry;
-	size_t			pc;
+	uint32_t		pc;
 	struct s_instr	instr;
 	uint32_t		delay;
 	uint64_t		live;
@@ -161,11 +161,10 @@ int8_t			init_players(t_vm *vm, int *fds);
 int				*parse_args(t_vm *vm, int ac, char **av);
 void			run_vm(t_vm *vm);
 
-void			write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len, int colour);
-uint32_t		read_arena(t_arena *arena, size_t idx, size_t len);
-int32_t			addr_to_arena(int32_t addr);
-int8_t			is_valid_reg(uint8_t reg);
-int8_t			are_valid_regs(uint8_t *regs, size_t size);
+void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len, int colour);
+uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
+int8_t		is_valid_reg(uint8_t reg);
+int8_t		are_valid_regs(uint8_t *regs, size_t size);
 
 /*
 ** Debug function for verbosity

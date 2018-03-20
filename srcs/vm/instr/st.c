@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 13:48:04 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:04:31 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	instr_st(t_vm *vm, t_proc *proc)
 	arg = proc->instr.args[1];
 	if (arg.code == IND_CODE)
 	{
-		addr = addr_to_arena(proc->pc + (arg.value.ind % IDX_MOD));
+		addr = (proc->pc + (arg.value.ind % IDX_MOD)) % MEM_SIZE;
 		write_arena(vm->arena, val, addr, 4, proc->owner->id + 1);
 	}
 	else if (arg.code == REG_CODE)
