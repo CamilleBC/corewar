@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:05:48 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:53:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	instr_fork(t_vm *vm, t_proc *proc)
 		return ;
 	proc_f = malloc(sizeof(t_proc));
 	ft_memcpy(proc_f, proc, sizeof(t_proc));
+	ft_bzero(&proc_f->instr, sizeof(t_instr));
 	proc_f->pc = (proc_f->pc + instr.args[0].value.dir % IDX_MOD) % MEM_SIZE;
 	if (!(proc_f->owner->nb_threads % THREADS_ALLOC))
 		proc_f->owner->threads = ft_realloc(proc_f->owner->threads,
 				proc_f->owner->nb_threads, proc_f->owner->nb_threads + THREADS_ALLOC);
 	proc_f->owner->threads[proc_f->owner->nb_threads++] = proc_f;
-	ft_deque_push_front(vm->procs, proc_f);
+	ft_deque_push_back(vm->procs, proc_f);
 }

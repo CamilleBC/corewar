@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 16:01:52 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:54:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	entropy(t_vm *vm)
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 {
-	if (proc->instr.fn)
+	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
 	// check if instr wasn't zjmp
 	if (proc->instr.op->opcode != 9)
@@ -44,6 +44,7 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 		proc->pc += proc->instr.instr_size;
 		proc->pc %= MEM_SIZE;
 	}
+	ft_bzero(&proc->instr, sizeof(t_instr));
 	return (SUCCESS);
 }
 
@@ -64,12 +65,8 @@ static int8_t	loop_procs(t_vm *vm)
 			proc->delay -= 1;
 		else if (proc->instr.op == NULL)
 			interpret_instr(vm, proc);
-		else
-		{
-			if (exec_instr(vm, proc) == ERROR)
+		else if (exec_instr(vm, proc) == ERROR)
 				return (ERROR);
-			proc->instr.op = NULL;
-		}
 		queue_elmt = queue_elmt->next;
 		++i;
 	}

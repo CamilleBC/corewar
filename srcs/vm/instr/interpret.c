@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:06:40 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:10:26 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 		ft_putstr(" -> ");
 		debug_print_pc(proc->pc + proc->instr.instr_size);
 		ft_putchar(')');
+		ft_putchar(' ');
 		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
 		ft_putchar('\n');
 	}
