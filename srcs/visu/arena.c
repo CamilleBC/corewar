@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 18:35:43 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:08:31 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static int	display_pc(t_deque_elmt *elem, t_vm *vm)
 		elem = elem->next;
 		j++;
 	}
-	ft_putnbr(j);
-	ft_putchar('\n');
 	return (0);
 }
 
