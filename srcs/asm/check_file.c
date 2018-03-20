@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/19 17:24:50 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:14:06 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			go_next_token(char *line, t_tok_type tok)
 	return (c);
 }
 
-t_tok		*check_line(t_tok *first_tok, char *line)
+t_tok		*check_line(t_tok *first_tok, char *line, int fd)
 {
 	static int	i = 0;
 	int			count;
@@ -52,7 +52,7 @@ t_tok		*check_line(t_tok *first_tok, char *line)
 	{
 		if (!(token = push_token(token)) ||
 			((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
-			!get_data(&line[count], token->tok, &(token->data)))
+			!get_data(&line[count], token->tok, &(token->data), fd))
 			return (NULL);
 		count += go_next_token(&line[count], token->tok);
 		i++;
@@ -98,7 +98,7 @@ t_tok		*check_file(char *file, t_error *error)
 		return (super_free(first_tok, NULL, fd));
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (!line || !(token = check_line(token, line)))
+		if (!line || !(token = check_line(token, line, fd)))
 			return (super_free(first_tok, line, fd));
 		error->line++;
 		free(line);

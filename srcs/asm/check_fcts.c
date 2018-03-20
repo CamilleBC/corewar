@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/19 10:52:12 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:01:21 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int		is_op(char *line)
 	while (get_ops()[count].str != NULL)
 	{
 		if (!ft_strncmp(get_ops()[count].str, line,
-			ft_strlen(get_ops()[count].str)) &&
-			ft_isspace(line[ft_strlen(get_ops()[count].str)]))
+					ft_strlen(get_ops()[count].str)) &&
+				ft_isspace(line[ft_strlen(get_ops()[count].str)]))
 			return (count + 1);
 		count++;
 	}

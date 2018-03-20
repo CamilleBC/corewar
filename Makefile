@@ -55,7 +55,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -Werror -g $(INC)
+CFLAGS=-Wall -Wextra -Werror -g $(INC) -fsanitize=address
 LIB=-Llibft -lft -lncurses
 
 
