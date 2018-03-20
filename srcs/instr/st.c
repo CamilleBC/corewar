@@ -3,48 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 14:07:09 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:49:34 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_st(const t_instr_fn_args *args)
+void	instr_st(t_vm *vm, t_proc *proc)
 {
 	uint8_t		reg;
 	uint64_t	val;
 	t_arg		arg;
 	int32_t		addr;
 
-	if (args == 0 || args->nb_args != 2)
+	if (proc->instr.nb_args != 2)
 	{
-		args->proc->carry = 0;
+		proc->carry = 0;
 		return ;
 	}
-	reg = args->args[0].value.reg;
+	reg = proc->instr.args[0].value.reg;
 	if (!is_valid_reg(reg))
 	{
-		args->proc->carry = 0;
+		proc->carry = 0;
 		return ;
 	}
-	val = args->proc->regs[reg - 1];
-	arg = args->args[1];
+	val = proc->regs[reg - 1];
+	arg = proc->instr.args[1];
 	if (arg.code == IND_CODE)
 	{
-		addr = addr_to_arena(args->proc->pc + (arg.value.ind % IDX_MOD));
-		write_arena(args->vm->arena, val, addr, 4, args->proc->owner->id + 1);
+		addr = addr_to_arena(proc->pc + (arg.value.ind % IDX_MOD));
+		write_arena(vm->arena, val, addr, 4, proc->owner->id + 1);
 	}
 	else if (arg.code == REG_CODE)
 	{
 		if (!is_valid_reg(arg.value.reg))
 		{
-			args->proc->carry = 0;
+			proc->carry = 0;
 			return ;
 		}
-		args->proc->regs[arg.value.reg - 1] = val;
+		proc->regs[arg.value.reg - 1] = val;
 	}
-	args->proc->carry = 1;
+	proc->carry = 1;
 }

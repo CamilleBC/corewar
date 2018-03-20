@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   sub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:56:47 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 09:07:49 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:55:31 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_sub(const t_instr_fn_args *args)
+void	instr_sub(t_vm *vm, t_proc *proc)
 {
 	uint32_t	res;
 	uint8_t		regs[3];
+	t_instr		instr;
 
-	if (args->nb_args != 3)
+	(void)vm;
+	if (instr.nb_args != 3)
 	{
-		args->proc->carry = 0;
+		proc->carry = 0;
 		return ;
 	}
-	regs[0] = args->args[0].value.reg;
-	regs[1] = args->args[1].value.reg;
-	regs[2] = args->args[2].value.reg;
+	regs[0] = instr.args[0].value.reg;
+	regs[1] = instr.args[1].value.reg;
+	regs[2] = instr.args[2].value.reg;
 	if (!are_valid_regs(regs, 3))
 	{
-		args->proc->carry = 0;
+		proc->carry = 0;
 		return ;
 	}
-	res = args->proc->regs[regs[0] - 1];
-	res -= args->proc->regs[regs[1] - 1];
-	args->proc->regs[regs[2] - 1] = res;
-	args->proc->carry = 1;
+	res = proc->regs[regs[0] - 1];
+	res -= proc->regs[regs[1] - 1];
+	proc->regs[regs[2] - 1] = res;
+	proc->carry = 1;
 }

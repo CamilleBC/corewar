@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lfork.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:44 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 13:58:49 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:38:55 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_lfork(const t_instr_fn_args *args)
+void	instr_lfork(t_vm *vm, t_proc *proc)
 {
-	(void)args;
+	(void)vm;
+	(void)proc;
 }

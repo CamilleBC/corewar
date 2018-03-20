@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   zjmp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:45 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 11:35:04 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:54:07 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_zjmp(const t_instr_fn_args *args)
+void	instr_zjmp(t_vm *vm, t_proc *proc)
 {
-	if (args->nb_args != 1 || !args->proc->carry)
+	t_instr	instr;
+
+	(void)vm;
+	instr = proc->instr;
+	if (instr.nb_args != 1 || !proc->carry)
 		return ;
-	args->proc->pc += MEM_SIZE + args->args[0].value.dir;
-	args->proc->pc = addr_to_arena(args->proc->pc);
+	proc->pc += MEM_SIZE + instr.args[0].value.dir;
+	proc->pc = addr_to_arena(proc->pc);
 }

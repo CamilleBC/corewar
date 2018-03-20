@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lldi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 13:58:34 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:39:59 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_lldi(const t_instr_fn_args *args)
+void	instr_lldi(t_vm *vm, t_proc *proc)
 {
-	(void)args;
+	(void)vm;
+	(void)proc;
 }

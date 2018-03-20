@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 09:56:20 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:08:39 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,17 @@ typedef struct	s_arg
 
 typedef struct	s_player t_player;
 
+struct			s_instr;
+
 typedef struct	s_proc
 {
 	uint8_t			carry;
 	size_t			pc;
+	struct s_instr	instr;
 	uint32_t		delay;
 	uint64_t		live;
-	uint32_t	regs[REG_NUMBER];
-	t_player	*owner;
+	uint32_t		regs[REG_NUMBER];
+	t_player		*owner;
 }				t_proc;
 
 struct			s_player
@@ -115,35 +118,39 @@ typedef struct	s_instr_fn_args
 	size_t		nb_args;
 }				t_instr_fn_args;
 
-typedef void	t_instr_fn(const t_instr_fn_args *);
+typedef void	t_instr_fn(t_vm *, t_proc *);
 
 typedef struct	s_instr
 {
 	t_op		*op;
 	t_instr_fn	*fn;
+	t_arg		args[MAX_ARGS_NUMBER];
+	size_t		nb_args;
+	size_t		instr_size;
 }				t_instr;
 
 uint32_t	array_to_int(uint8_t arr[4], size_t size);
 uint32_t	array_to_int_arena(t_arena arena[4], size_t size);
 void		int_to_array(uint8_t arr[4], uint32_t val, size_t size);
-t_instr	*get_instrs(void);
+t_instr		*get_instrs(void);
 
-void	instr_live(const t_instr_fn_args *args);
-void	instr_ld(const t_instr_fn_args *args);
-void	instr_st(const t_instr_fn_args *args);
-void	instr_add(const t_instr_fn_args *args);
-void	instr_sub(const t_instr_fn_args *args);
-void	instr_and(const t_instr_fn_args *args);
-void	instr_or(const t_instr_fn_args *args);
-void	instr_xor(const t_instr_fn_args *args);
-void	instr_zjmp(const t_instr_fn_args *args);
-void	instr_ldi(const t_instr_fn_args *args);
-void	instr_sti(const t_instr_fn_args *args);
-void	instr_fork(const t_instr_fn_args *args);
-void	instr_lld(const t_instr_fn_args *args);
-void	instr_lldi(const t_instr_fn_args *args);
-void	instr_lfork(const t_instr_fn_args *args);
-void	instr_aff(const t_instr_fn_args *args);
+void	instr_add(t_vm *vm, t_proc *proc);
+void	instr_aff(t_vm *vm, t_proc *proc);
+void	instr_and(t_vm *vm, t_proc *proc);
+void	instr_fork(t_vm *vm, t_proc *proc);
+void	instr_ld(t_vm *vm, t_proc *proc);
+void	instr_ldi(t_vm *vm, t_proc *proc);
+void	instr_lfork(t_vm *vm, t_proc *proc);
+void	instr_live(t_vm *vm, t_proc *proc);
+void	instr_lld(t_vm *vm, t_proc *proc);
+void	instr_lldi(t_vm *vm, t_proc *proc);
+void	instr_or(t_vm *vm, t_proc *proc);
+void	instr_st(t_vm *vm, t_proc *proc);
+void	instr_st(t_vm *vm, t_proc *proc);
+void	instr_sti(t_vm *vm, t_proc *proc);
+void	instr_sub(t_vm *vm, t_proc *proc);
+void	instr_xor(t_vm *vm, t_proc *proc);
+void	instr_zjmp(t_vm *vm, t_proc *proc);
 
 int8_t	interpret_instr(t_vm *vm, t_proc *proc);
 
