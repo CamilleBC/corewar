@@ -8,3 +8,8 @@
 /log
 /test.cor
 /test.s
+/test-cbaillat.s
+/test-cbaillat.cor
+/resources/champs/*.cor
+/resources/champs/championships/*/*/*.cor
+/resources/champs/examples/*.cor

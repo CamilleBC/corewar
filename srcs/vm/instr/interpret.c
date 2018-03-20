@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:10:26 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:05:32 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	proc->pc %= MEM_SIZE;
 	if (op.str == 0)
 		return (ERROR);
+	proc->delay = op.cycle;
+	// debug see instruction
+	wmove(vm->wins.stats_win, 8, 1);
+	wclrtoeol(vm->wins.stats_win);
+	wprintw(vm->wins.stats_win, "OP name: %s", op.str);
+	wmove(vm->wins.stats_win, 9, 1);
+	wclrtoeol(vm->wins.stats_win);
+	wprintw(vm->wins.stats_win, "Delay: %u", proc->delay);
+	//debug
 	proc->instr.fn = get_instr_fn(op.opcode);
 	proc->instr.op = &op;
 	proc->instr.instr_size = fill_args(vm, proc, op) + 1;
@@ -105,8 +114,6 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 		ft_putchar('\n');
 	}
 	proc->pc %= MEM_SIZE;
-	if (proc->instr.fn)
-		proc->instr.fn(vm, proc);
 	// check if instr wasn't zjmp
 	return (SUCCESS);
 }

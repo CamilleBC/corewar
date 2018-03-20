@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:35:47 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 10:26:32 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:02:51 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,31 @@ static void	print_player_subwin(t_vm *vm, t_player *play)
 	print_player_string(vm ,play, "Name: ", play->header.prog_name);
 	wmove(vm->wins.children[id], SIZE_LINE, 1);
 	print_player_string(vm ,play, "Size: ", ft_itoa(play->header.prog_size));
-	wmove(vm->wins.children[id], COMMENT_LINE, 1);
-	print_player_string(vm ,play, "Comment: ", play->header.comment);
+	// wmove(vm->wins.children[id], COMMENT_LINE, 1);
+	// print_player_string(vm ,play, "Comment: ", play->header.comment);
 	wmove(vm->wins.children[id], THREADS_LINE, 1);
 	print_player_string(vm ,play, "Threads: ", ft_itoa(play->nb_threads));
 	wmove(vm->wins.children[id], LIVES_LINE, 1);
 	print_player_string(vm ,play, "Lives: ", ft_itoa(play->live));
 	wmove(vm->wins.children[id], ID_LINE, 1);
-	print_player_string(vm ,play, "ID: ", ft_itoa(play->id));
+	print_player_string(vm ,play, "ID: ", ft_itoa((-1) - play->id));
 	wrefresh(vm->wins.children[id]);
+}
+
+void	print_vm_stats(t_vm *vm)
+{
+	wattron(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
+	wmove(vm->wins.stats_win, 1, 1);
+	wprintw(vm->wins.stats_win, "Cycles: %llu", vm->total_cycles);
+	wmove(vm->wins.stats_win, 2, 1);
+	if (vm->flags & (1 << DUMP))
+		wprintw(vm->wins.stats_win, "Dump: %llu", vm->dump);
+	wmove(vm->wins.stats_win, 3, 1);
+	wprintw(vm->wins.stats_win, "Cycles to die: %llu", vm->cycles_to_die);
+	wmove(vm->wins.stats_win, 4, 1);
+	wprintw(vm->wins.stats_win, "Cycle delta: %d", CYCLE_DELTA);
+	wmove(vm->wins.stats_win, 5, 1);
+	wattroff(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
 }
 
 void	print_stats(t_vm *vm)
@@ -54,6 +70,7 @@ void	print_stats(t_vm *vm)
 	wattron(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
 	box(vm->wins.stats_win, '|' , '-');
 	wattroff(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
+	print_vm_stats(vm);
 	i = -1;
 	while (++i < vm->nb_players)
 		print_player_subwin(vm, vm->players[i]);
