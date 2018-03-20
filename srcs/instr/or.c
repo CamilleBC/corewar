@@ -19,7 +19,7 @@ void	instr_or(const t_instr_fn_args *args)
 
 	if (args->nb_args != args->op->nb_args)
 	{
-		args->proc->carry = 0;
+		proc->carry = 0;
 		return ;
 	}
 	reg_dst = args->args[2].value.reg;

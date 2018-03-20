@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:53 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 10:04:42 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:23:28 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_aff(const t_instr_fn_args *args)
+void	instr_aff(t_vm *vm, t_proc *proc)
 {
 	uint8_t		reg;
 	uint8_t		val;
+	t_instr		instr;
 
-	if (args->vm->flags & (1 << VISUAL) || args->op->nb_args != args->nb_args)
+	instr = proc->instr;
+	if (vm->flags & (1 << VISUAL) || instr.op->nb_args != instr.nb_args)
 		return ;
-	if (args->args[0].code != args->op->args[0])
+	if (instr.args[0].code != instr.op->args[0])
 		return ;
-	reg = args->args[0].value.reg;
+	reg = instr.args[0].value.reg;
 	if (!is_valid_reg(reg))
 		return ;
-	val = args->proc->regs[reg - 1] % 256;
+	val = proc->regs[reg - 1] % 256;
 	write(1, &val, 1);
 }

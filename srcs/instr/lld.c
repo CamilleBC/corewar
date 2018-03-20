@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void	instr_lld(const t_instr_fn_args *args)
+void	instr_lld(t_vm *vm, t_proc *proc)
 {
 	uint8_t	reg;
 	int		addr;

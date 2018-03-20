@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 13:05:28 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:19:50 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 	return (arg->size);
 }
 
-static size_t	fill_args(t_instr_fn_args *args, t_op op)
+static size_t	fill_args(t_vm *vm, t_proc *proc, t_op op)
 {
 	size_t	idx;
 	int		octal;
@@ -80,23 +80,22 @@ static size_t	fill_args(t_instr_fn_args *args, t_op op)
 	if (op.octal)
 	{
 		arg_size++;
-		octal = args->vm->arena[args->proc->pc++].hex;
+		octal = vm->arena[proc->pc++].hex;
 	}
 	idx = 0;
 	while (idx < op.nb_args)
 	{
 		if (octal)
-			args->args[idx].code = octal >> ((3 - idx) * 2) & 0b11;
+			proc->instr.args[idx].code = octal >> ((3 - idx) * 2) & 0b11;
 		else
-			args->args[idx].code = op.args[idx];
-		arg_size += fill_arg(args->vm->arena, args->proc, args->args + idx,
+			proc->instr.args[idx].code = op.args[idx];
+		arg_size += fill_arg(vm->arena, proc, proc->instr.args + idx,
 				(op.dir_size ? DIR_SIZE / 2 : DIR_SIZE));
-		args->nb_args++;
+		proc->instr.nb_args++;
 		idx++;
 	}
 	return (arg_size);
 }
-
 
 int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 {
@@ -105,17 +104,15 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	t_instr	instr;
 	size_t	len;
 
-	args.vm = vm;
-	args.proc = proc;
-	args.nb_args = 0;
-	ft_bzero(args.args, sizeof(t_arg) * MAX_ARGS_NUMBER);
+	proc->instr.nb_args = 0;
+	ft_bzero(proc->instr.args, sizeof(t_arg) * MAX_ARGS_NUMBER);
 	op = get_op(vm->arena[proc->pc++].hex);
-	args.proc->pc = addr_to_arena(args.proc->pc);
+	proc->pc = addr_to_arena(proc->pc);
 	instr = get_instr(op);
 	if (op.str == 0)
 		return (ERROR);
-	args.op = &op;
-	len = fill_args(&args, op) + 1;
+	proc->instr.op = &op;
+	proc->instr.instr_size = fill_args(vm, proc, op) + 1;
 	proc->pc -= len;
 	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
 	{
