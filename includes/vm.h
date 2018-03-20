@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 09:56:20 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:05:44 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 # define MAX_PLAYERS	4
 
 # define THREADS_ALLOC 20
+
+# define VERBOSE_PC		1
+# define VERBOSE_WRITE	2
+# define VERBOSE_READ	3
 
 typedef union	u_arg_val
 {
@@ -104,6 +108,7 @@ typedef struct	s_vm
 	uint64_t		total_cycles;
 	uint64_t		cycles_to_die;
 	struct s_win	wins;
+	uint8_t			verbose;
 }				t_vm;
 
 typedef struct	s_instr_fn_args
@@ -157,5 +162,12 @@ uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
 int32_t		addr_to_arena(int32_t addr);
 int8_t		is_valid_reg(uint8_t reg);
 int8_t		are_valid_regs(uint8_t *regs, size_t size);
+
+/*
+** Debug function for verbosity
+*/
+
+void		debug_print_arena(t_arena *arena, uint32_t pc, size_t len);
+void		debug_print_pc(uint32_t pc);
 
 #endif

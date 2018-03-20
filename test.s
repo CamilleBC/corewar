@@ -3,7 +3,7 @@
 
 start:
 	live %0
-	ld %10, r2
+	ld %10, r0
 	add r1, r2, r1
 	st r1, 3
-	fork %0
+	lld %:start, r5

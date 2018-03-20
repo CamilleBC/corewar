@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 13:36:30 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:21:14 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	instr_ld(const t_instr_fn_args *args)
 	uint8_t	reg;
 	int		addr;
 
-	if (args->nb_args != 2 || args->args[1].code != T_REG)
+	if (args->nb_args != args->op->nb_args || args->args[1].code != T_REG)
 	{
 		args->proc->carry = 0;
 		return ;
@@ -32,7 +32,7 @@ void	instr_ld(const t_instr_fn_args *args)
 		args->proc->regs[reg - 1] = args->args[0].value.dir;
 	else if (args->args[0].code == IND_CODE)
 	{
-		addr = addr_to_arena(args->proc->pc + args->args[0].value.ind);
+		addr = addr_to_arena(args->proc->pc + args->args[0].value.ind % IDX_MOD);
 		args->proc->regs[reg - 1] = array_to_int_arena(args->vm->arena + addr,
 				REG_SIZE);
 	}

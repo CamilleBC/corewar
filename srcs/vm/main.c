@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 17:08:28 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:38:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ int		main(int ac, char **av)
 				ft_putendl_fd("invalid file", 2);
 				return (1);
 			}
+		}
+		else if (ft_strequ(av[i], "-v") || ft_strequ(av[i], "--verbose"))
+		{
+			if (ft_strisnum(av[i + 1]))
+				i++;
 		}
 	}
 	vm.nb_players = i_fd;

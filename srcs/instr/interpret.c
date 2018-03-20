@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 09:59:12 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:05:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static size_t	fill_args(t_instr_fn_args *args, t_op op)
 	return (arg_size);
 }
 
+
 int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 {
 	t_instr_fn_args	args;
@@ -115,7 +116,17 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 		return (ERROR);
 	args.op = &op;
 	len = fill_args(&args, op) + 1;
-	args.proc->pc -= len;
+	proc->pc -= len;
+	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
+	{
+		ft_putchar('(');
+		debug_print_pc(proc->pc);
+		ft_putstr(" -> ");
+		debug_print_pc(proc->pc + len);
+		ft_putchar(')');
+		debug_print_arena(vm->arena, proc->pc, len);
+		ft_putchar('\n');
+	}
 	args.proc->pc = addr_to_arena(args.proc->pc);
 	if (instr.fn)
 		instr.fn(&args);

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 15:13:38 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:16:06 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	instr_sti(const t_instr_fn_args *args)
 	int		reg_val;
 	int		addr;
 
-	if (args->nb_args != 3)
+	if (args->nb_args != args->op->nb_args)
 	{
 		args->proc->carry = 0;
 		return ;

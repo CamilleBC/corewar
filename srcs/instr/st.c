@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 14:07:09 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:15:32 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	instr_st(const t_instr_fn_args *args)
 	t_arg		arg;
 	int32_t		addr;
 
-	if (args == 0 || args->nb_args != 2)
+	if (args == 0 || args->nb_args != args->op->nb_args)
 	{
 		args->proc->carry = 0;
 		return ;

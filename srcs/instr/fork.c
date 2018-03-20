@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 16:11:00 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:13:47 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	instr_fork(const t_instr_fn_args *args)
 {
 	t_proc	*proc;
 
-	if (args->nb_args != 1)
+	if (args->nb_args != args->op->nb_args)
 		return ;
 	proc = malloc(sizeof(t_proc));
 	ft_memcpy(proc, args->proc, sizeof(t_proc));
