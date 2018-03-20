@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   or.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:24 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 12:56:13 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:52:05 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	instr_or(t_vm *vm, t_proc *proc)
 {
-	//uint32_t	res;
-	t_instr	instr;
+	uint8_t		reg_dst;
+	uint32_t	val;
+	t_instr		instr;
 
 	(void)vm;
 	instr = proc->instr;
@@ -24,5 +25,34 @@ void	instr_or(t_vm *vm, t_proc *proc)
 		proc->carry = 0;
 		return ;
 	}
-	// TODO:
+	reg_dst = instr.args[2].value.reg;
+	if (!is_valid_reg(reg_dst))
+	{
+		proc->carry = 0;
+		return ;
+	}
+	if (instr.args[0].code == DIR_CODE || instr.args[0].code == IND_CODE)
+		val = instr.args[0].value.dir;
+	else
+	{
+		if (!is_valid_reg(instr.args[0].value.reg))
+		{
+			proc->carry = 0;
+			return ;
+		}
+		val = proc->regs[instr.args[0].value.reg - 1];
+	}
+	if (instr.args[1].code == DIR_CODE || instr.args[1].code == IND_CODE)
+		val |= instr.args[1].value.dir;
+	else
+	{
+		if (!is_valid_reg(instr.args[1].value.reg))
+		{
+			proc->carry = 0;
+			return ;
+		}
+		val |= proc->regs[instr.args[1].value.reg - 1];
+	}
+	proc->regs[reg_dst - 1] = val;
+	proc->carry = 1;
 }

@@ -6,12 +6,11 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/16 14:51:44 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:30:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
-#include "vm.h"
 
 static t_op    g_op_tab[OP_COUNT] =
 {
@@ -40,32 +39,7 @@ static t_op    g_op_tab[OP_COUNT] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-static t_instr	g_instr_tab[OP_COUNT] =
-{
-	{g_op_tab + 0, instr_live},
-	{g_op_tab + 1, instr_ld},
-	{g_op_tab + 2, instr_st},
-	{g_op_tab + 3, instr_add},
-	{g_op_tab + 4, instr_sub},
-	{g_op_tab + 5, instr_and},
-	{g_op_tab + 6, instr_or},
-	{g_op_tab + 7, instr_xor},
-	{g_op_tab + 8, instr_zjmp},
-	{g_op_tab + 9, instr_ldi},
-	{g_op_tab + 10, instr_sti},
-	{g_op_tab + 11, instr_fork},
-	{g_op_tab + 12, instr_lld},
-	{g_op_tab + 13, instr_lldi},
-	{g_op_tab + 14, instr_lfork},
-	{g_op_tab + 15, instr_aff},
-};
-
 t_op		*get_ops(void)
 {
 	return (g_op_tab);
-}
-
-t_instr		*get_instrs(void)
-{
-	return (g_instr_tab);
 }
