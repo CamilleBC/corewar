@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:04:31 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:32:09 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	instr_st(t_vm *vm, t_proc *proc)
 	if (arg.code == IND_CODE)
 	{
 		addr = (proc->pc + (arg.value.ind % IDX_MOD)) % MEM_SIZE;
-		write_arena(vm->arena, val, addr, 4, proc->owner->id + 1);
+		write_arena(vm->arena, val, addr, 4, proc->owner->colour);
 	}
 	else if (arg.code == REG_CODE)
 	{

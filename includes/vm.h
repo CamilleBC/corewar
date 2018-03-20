@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 16:01:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:17:23 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ struct			s_player
 	t_header	header;
 	uint8_t		prog[CHAMP_MAX_SIZE + 1];
 	uint32_t	id;
+	uint32_t	colour;
 	uint64_t	live;
 	t_proc		**threads;
 	size_t		nb_threads;

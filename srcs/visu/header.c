@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:34:45 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/16 17:11:40 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:37:32 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	print_header(t_vm *vm)
 	int	x_offset;
 
 	x_offset = (HEADER_W / 2) - 22;
+	// wattron(vm->wins.header_win, A_BOLD);
+	// wattron(vm->wins.header_win, COLOR_PAIR(RED_BLACK));
 	wattron(vm->wins.header_win,COLOR_PAIR(WHITEP_BLACK));
 	wborder(vm->wins.header_win, '#', '#', '#', '#', '#', '#', '#', '#');
 	mvwprintw(vm->wins.header_win, 1, x_offset, HEADER_LINE_1);
@@ -26,5 +28,7 @@ void	print_header(t_vm *vm)
 	mvwprintw(vm->wins.header_win, 4, x_offset, HEADER_LINE_4);
 	mvwprintw(vm->wins.header_win, 5, x_offset, HEADER_LINE_5);
 	wattroff(vm->wins.header_win,COLOR_PAIR(WHITEP_BLACK));
+	// wattroff(vm->wins.header_win, COLOR_PAIR(RED_BLACK));
+	// wattroff(vm->wins.header_win, A_BOLD);
 	wrefresh(vm->wins.header_win);
 }
