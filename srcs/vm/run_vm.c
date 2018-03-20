@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 18:01:19 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:51:32 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	print_screen(t_vm *vm)
 	print_arena(vm);
 	print_header(vm);
 	print_stats(vm);
-	usleep(1000);
+	usleep(20000);
 }
 
 void	run_vm(t_vm *vm)

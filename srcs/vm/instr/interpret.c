@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 18:05:32 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:51:47 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,54 @@ static size_t	fill_args(t_vm *vm, t_proc *proc, t_op op)
 	return (arg_size);
 }
 
+void	clear_win_line(WINDOW *win, t_vm *vm, int y, int x)
+{
+	size_t	width;
+	char	*erase;
+	size_t	i;
+
+	wmove(win, y, x);
+	if (win == vm->wins.arena_win)
+		width = ARENA_W - 1;
+	else if (win == vm->wins.stats_win)
+		width = STATS_W - 1;
+	else if (win == vm->wins.header_win)
+		width = HEADER_W - 1;
+	else
+		return ;
+	if (!(erase = ft_strnew(sizeof(char) * width)))
+		return ;
+	i = 0;
+	wattron(vm->wins.stats_win, COLOR_PAIR(BLACK));
+	while (++i < width)
+		wprintw(win, " ");
+	wattroff(vm->wins.stats_win, COLOR_PAIR(BLACK));
+}
+
+void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
+{
+	int	offset;
+
+	offset = 5 + (3 * ft_abs32(proc->owner->id));
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
+	wmove(vm->wins.stats_win, offset, 1);
+	wclrtoeol(vm->wins.stats_win);
+
+	wprintw(vm->wins.stats_win, "Proc owner: %d / %s", (-1) - proc->owner->id,
+		proc->owner->header.prog_name);
+	wmove(vm->wins.stats_win, offset + 1, 1);
+	wclrtoeol(vm->wins.stats_win);
+	wprintw(vm->wins.stats_win, "OP name: %s", op.str);
+	wmove(vm->wins.stats_win, offset + 2, 1);
+	wclrtoeol(vm->wins.stats_win);
+	wprintw(vm->wins.stats_win, "Delay: %u", proc->delay);
+	wattroff(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
+	wrefresh(vm->wins.stats_win);
+	wattron(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
+	box(vm->wins.stats_win, '|' , '-');
+	wattroff(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
+}
+
 int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 {
 	t_op	op;
@@ -90,18 +138,13 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	if (op.str == 0)
 		return (ERROR);
 	proc->delay = op.cycle;
-	// debug see instruction
-	wmove(vm->wins.stats_win, 8, 1);
-	wclrtoeol(vm->wins.stats_win);
-	wprintw(vm->wins.stats_win, "OP name: %s", op.str);
-	wmove(vm->wins.stats_win, 9, 1);
-	wclrtoeol(vm->wins.stats_win);
-	wprintw(vm->wins.stats_win, "Delay: %u", proc->delay);
-	//debug
+
 	proc->instr.fn = get_instr_fn(op.opcode);
 	proc->instr.op = &op;
 	proc->instr.instr_size = fill_args(vm, proc, op) + 1;
 	proc->pc -= proc->instr.instr_size;
+	if (vm->flags & (1 << VISUAL))
+		print_player_instr(vm, proc, op);
 	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
 	{
 		ft_putchar('(');

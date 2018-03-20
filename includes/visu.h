@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 15:35:37 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:49:55 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@
 
 # define NAME_LINE		1
 # define SIZE_LINE		3
-# define COMMENT_LINE	4
-# define THREADS_LINE	5
-# define LIVES_LINE		6
-# define ID_LINE		7
+# define THREADS_LINE	4
+# define LIVES_LINE		5
+# define ID_LINE		6
 
 /*
 ** Colour Pairs
@@ -79,6 +78,7 @@
 # define BLACK_WHITE	13
 # define WHITEP_BLACK	14
 # define BLACK_WHITEP	15
+# define BLACK			98
 # define ARENA			99
 # define ARENA_PLAYER1	101
 # define ARENA_PLAYER2	102
