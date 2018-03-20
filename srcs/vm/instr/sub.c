@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:56:47 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 12:55:31 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:48:26 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	instr_sub(t_vm *vm, t_proc *proc)
 	t_instr		instr;
 
 	(void)vm;
+	instr = proc->instr;
 	if (instr.nb_args != 3)
 	{
 		proc->carry = 0;

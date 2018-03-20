@@ -10,10 +10,7 @@ ASM_SRC_NAME=check_file.c \
 			 write.c \
 			 main.c
 COMMON_SRC_NAME = op.c \
-				  bits.c \
-				  arena.c \
-				  vm/debug.c \
-				  $(addprefix instr/, $(INSTR_SRC_NAME))
+				  bits.c
 INSTR_SRC_NAME = interpret.c \
 				 cast.c \
 				 live.c \
@@ -32,7 +29,8 @@ INSTR_SRC_NAME = interpret.c \
 				 lldi.c \
 				 lfork.c \
 				 aff.c \
-				 registers.c
+				 registers.c \
+				 tab.c
 VISU_SRC_NAME=	arena.c \
 				header.c \
 				init_and_free.c \
@@ -43,7 +41,10 @@ VM_SRC_NAME	= init_players.c \
 				init_vm.c \
 				parse_args.c \
 				run_vm.c \
-				main.c
+				main.c \
+				debug.c \
+				arena.c \
+				$(addprefix instr/, $(INSTR_SRC_NAME))
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
 VISU_SRC=$(addprefix srcs/visu/, $(VISU_SRC_NAME))

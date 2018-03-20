@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 12:33:09 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:52:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	instr_fork(t_vm *vm, t_proc *proc)
 	t_proc	*proc_f;
 	t_instr	instr;
 
-	if (args->nb_args != args->op->nb_args)
+	instr = proc->instr;
+	if (instr.nb_args != 1)
 		return ;
 	proc_f = malloc(sizeof(t_proc));
 	ft_memcpy(proc_f, proc, sizeof(t_proc));

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 13:01:33 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:42:01 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 		proc->pc += proc->instr.instr_size;
 		proc->pc = addr_to_arena(proc->pc);
 	}
+	return (SUCCESS);
 }
 
 static int8_t	loop_procs(t_vm *vm)
@@ -67,10 +68,11 @@ static int8_t	loop_procs(t_vm *vm)
 		{
 			if (exec_instr(vm, proc) == ERROR)
 				return (ERROR);
-			proc->instr.op == NULL;
+			proc->instr.op = NULL;
 		}
 		queue_elmt = queue_elmt->next;
 	}
+	return (SUCCESS);
 }
 
 static void	print_screen(t_vm *vm)
@@ -79,25 +81,6 @@ static void	print_screen(t_vm *vm)
 	print_header(vm);
 	print_stats(vm);
 	usleep(50000);
-}
-
-static void	set_instr(t_vm *vm)
-{
-	t_proc			*proc;
-	t_deque_elmt	*queue_elmt;
-	size_t			len;
-	size_t			i;
-
-	i = 0;
-	len = vm->procs->size;
-	queue_elmt = vm->procs->head;
-	while (i < len)
-	{
-		proc = (t_proc*)queue_elmt->data;
-		proc->instr = get_instr();
-		proc->delay = set_delay(proc->instr);
-		queue_elmt = queue_elmt->next;
-	}
 }
 
 void	run_vm(t_vm *vm)

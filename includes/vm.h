@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 13:05:44 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 13:46:55 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,21 @@ typedef struct	s_arg
 }				t_arg;
 
 typedef struct	s_player t_player;
+typedef struct	s_vm t_vm;
+typedef struct	s_proc t_proc;
+typedef void	t_instr_fn(t_vm *, t_proc *);
 
-struct			s_instr;
+typedef struct	s_instr
+{
+	t_op		*op;
+	t_instr_fn	*fn;
+	t_arg		args[MAX_ARGS_NUMBER];
+	size_t		nb_args;
+	size_t		instr_size;
+}				t_instr;
 
-typedef struct	s_proc
+
+struct			s_proc
 {
 	uint8_t			carry;
 	size_t			pc;
@@ -78,7 +89,7 @@ typedef struct	s_proc
 	uint64_t		live;
 	uint32_t		regs[REG_NUMBER];
 	t_player		*owner;
-}				t_proc;
+};
 
 struct			s_player
 {
@@ -100,7 +111,7 @@ typedef struct	s_arena
 
 struct			s_win;
 
-typedef struct	s_vm
+struct			s_vm
 {
 	uint8_t			flags;
 	t_arena			arena[MEM_SIZE];
@@ -112,32 +123,18 @@ typedef struct	s_vm
 	uint64_t		cycles_to_die;
 	struct s_win	wins;
 	uint8_t			verbose;
-}				t_vm;
+};
 
-typedef struct	s_instr_fn_args
+typedef struct	s_instr_def
 {
-	t_vm		*vm;
-	t_proc		*proc;
-	t_arg		args[MAX_ARGS_NUMBER];
-	t_op		*op;
-	size_t		nb_args;
-}				t_instr_fn_args;
-
-typedef void	t_instr_fn(t_vm *, t_proc *);
-
-typedef struct	s_instr
-{
-	t_op		*op;
+	int			opcode;
 	t_instr_fn	*fn;
-	t_arg		args[MAX_ARGS_NUMBER];
-	size_t		nb_args;
-	size_t		instr_size;
-}				t_instr;
+}				t_instr_def;
 
 uint32_t	array_to_int(uint8_t arr[4], size_t size);
 uint32_t	array_to_int_arena(t_arena arena[4], size_t size);
 void		int_to_array(uint8_t arr[4], uint32_t val, size_t size);
-t_instr		*get_instrs(void);
+t_instr_fn	*get_instr_fn(int opcode);
 
 void	instr_add(t_vm *vm, t_proc *proc);
 void	instr_aff(t_vm *vm, t_proc *proc);
