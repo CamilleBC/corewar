@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 17:10:23 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:56:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct	s_instr_fn_args
 	t_vm		*vm;
 	t_proc		*proc;
 	t_arg		args[MAX_ARGS_NUMBER];
+	t_op		*op;
 	size_t		nb_args;
 }				t_instr_fn_args;
 

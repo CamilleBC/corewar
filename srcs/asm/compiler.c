@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 17:17:47 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 17:17:51 by chaydont         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:58:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	write_op(t_tok *file, t_tok *first_nod, int cursor, int fd)
 
 	op_tab = get_ops();
 	op = (int*)file->data;
-	nb_arg = op_tab[*op - 1].nb_arg;
+	nb_arg = op_tab[*op - 1].nb_args;
 	ft_putchar_fd(*op, fd);
 	if (op_tab[*op - 1].octal)
 		ft_putchar_fd(get_param_code(file->next, nb_arg), fd);

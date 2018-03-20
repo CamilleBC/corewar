@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/19 15:50:57 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:59:12 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 
 static size_t	fill_args(t_instr_fn_args *args, t_op op)
 {
-	int		idx;
+	size_t	idx;
 	int		octal;
 	size_t	arg_size;
 
@@ -83,7 +83,7 @@ static size_t	fill_args(t_instr_fn_args *args, t_op op)
 		octal = args->vm->arena[args->proc->pc++].hex;
 	}
 	idx = 0;
-	while (idx < op.nb_arg)
+	while (idx < op.nb_args)
 	{
 		if (octal)
 			args->args[idx].code = octal >> ((3 - idx) * 2) & 0b11;
@@ -113,6 +113,7 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	instr = get_instr(op);
 	if (op.str == 0)
 		return (ERROR);
+	args.op = &op;
 	len = fill_args(&args, op) + 1;
 	args.proc->pc -= len;
 	args.proc->pc = addr_to_arena(args.proc->pc);

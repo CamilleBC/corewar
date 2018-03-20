@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_label_position.c                               :+:      :+:    :+:   */
+/*   get_label_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 15:53:42 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/19 16:32:13 by chaydont         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:58:27 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			get_op_length(t_tok *file)
 	i = 1;
 	op_tab = get_ops();
 	op = file->data;
-	nb_arg = op_tab[*op - 1].nb_arg;
+	nb_arg = op_tab[*op - 1].nb_args;
 	if (op_tab[*op - 1].octal)
 		i++;
 	while (nb_arg-- >= 1)

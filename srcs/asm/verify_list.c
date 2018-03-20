@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/19 16:58:54 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:58:01 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_tok	*check_args(t_tok *token, t_tok *first)
 	j = 0;
 	while (*(int *)token->data != get_ops()[i].opcode)
 		i++;
-	while (j < get_ops()[i].nb_arg)
+	while ((size_t)j < get_ops()[i].nb_args)
 	{
 		token = token->next;
 		if (!check_arg(token, first, get_ops()[i].args[j++]))
