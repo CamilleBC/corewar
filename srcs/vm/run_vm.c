@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 13:42:01 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:01:52 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 	if (proc->instr.op->opcode != 9)
 	{
 		proc->pc += proc->instr.instr_size;
-		proc->pc = addr_to_arena(proc->pc);
+		proc->pc %= MEM_SIZE;
 	}
 	return (SUCCESS);
 }

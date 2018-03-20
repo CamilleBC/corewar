@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 13:46:44 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:06:40 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 	else if (arg->code == DIR_CODE)
 	{
 		arg->value.dir = array_to_int_arena(mem + proc->pc, dir_size);
-		if (dir_size == (DIR_SIZE / 2))
-			arg->value.dir = (int16_t)arg->value.dir;
 		proc->pc += dir_size;
 		arg->size = dir_size;
 	}
-	proc->pc = addr_to_arena(proc->pc);
+	proc->pc %= MEM_SIZE;
 	return (arg->size);
 }
 
@@ -88,7 +86,7 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	proc->instr.nb_args = 0;
 	ft_bzero(proc->instr.args, sizeof(t_arg) * MAX_ARGS_NUMBER);
 	op = get_op(vm->arena[proc->pc++].hex);
-	proc->pc = addr_to_arena(proc->pc);
+	proc->pc %= MEM_SIZE;
 	if (op.str == 0)
 		return (ERROR);
 	proc->instr.fn = get_instr_fn(op.opcode);
@@ -105,7 +103,7 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
 		ft_putchar('\n');
 	}
-	proc->pc = addr_to_arena(proc->pc);
+	proc->pc %= MEM_SIZE;
 	if (proc->instr.fn)
 		proc->instr.fn(vm, proc);
 	// check if instr wasn't zjmp

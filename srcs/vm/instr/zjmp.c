@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:45 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 12:54:07 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:04:53 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	instr_zjmp(t_vm *vm, t_proc *proc)
 	instr = proc->instr;
 	if (instr.nb_args != 1 || !proc->carry)
 		return ;
-	proc->pc += MEM_SIZE + instr.args[0].value.dir;
-	proc->pc = addr_to_arena(proc->pc);
+	proc->pc += instr.args[0].value.dir;
+	proc->pc %= MEM_SIZE;
 }
