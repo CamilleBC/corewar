@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/20 09:58:01 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 15:28:05 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		check_arg(t_tok *token, t_tok *first, int args)
 		if (!find_label(token->data, first))
 			return (0);
 	if (token->tok == TOK_REG)
-		if (*(int *)token->data > REG_NUMBER)
+		if (*(int *)token->data < 0)
 			return (0);
 	if (args >= T_IND)
 	{
