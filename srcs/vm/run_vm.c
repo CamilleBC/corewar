@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 16:09:36 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:10:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,21 @@ static void	entropy(t_vm *vm)
 		proc_elmt = queue_elmt;
 		queue_elmt = queue_elmt->next;
 		if (!proc->live)
+		{
+			proc->owner->nb_threads--;
 			ft_deque_pop_elmt(vm->procs, proc_elmt);
+		}
 		lives += proc->live;
 	}
 	if (lives >= NBR_LIVE)
 		vm->cycles_to_die -= CYCLE_DELTA;
+	queue_elmt = vm->procs->head;
+	while (queue_elmt)
+	{
+		proc = (t_proc*)queue_elmt->data;
+		proc->live = 0;
+		queue_elmt = queue_elmt->next;
+	}
 }
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
