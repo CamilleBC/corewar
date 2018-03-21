@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 19:20:14 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 16:07:32 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@
 # define ARENA_PLAYER4	104
 # define TEST			1000
 
+/*
+** User input
+*/
+
+# define KEY_SPACE	99
+
 struct	s_vm;
 
 typedef struct	s_win
@@ -98,8 +104,10 @@ typedef struct	s_win
 }				t_win;
 
 WINDOW	*create_newwin(int height, int width, int starty, int startx);
-void	free_visu(t_win windows, uint8_t nb_players);
-void	init_visu(struct s_vm *vm);
+int8_t	free_visu(t_win windows, uint8_t nb_players);
+int8_t	init_user_input(void);
+int8_t	init_visu(struct s_vm *vm);
+int		manage_user_input(uint8_t *run, int old_cycles);
 void	print_arena(struct s_vm *vm);
 void	print_header(struct s_vm *vm);
 void	print_stats(struct s_vm *vm);
