@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 18:51:47 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 09:46:11 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,15 @@ void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
 	offset = 5 + (3 * ft_abs32(proc->owner->id));
 	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
 	wmove(vm->wins.stats_win, offset, 1);
-	wclrtoeol(vm->wins.stats_win);
-
+	// wclrtoeol(vm->wins.stats_win);
+	// clear_win_line(vm->wins.stats_win, vm, offset, 1);
 	wprintw(vm->wins.stats_win, "Proc owner: %d / %s", (-1) - proc->owner->id,
 		proc->owner->header.prog_name);
 	wmove(vm->wins.stats_win, offset + 1, 1);
-	wclrtoeol(vm->wins.stats_win);
+	// wclrtoeol(vm->wins.stats_win);
 	wprintw(vm->wins.stats_win, "OP name: %s", op.str);
 	wmove(vm->wins.stats_win, offset + 2, 1);
-	wclrtoeol(vm->wins.stats_win);
+	// wclrtoeol(vm->wins.stats_win);
 	wprintw(vm->wins.stats_win, "Delay: %u", proc->delay);
 	wattroff(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
 	wrefresh(vm->wins.stats_win);
