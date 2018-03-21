@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 18:51:32 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 10:39:55 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void	entropy(t_vm *vm)
 	t_deque_elmt	*proc_elmt;
 
 	lives = 0;
-	queue_elmt = vm->procs->head;
+	queue_elmt = vm->procs->tail;
 	while (queue_elmt)
 	{
 		proc = (t_proc*)queue_elmt->data;
 		proc_elmt = queue_elmt;
-		queue_elmt = queue_elmt->next;
+		queue_elmt = queue_elmt->prev;
 		if (!proc->live)
 			ft_deque_pop_elmt(vm->procs, proc_elmt);
 		lives += proc->live;
@@ -57,7 +57,7 @@ static int8_t	loop_procs(t_vm *vm)
 
 	i = 0;
 	len = vm->procs->size;
-	queue_elmt = vm->procs->head;
+	queue_elmt = vm->procs->tail;
 	while (i < len)
 	{
 		proc = (t_proc*)queue_elmt->data;
@@ -67,7 +67,7 @@ static int8_t	loop_procs(t_vm *vm)
 			interpret_instr(vm, proc);
 		else if (exec_instr(vm, proc) == ERROR)
 				return (ERROR);
-		queue_elmt = queue_elmt->next;
+		queue_elmt = queue_elmt->prev;
 		++i;
 	}
 	return (SUCCESS);
