@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:05:32 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 14:48:51 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ void	instr_sti(t_vm *vm, t_proc *proc)
 		return ;
 	}
 	addr %= MEM_SIZE;
-	write_arena(vm->arena, reg_val, addr, 4, proc->owner->id + 1);
+	write_arena(vm->arena, reg_val, addr, 4, proc->owner->colour);
 }
