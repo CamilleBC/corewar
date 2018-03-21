@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 15:59:49 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 16:54:17 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	instr_st(t_vm *vm, t_proc *proc)
 			return ;
 		proc->regs[arg.value.reg - 1] = val;
 	}
-	proc->carry = !val;
 }

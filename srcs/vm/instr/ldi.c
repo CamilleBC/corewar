@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:54 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 16:40:35 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 16:54:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,4 @@ void	instr_ldi(t_vm *vm, t_proc *proc)
 	//	return ;
 	addr = ((int16_t)(val1 + val2)) % IDX_MOD;
 	proc->regs[reg - 1] = read_arena(vm->arena, (proc->pc + addr) % MEM_SIZE, REG_SIZE);
-	//proc->carry = !proc->regs[reg - 1];
-	//dprintf(2, "set r%d = %08x\n", reg, proc->regs[reg - 1]);
 }
