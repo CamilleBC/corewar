@@ -35,6 +35,7 @@ VISU_SRC_NAME=	arena.c \
 				header.c \
 				init_and_free.c \
 				stats.c \
+				user_input.c \
 				visu_ncurses.c \
 				windows.c
 VM_SRC_NAME	= init_players.c \
