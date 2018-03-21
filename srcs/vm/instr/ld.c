@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:04:14 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:54:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,16 @@ void	instr_ld(t_vm *vm, t_proc *proc)
 
 	instr = proc->instr;
 	if (instr.nb_args != 2 || instr.args[1].code != T_REG)
-	{
-		proc->carry = 0;
 		return ;
-	}
 	reg = instr.args[1].value.reg;
 	if (!is_valid_reg(reg))
-	{
-		proc->carry = 0;
 		return ;
-	}
 	if (instr.args[0].code == DIR_CODE)
 		proc->regs[reg - 1] = instr.args[0].value.dir;
 	else if (instr.args[0].code == IND_CODE)
 	{
-		addr = (proc->pc + instr.args[0].value.ind % IDX_MOD) % MEM_SIZE;
-		proc->regs[reg - 1] = array_to_int_arena(vm->arena + addr,
-				REG_SIZE);
+		addr = proc->pc + (instr.args[0].value.ind % IDX_MOD) % MEM_SIZE;
+		proc->regs[reg - 1] = read_arena(vm->arena, addr, REG_SIZE);
 	}
-	else
-	{
-		proc->carry = 0;
-		return ;
-	}
-	proc->carry = 1;
+	proc->carry = !proc->regs[reg - 1];
 }

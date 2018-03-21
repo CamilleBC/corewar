@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 10:20:48 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:24:14 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
 	int	offset;
 
 	offset = 6 + (3 * ft_abs32(proc->owner->id));
-
 	clear_win_line(vm->wins.stats_win, vm, offset, 1);
 	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
 	wmove(vm->wins.stats_win, offset, 1);
@@ -134,25 +133,12 @@ int8_t	interpret_instr(t_vm *vm, t_proc *proc)
 	if (op.str == 0)
 		return (ERROR);
 	proc->delay = op.cycle;
-
 	proc->instr.fn = get_instr_fn(op.opcode);
 	proc->instr.op = &op;
 	proc->instr.instr_size = fill_args(vm, proc, op) + 1;
 	proc->pc -= proc->instr.instr_size;
 	if (vm->flags & (1 << VISUAL))
 		print_player_instr(vm, proc, op);
-	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
-	{
-		ft_putchar('(');
-		debug_print_pc(proc->pc);
-		ft_putstr(" -> ");
-		debug_print_pc(proc->pc + proc->instr.instr_size);
-		ft_putchar(')');
-		ft_putchar(' ');
-		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
-		ft_putchar('\n');
-	}
 	proc->pc %= MEM_SIZE;
-	// check if instr wasn't zjmp
 	return (SUCCESS);
 }

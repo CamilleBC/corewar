@@ -6,15 +6,15 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:50:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:02:56 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:30:08 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_hex(char hex)
+static void	print_hex(unsigned char hex)
 {
-	char	decade;
+	unsigned char	decade;
 
 	decade = hex / 16;
 	hex %= 16;

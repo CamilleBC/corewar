@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:21 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 16:06:03 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:56:37 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,10 @@ void	instr_lld(t_vm *vm, t_proc *proc)
 
 	instr = proc->instr;
 	if (instr.nb_args != 2 || instr.args[1].code != T_REG)
-	{
-		proc->carry = 0;
 		return ;
-	}
 	reg = instr.args[1].value.reg;
 	if (!is_valid_reg(reg))
-	{
-		proc->carry = 0;
 		return ;
-	}
 	if (instr.args[0].code == DIR_CODE)
 		proc->regs[reg - 1] = instr.args[0].value.dir;
 	else if (instr.args[0].code == IND_CODE)
@@ -39,9 +33,6 @@ void	instr_lld(t_vm *vm, t_proc *proc)
 				REG_SIZE);
 	}
 	else
-	{
-		proc->carry = 0;
 		return ;
-	}
-	proc->carry = 1;
+	proc->carry = !proc->regs[reg - 1];
 }

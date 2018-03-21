@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 18:51:32 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:29:24 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,23 @@ static void	entropy(t_vm *vm)
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 {
+	uint16_t	old_pc;
+	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
+	{
+		ft_putchar('(');
+		debug_print_pc(proc->pc);
+		ft_putstr(" -> ");
+		debug_print_pc(proc->pc + proc->instr.instr_size);
+		ft_putchar(')');
+		ft_putchar(' ');
+		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
+		ft_putchar('\n');
+	}
+	old_pc = proc->pc;
 	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
 	// check if instr wasn't zjmp
-	if (proc->instr.op->opcode != 9)
+	if (proc->pc == old_pc)
 	{
 		proc->pc += proc->instr.instr_size;
 		proc->pc %= MEM_SIZE;

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 09:45:43 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:15:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct	s_instr
 struct			s_proc
 {
 	uint8_t			carry;
-	uint32_t		pc;
+	uint16_t		pc;
 	struct s_instr	instr;
 	uint32_t		delay;
 	uint64_t		live;
