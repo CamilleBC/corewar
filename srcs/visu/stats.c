@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:35:47 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 18:42:03 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 10:12:26 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	print_player_string(t_vm *vm, t_player *player,
 	wattron(vm->wins.children[player->id], COLOR_PAIR(WHITEP_BLACK));
 	wprintw(vm->wins.children[player->id], title);
 	wattroff(vm->wins.children[player->id], COLOR_PAIR(WHITEP_BLACK));
-	wattron(vm->wins.children[player->id], COLOR_PAIR(player->id + 1));
+	wattron(vm->wins.children[player->id], COLOR_PAIR(player->colour));
 	wprintw(vm->wins.children[player->id],"%s", content);
-	wattroff(vm->wins.children[player->id], COLOR_PAIR(player->id + 1));
+	wattroff(vm->wins.children[player->id], COLOR_PAIR(player->colour));
 }
 
 static void	print_player_subwin(t_vm *vm, t_player *play)

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 09:46:11 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 10:20:48 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static size_t	fill_args(t_vm *vm, t_proc *proc, t_op op)
 void	clear_win_line(WINDOW *win, t_vm *vm, int y, int x)
 {
 	size_t	width;
-	char	*erase;
 	size_t	i;
 
 	wmove(win, y, x);
@@ -93,8 +92,6 @@ void	clear_win_line(WINDOW *win, t_vm *vm, int y, int x)
 	else if (win == vm->wins.header_win)
 		width = HEADER_W - 1;
 	else
-		return ;
-	if (!(erase = ft_strnew(sizeof(char) * width)))
 		return ;
 	i = 0;
 	wattron(vm->wins.stats_win, COLOR_PAIR(BLACK));
@@ -107,24 +104,23 @@ void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
 {
 	int	offset;
 
-	offset = 5 + (3 * ft_abs32(proc->owner->id));
-	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
+	offset = 6 + (3 * ft_abs32(proc->owner->id));
+
+	clear_win_line(vm->wins.stats_win, vm, offset, 1);
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
 	wmove(vm->wins.stats_win, offset, 1);
-	// wclrtoeol(vm->wins.stats_win);
-	// clear_win_line(vm->wins.stats_win, vm, offset, 1);
 	wprintw(vm->wins.stats_win, "Proc owner: %d / %s", (-1) - proc->owner->id,
 		proc->owner->header.prog_name);
+	clear_win_line(vm->wins.stats_win, vm, offset + 1, 1);
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
 	wmove(vm->wins.stats_win, offset + 1, 1);
-	// wclrtoeol(vm->wins.stats_win);
 	wprintw(vm->wins.stats_win, "OP name: %s", op.str);
+	clear_win_line(vm->wins.stats_win, vm, offset + 2, 1);
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
 	wmove(vm->wins.stats_win, offset + 2, 1);
-	// wclrtoeol(vm->wins.stats_win);
 	wprintw(vm->wins.stats_win, "Delay: %u", proc->delay);
 	wattroff(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
 	wrefresh(vm->wins.stats_win);
-	wattron(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
-	box(vm->wins.stats_win, '|' , '-');
-	wattroff(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
 }
 
 int8_t	interpret_instr(t_vm *vm, t_proc *proc)
