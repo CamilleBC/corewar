@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/03/21 16:54:56 by briviere         ###   ########.fr       */
+=======
+/*   Updated: 2018/03/21 14:48:51 by cbaillat         ###   ########.fr       */
+>>>>>>> origin/vm-arena
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +51,12 @@ void	instr_sti(t_vm *vm, t_proc *proc)
 	}
 	else
 		return ;
+<<<<<<< HEAD
 	addr %= IDX_MOD;
 	addr = (proc->pc + addr) % MEM_SIZE;
+=======
+	}
+	addr %= MEM_SIZE;
+>>>>>>> origin/vm-arena
 	write_arena(vm->arena, reg_val, addr, 4, proc->owner->colour);
 }

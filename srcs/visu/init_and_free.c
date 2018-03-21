@@ -6,14 +6,14 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 18:51:06 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 16:06:34 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 #include "vm.h"
 
-void	free_visu(t_win windows, uint8_t nb_players)
+int8_t	free_visu(t_win windows, uint8_t nb_players)
 {
 	int32_t	i;
 
@@ -29,7 +29,9 @@ void	free_visu(t_win windows, uint8_t nb_players)
 			if (windows.children[i])
 				delwin(windows.children[i]);
 	endwin();
+	return (ERROR);
 }
+
 static void	init_colors(void)
 {
 	init_color(COLOR_WHITEPLUS, 1000, 1000, 1000);
@@ -57,16 +59,19 @@ static void	init_colors(void)
 	init_pair(BLACK_WHITEP, COLOR_BLACK, COLOR_WHITEPLUS);
 }
 
-void		init_visu(t_vm *vm)
+int8_t		init_visu(t_vm *vm)
 {
 	int	i;
 
-	initscr();
-	noecho();
-	start_color();
+	if (!initscr()
+		|| start_color() == ERR
+		|| noecho() == ERR
+		|| curs_set(FALSE) == ERR
+		|| clear() == ERR)
+		return (ERROR);
 	init_colors();
-	curs_set(FALSE);
-	clear();
+	if (init_user_input() == ERROR)
+		return (ERROR);
 	if (!(vm->wins.header_win = create_newwin(HEADER_H, HEADER_W, 0, 0)))
 		return (free_visu(vm->wins, vm->nb_players)) ;
 	if (!(vm->wins.arena_win = create_newwin(ARENA_H, ARENA_W, HEADER_H, 0)))
@@ -80,4 +85,5 @@ void		init_visu(t_vm *vm)
 		if (!(vm->wins.children[i] = derwin(vm->wins.stats_win, CHILD_H ,
 			CHILD_W, i * CHILD_H + CHILD_OFFSET, 1)))
 			return (free_visu(vm->wins, vm->nb_players)) ;
+	return (SUCCESS);
 }

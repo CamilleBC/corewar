@@ -20,12 +20,12 @@ static void	entropy(t_vm *vm)
 	t_deque_elmt	*proc_elmt;
 
 	lives = 0;
-	queue_elmt = vm->procs->head;
+	queue_elmt = vm->procs->tail;
 	while (queue_elmt)
 	{
 		proc = (t_proc*)queue_elmt->data;
 		proc_elmt = queue_elmt;
-		queue_elmt = queue_elmt->next;
+		queue_elmt = queue_elmt->prev;
 		if (!proc->live)
 		{
 			proc->owner->nb_threads--;
@@ -80,7 +80,7 @@ static int8_t	loop_procs(t_vm *vm)
 
 	i = 0;
 	len = vm->procs->size;
-	queue_elmt = vm->procs->head;
+	queue_elmt = vm->procs->tail;
 	while (i < len)
 	{
 		proc = (t_proc*)queue_elmt->data;
@@ -90,32 +90,68 @@ static int8_t	loop_procs(t_vm *vm)
 			interpret_instr(vm, proc);
 		else if (exec_instr(vm, proc) == ERROR)
 				return (ERROR);
-		queue_elmt = queue_elmt->next;
+		queue_elmt = queue_elmt->prev;
 		++i;
 	}
 	return (SUCCESS);
 }
 
-static void	print_screen(t_vm *vm)
+static void	print_screen(t_vm *vm, uint32_t delay)
 {
 	print_arena(vm);
 	print_header(vm);
 	print_stats(vm);
-	usleep(5000);
+	usleep(delay);
+}
+
+uint32_t	manage_delay(uint8_t run, int cycles)
+{
+	if (run == 1)
+		return (20000);
+	else if (cycles <= 1)
+		return (0);
+	else if (cycles <= 10)
+		return (250000);
+	else if (cycles <= 100)
+		return (50000);
+	else if (cycles <= 500)
+		return (20000);
+	else
+		return (10000);
 }
 
 void	run_vm(t_vm *vm)
 {
+	uint8_t		run;
+	int			cycles;
+	uint32_t	delay;
+
+	run = 0;
+	cycles = 0;
+	delay = 0;
+
+	refresh();
+	if (vm->flags & (1 << VISUAL))
+		print_screen(vm, delay);
 	while (vm->dump && vm->procs->head)
 	{
-		vm->total_cycles += 1;
-		if (vm->flags & (1 << DUMP))
-			vm->dump -= 1;
-		if (!(vm->total_cycles % vm->cycles_to_die))
-			entropy(vm);
-		if (loop_procs(vm) == ERROR)
-			return ;
-		if (vm->flags & (1 << VISUAL))
-			print_screen(vm);
+		if (run || cycles)
+		{
+			vm->total_cycles += 1;
+			if (vm->flags & (1 << DUMP))
+				vm->dump -= 1;
+			if (!(vm->total_cycles % vm->cycles_to_die))
+				entropy(vm);
+			if (loop_procs(vm) == ERROR)
+				return ;
+			if (vm->flags & (1 << VISUAL))
+			{
+				delay = manage_delay(run, cycles);
+				print_screen(vm, delay);
+			}
+			if (cycles)
+				--cycles;
+		}
+		cycles = manage_user_input(&run, cycles);
 	}
 }
