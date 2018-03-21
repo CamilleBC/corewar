@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 15:57:05 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 16:16:55 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 ** it will go to the address, read the value and use that.
 */
 
-static int64_t	return_arg_value(int code, t_arg_val arg_value,
+static int16_t	return_arg_value(int code, t_arg_val arg_value,
 					t_proc *proc, t_vm *vm)
 {
 	int		addr;
 	uint8_t	reg;
 
 	if (code == DIR_CODE)
-		return ((uint32_t)arg_value.dir);
+		return (arg_value.dir);
 	else if (code == REG_CODE)
 	{
 		reg = arg_value.reg;
