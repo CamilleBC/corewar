@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 16:37:41 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:32:27 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	create_color(int color, int player)
 	short		back;
 
 	pair_content(color, &front, &back);
-	init_pair(ARENA_PLAYER1 + player - 1, front, player + 101);
-	return (COLOR_PAIR(ARENA_PLAYER1 + player - 1));
+	init_pair(ARENA_PLAYER1 + player, front, player + 101);
+	return (COLOR_PAIR(ARENA_PLAYER1 + player));
 }
 
 static int	display_pc(t_deque_elmt *elem, t_vm *vm)
@@ -41,8 +41,6 @@ static int	display_pc(t_deque_elmt *elem, t_vm *vm)
 		elem = elem->next;
 		j++;
 	}
-	ft_putnbr(j);
-	ft_putchar('\n');
 	return (0);
 }
 
@@ -69,8 +67,6 @@ void		print_arena(t_vm *vm)
 
 	i = 0;
 	j = 2;
-	// clear();
-	// refresh();
 	wattron(vm->wins.arena_win,COLOR_PAIR(WHITEP_BLACK));
 	box(vm->wins.arena_win, '|' , '-');
 	wattroff(vm->wins.arena_win,COLOR_PAIR(WHITEP_BLACK));

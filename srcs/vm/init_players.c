@@ -6,11 +6,12 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 16:10:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:21:52 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "visu.h"
 
 static int8_t	read_prog(t_player *player, int fd)
 {
@@ -33,7 +34,7 @@ static int8_t	init_player(t_player *player, t_vm *vm, size_t address, int fd)
 	while (i < player->header.prog_size)
 	{
 		vm->arena[address + i].hex = player->prog[i];
-		vm->arena[address + i].colour = player->id + 1;
+		vm->arena[address + i].colour = player->colour;
 		i++;
 	}
 	return (SUCCESS);
@@ -54,11 +55,13 @@ int8_t			init_players(t_vm *vm, int *fds)
 	while (i < vm->nb_players)
 	{
 		vm->players[i]->id = i;
+		vm->players[i]->colour = COLOUR_OFFSET + i;
 		init_player(vm->players[i], vm, address, fds[i]);
 		if (!(proc = ft_memalloc(sizeof(t_proc))))
 			return (ERROR);
 		proc->owner = vm->players[i];
 		proc->pc = address;
+		proc->regs[0] = (-1) - i;
 		vm->players[i]->nb_threads = 1;
 		vm->players[i]->threads = ft_memalloc(sizeof(t_proc) * THREADS_ALLOC);
 		vm->players[i]->threads[0] = proc;

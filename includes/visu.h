@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/19 15:35:37 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:20:14 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,32 @@
 
 # define NAME_LINE		1
 # define SIZE_LINE		3
-# define COMMENT_LINE	4
-# define THREADS_LINE	5
-# define LIVES_LINE		6
-# define ID_LINE		7
+# define THREADS_LINE	4
+# define LIVES_LINE		5
+# define ID_LINE		6
 
 /*
 ** Colour Pairs
 */
 
-# define RED_BLACK		1
-# define GREEN_BLACK	2
-# define YELLOW_BLACK	3
-# define BLUE_BLACK		4
-# define BLACK_RED		5
-# define BLACK_GREEN	6
-# define BLACK_YELLOW	7
-# define BLACK_BLUE		6
-# define MAGENTA_BLACK	8
-# define CYAN_BLACK		9
-# define BLACK_MAGENTA	10
-# define BLACK_CYAN		11
-# define WHITE_BLACK	12
-# define BLACK_WHITE	13
-# define WHITEP_BLACK	14
-# define BLACK_WHITEP	15
+# define COLOUR_OFFSET	10
+# define RED_BLACK		COLOUR_OFFSET
+# define GREEN_BLACK	COLOUR_OFFSET + 1
+# define YELLOW_BLACK	COLOUR_OFFSET + 2
+# define BLUE_BLACK		COLOUR_OFFSET + 3
+# define BLACK_RED		COLOUR_OFFSET + 4
+# define BLACK_GREEN	COLOUR_OFFSET + 5
+# define BLACK_YELLOW	COLOUR_OFFSET + 6
+# define BLACK_BLUE		COLOUR_OFFSET + 7
+# define MAGENTA_BLACK	COLOUR_OFFSET + 8
+# define CYAN_BLACK		COLOUR_OFFSET + 9
+# define BLACK_MAGENTA	COLOUR_OFFSET + 10
+# define BLACK_CYAN		COLOUR_OFFSET + 11
+# define WHITE_BLACK	COLOUR_OFFSET + 12
+# define BLACK_WHITE	COLOUR_OFFSET + 13
+# define WHITEP_BLACK	COLOUR_OFFSET + 14
+# define BLACK_WHITEP	COLOUR_OFFSET + 15
+# define BLACK			98
 # define ARENA			99
 # define ARENA_PLAYER1	101
 # define ARENA_PLAYER2	102

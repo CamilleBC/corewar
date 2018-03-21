@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/20 09:58:46 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:22:14 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,23 @@
 # define NAME_CMD     ".name"
 # define COMMENT_CMD ".comment"
 
-# define T_REG                    1
-# define T_DIR                    2
-# define T_IND                    4
+# define T_REG	1
+# define T_DIR	2
+# define T_IND	4
 
-# define PROG_NAME_LENGTH        (128)
-# define COMMENT_LENGTH            (2048)
-# define COREWAR_EXEC_MAGIC        0xea83f3
+# define PROG_NAME_LENGTH	(128)
+# define COMMENT_LENGTH		(2048)
+# define COREWAR_EXEC_MAGIC	0xea83f3
 
-# define OP_COUNT 17
+# define OP_COUNT	17
 
-typedef struct        s_header
+typedef struct	s_header
 {
-	unsigned int        magic;
-	char                prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int        prog_size;
-	char                comment[COMMENT_LENGTH + 1];
-}                    t_header;
+	unsigned int	magic;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int	prog_size;
+	char			comment[COMMENT_LENGTH + 1];
+}				t_header;
 
 typedef struct		s_op
 {
