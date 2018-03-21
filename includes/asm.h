@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:36:00 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/20 19:00:50 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:35:57 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_header		get_header(t_tok *file);
 int				get_op_length(t_tok *file);
 t_tok			*push_token(t_tok *token);
 t_tok_type		get_token(char *line);
-int				get_data(char *line, t_tok_type tok, void **data);
+int				get_data(char *line, t_tok_type tok, void **data, int fd);
 int				find_label(char *label, t_tok *first);
 t_tok			*check_strline(t_tok *token);
 t_tok			*find_next_line(t_tok *token);
@@ -35,5 +35,6 @@ int				is_op(char *line);
 t_tok			*check_file(char *file, t_error *error);
 void			*super_free(t_tok *token, char *line, int fd);
 void			write_header(t_header header, int fd);
+char			*copy_str(char *line, int fd);
 
 #endif

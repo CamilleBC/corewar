@@ -6,11 +6,37 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/20 18:14:06 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:35:24 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+char		*copy_str(char *line, int fd)
+{
+	char	*str;
+	char	*tmp;
+	int		count;
+
+	str = ft_strdup(line);
+	while (!ft_strchr(str, '"'))
+	{
+		if (get_next_line(fd, &line) < 0)
+			return (NULL);
+		tmp = str;
+		str = ft_strjoin(tmp, "\n");
+		free(tmp);
+		tmp = str;
+		str = ft_strjoin(tmp, line);
+		free(tmp);
+		free(line);
+	}
+	count = 0;
+	while (str[count] != '"')
+		count++;
+	str[count] = '\0';
+	return (str);
+}
 
 int			go_next_token(char *line, t_tok_type tok)
 {
@@ -51,8 +77,8 @@ t_tok		*check_line(t_tok *first_tok, char *line, int fd)
 	while (line[count])
 	{
 		if (!(token = push_token(token)) ||
-			((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
-			!get_data(&line[count], token->tok, &(token->data), fd))
+				((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
+				!get_data(&line[count], token->tok, &(token->data), fd))
 			return (NULL);
 		count += go_next_token(&line[count], token->tok);
 		i++;

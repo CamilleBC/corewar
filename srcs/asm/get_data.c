@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/19 14:43:58 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:35:38 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ int			*create_int(int i)
 	return (nb);
 }
 
-char		*first_word(char *line, char c)
+char		*first_word(char *line, char c, int fd)
 {
 	int		count;
 	char	*str;
 
 	count = 0;
-	if (c == '"' || c == LABEL_CHAR)
+	if ((ft_strchr(line, '"') && c == '"') || c == LABEL_CHAR)
 	{
 		while (line[count] && line[count] != c)
 			count++;
@@ -89,6 +89,8 @@ char		*first_word(char *line, char c)
 			str[count] = line[count];
 		return (str);
 	}
+	if (c == '"')
+		return (copy_str(line, fd));
 	while (line[count] && line[count] != SEP_CHAR && !ft_isspace(line[count]))
 		count++;
 	if (!(str = (char *)ft_memalloc(sizeof(char) * (count + 1))))
@@ -99,7 +101,7 @@ char		*first_word(char *line, char c)
 	return (str);
 }
 
-int			get_data(char *line, t_tok_type tok, void **data)
+int			get_data(char *line, t_tok_type tok, void **data, int fd)
 {
 	if (tok == TOK_DIR_NB || tok == TOK_REG)
 		*data = create_int(ft_atoi(&line[1]));
@@ -108,12 +110,12 @@ int			get_data(char *line, t_tok_type tok, void **data)
 	if (tok == TOK_OP)
 		*data = create_int(is_op(line));
 	if (tok == TOK_DIR_LB)
-		*data = first_word(&line[2], SEP_CHAR);
+		*data = first_word(&line[2], SEP_CHAR, fd);
 	if (tok == TOK_INDIR_LB)
-		*data = first_word(&line[1], SEP_CHAR);
+		*data = first_word(&line[1], SEP_CHAR, fd);
 	if (tok == TOK_LABEL)
-		*data = first_word(line, LABEL_CHAR);
+		*data = first_word(line, LABEL_CHAR, fd);
 	if (tok == TOK_STR)
-		*data = first_word(&line[1], '"');
+		*data = first_word(&line[1], '"', fd);
 	return (1);
 }
