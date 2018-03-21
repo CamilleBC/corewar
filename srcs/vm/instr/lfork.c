@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:44 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 09:41:51 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:59:14 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	instr_lfork(t_vm *vm, t_proc *proc)
 	proc_f = malloc(sizeof(t_proc));
 	ft_memcpy(proc_f, proc, sizeof(t_proc));
 	ft_bzero(&proc_f->instr, sizeof(t_instr));
-	proc_f->pc = (proc_f->pc + instr.args[0].value.dir) % MEM_SIZE;
+	proc_f->pc = (proc_f->pc + (int16_t)instr.args[0].value.dir) % MEM_SIZE;
 	if (!(proc_f->owner->nb_threads % THREADS_ALLOC))
 		proc_f->owner->threads = ft_realloc(proc_f->owner->threads,
 				proc_f->owner->nb_threads, proc_f->owner->nb_threads + THREADS_ALLOC);
