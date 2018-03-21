@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:00:51 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 16:32:18 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:15:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ int		get_number(int key, int old_cycles)
 int		manage_user_input(uint8_t *run, int old_cycles)
 {
 	int		cycles;
-	int		i;
 	int		key;
 
-	i = 0;
 	cycles = old_cycles;
 	if ((key = getch()) != ERR)
 	{
