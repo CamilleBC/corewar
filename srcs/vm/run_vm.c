@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 17:10:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:44:26 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,24 @@ static void	entropy(t_vm *vm)
 	queue_elmt = vm->procs->tail;
 	while (queue_elmt)
 	{
-		proc = (t_proc*)queue_elmt->data;
+		if (!(proc = (t_proc*)queue_elmt->data))
+			break ;
 		proc_elmt = queue_elmt;
 		queue_elmt = queue_elmt->prev;
-		if (!proc->live)
+		if (proc->live)
+		{
+			lives += proc->live;
+			proc->live = 0;
+		}
+		else
 		{
 			proc->owner->nb_threads--;
 			ft_deque_pop_elmt(vm->procs, proc_elmt);
+			free(proc);
 		}
-		lives += proc->live;
 	}
 	if (lives >= NBR_LIVE)
 		vm->cycles_to_die -= CYCLE_DELTA;
-	queue_elmt = vm->procs->head;
-	while (queue_elmt)
-	{
-		proc = (t_proc*)queue_elmt->data;
-		proc->live = 0;
-		queue_elmt = queue_elmt->next;
-	}
 }
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
@@ -81,9 +80,11 @@ static int8_t	loop_procs(t_vm *vm)
 	i = 0;
 	len = vm->procs->size;
 	queue_elmt = vm->procs->tail;
-	while (i < len)
+	while (i < len && queue_elmt)
 	{
-		proc = (t_proc*)queue_elmt->data;
+		if (!(proc = (t_proc*)queue_elmt->data))
+			// return (SUCCESS);
+			return (ERROR);
 		if (proc->delay)
 			proc->delay -= 1;
 		else if (proc->instr.op == NULL)
