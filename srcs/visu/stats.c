@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:35:47 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 10:12:26 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/22 11:23:55 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,22 @@ static void	print_player_subwin(t_vm *vm, t_player *play)
 void	print_vm_stats(t_vm *vm)
 {
 	wattron(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
+	clear_win_line(vm->wins.stats_win, vm, 1, 1);
 	wmove(vm->wins.stats_win, 1, 1);
 	wprintw(vm->wins.stats_win, "Cycles: %llu", vm->total_cycles);
-	wmove(vm->wins.stats_win, 2, 1);
 	if (vm->flags & (1 << DUMP))
+	{
+		clear_win_line(vm->wins.stats_win, vm, 2, 1);
+		wmove(vm->wins.stats_win, 2, 1);
 		wprintw(vm->wins.stats_win, "Dump: %llu", vm->dump);
+	}
+	clear_win_line(vm->wins.stats_win, vm, 3, 1);
 	wmove(vm->wins.stats_win, 3, 1);
 	wprintw(vm->wins.stats_win, "Cycles to die: %llu", vm->cycles_to_die);
+	clear_win_line(vm->wins.stats_win, vm, 4, 1);
 	wmove(vm->wins.stats_win, 4, 1);
 	wprintw(vm->wins.stats_win, "Cycle delta: %d", CYCLE_DELTA);
+	clear_win_line(vm->wins.stats_win, vm, 5, 1);
 	wmove(vm->wins.stats_win, 5, 1);
 	wattroff(vm->wins.stats_win,COLOR_PAIR(WHITEP_BLACK));
 }

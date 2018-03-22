@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 16:07:32 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/22 11:26:41 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct	s_win
 	WINDOW	*stats_win;
 }				t_win;
 
+void	clear_win_line(WINDOW *win, struct s_vm *vm, int y, int x);
 WINDOW	*create_newwin(int height, int width, int starty, int startx);
 int8_t	free_visu(t_win windows, uint8_t nb_players);
 int8_t	init_user_input(void);

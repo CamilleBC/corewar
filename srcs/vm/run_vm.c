@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 10:44:26 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/22 11:25:08 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,10 @@ uint32_t	manage_delay(uint8_t run, int cycles)
 		return (50000);
 	else if (cycles <= 500)
 		return (20000);
-	else
+	else if (cycles <= 1000)
 		return (10000);
+	else
+		return (500);
 }
 
 void	run_vm(t_vm *vm)
