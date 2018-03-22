@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 17:10:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:30:17 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	entropy(t_vm *vm)
 			proc->owner->nb_threads--;
 			ft_deque_pop_elmt(vm->procs, proc_elmt);
 		}
-		lives += proc->live;
+		else
+			lives += proc->live;
 	}
 	if (lives >= NBR_LIVE)
 		vm->cycles_to_die -= CYCLE_DELTA;

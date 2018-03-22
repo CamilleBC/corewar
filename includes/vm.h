@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 15:15:33 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:46:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ struct			s_vm
 	uint8_t			nb_players;
 	uint64_t		dump;
 	uint64_t		total_cycles;
-	uint64_t		cycles_to_die;
+	int64_t			cycles_to_die;
 	struct s_win	wins;
 	uint8_t			verbose;
 };
