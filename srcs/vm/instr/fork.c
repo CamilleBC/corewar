@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 15:59:23 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:24:28 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	instr_fork(t_vm *vm, t_proc *proc)
 		proc_f->owner->threads = ft_realloc(proc_f->owner->threads,
 				proc_f->owner->nb_threads, proc_f->owner->nb_threads + THREADS_ALLOC);
 	proc_f->owner->threads[proc_f->owner->nb_threads++] = proc_f;
-	ft_deque_push_back(vm->procs, proc_f);
+	if(ft_deque_push_back(vm->procs, proc_f) == ERROR)
+		return ;
 }

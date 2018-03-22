@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:00:51 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 17:15:28 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/22 11:40:36 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		get_number(int key, int old_cycles)
 			;
 	}
 	number[i] = '\0';
-	if (key == KEY_RIGHT)
+	if (key == KEY_RIGHT || key == KEY_SPACE || key == KEY_ETR)
 		cycles = ft_atoi(number);
 	return (cycles);
 }
@@ -54,9 +54,9 @@ int		manage_user_input(uint8_t *run, int old_cycles)
 	cycles = old_cycles;
 	if ((key = getch()) != ERR)
 	{
-		if (key == KEY_SPACE && *run == 0)
+		if ((key == KEY_SPACE || key == KEY_ETR)&& *run == 0)
 			*run = 1;
-		else if (key == KEY_SPACE)
+		else if (key == KEY_SPACE || key == KEY_ETR)
 			*run = 0;
 		else if (key == KEY_RIGHT)
 			cycles = 1;
