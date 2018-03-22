@@ -6,11 +6,12 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/22 11:22:33 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:17:38 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "visu.h"
 
 static t_op	get_op(int opcode)
 {
@@ -79,7 +80,7 @@ static size_t	fill_args(t_vm *vm, t_proc *proc, t_op op)
 	return (arg_size);
 }
 
-void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
+static void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
 {
 	int	offset;
 

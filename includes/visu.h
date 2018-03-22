@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 11:39:55 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:17:27 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@
 # define KEY_ETR	0x0a
 
 struct	s_vm;
+struct	s_proc;
+struct	t_op;
 
 typedef struct	s_win
 {

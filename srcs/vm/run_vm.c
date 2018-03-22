@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 11:25:08 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:34:36 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	entropy(t_vm *vm)
 {
-	uint64_t		lives;
+	static uint64_t	lives;
 	t_proc			*proc;
 	t_deque_elmt	*queue_elmt;
 	t_deque_elmt	*proc_elmt;
+	static uint64_t	last_check;
 
-	lives = 0;
 	queue_elmt = vm->procs->tail;
 	while (queue_elmt)
 	{
@@ -40,6 +40,12 @@ static void	entropy(t_vm *vm)
 		}
 	}
 	if (lives >= NBR_LIVE)
+	{
+		vm->cycles_to_die -= CYCLE_DELTA;
+		last_check = 0;
+		lives = 0;
+	}
+	if (!(++last_check % MAX_CHECKS))
 		vm->cycles_to_die -= CYCLE_DELTA;
 }
 
@@ -132,11 +138,10 @@ void	run_vm(t_vm *vm)
 	run = 0;
 	cycles = 0;
 	delay = 0;
-
 	refresh();
 	if (vm->flags & (1 << VISUAL))
 		print_screen(vm, delay);
-	while (vm->dump && vm->procs->head)
+	while (vm->cycles_to_die > 0 && vm->dump && vm->procs->head)
 	{
 		if (run || cycles)
 		{
@@ -157,4 +162,6 @@ void	run_vm(t_vm *vm)
 		}
 		cycles = manage_user_input(&run, cycles);
 	}
+	ft_deque_delete_data(vm->procs);
+	ft_print("finished!\n");
 }
