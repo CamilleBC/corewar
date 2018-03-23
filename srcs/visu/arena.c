@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 19:32:27 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/23 13:48:36 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	print_hex(t_vm *vm, int i)
 {
 	if (vm->arena[i].new_value)
 			wattron(vm->wins.arena_win, A_BOLD);
-	// init_pair(ARENA, vm->arena[i].colour, vm->arena[i].background);
 	wattron(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));
 	wprintw(vm->wins.arena_win, "%02x", 0xFF & vm->arena[i].hex);
 	wattroff(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));
