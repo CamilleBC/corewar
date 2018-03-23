@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 12:36:41 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/23 13:41:10 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 ** VM arena defines
 */
 
-# define CYCLE_TO_DIE	1536
+# define CYCLE_TO_DIE	153
 # define CYCLE_DELTA	50
 # define NBR_LIVE 		21
-# define MAX_CHECKS		10
+# define MAX_CHECKS		1
 # define MEM_SIZE		(4*1024)
 
 /*

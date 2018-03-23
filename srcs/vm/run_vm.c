@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 12:34:36 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/23 13:37:19 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	run_vm(t_vm *vm)
 			if (!(vm->total_cycles % vm->cycles_to_die))
 				entropy(vm);
 			if (loop_procs(vm) == ERROR)
-				return ;
+				break ;
 			if (vm->flags & (1 << VISUAL))
 			{
 				delay = manage_delay(run, cycles);
@@ -163,5 +163,6 @@ void	run_vm(t_vm *vm)
 		cycles = manage_user_input(&run, cycles);
 	}
 	ft_deque_delete_data(vm->procs);
+	free_visu(vm->wins, vm->nb_players);
 	ft_print("finished!\n");
 }

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 16:06:34 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/03/23 13:32:38 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,13 @@ int8_t		init_visu(t_vm *vm)
 		|| start_color() == ERR
 		|| noecho() == ERR
 		|| curs_set(FALSE) == ERR
-		|| clear() == ERR)
-		return (ERROR);
+		|| clear() == ERR
+		|| init_user_input() == ERROR)
+		return (free_visu(vm->wins, vm->nb_players));
 	init_colors();
-	if (init_user_input() == ERROR)
-		return (ERROR);
-	if (!(vm->wins.header_win = create_newwin(HEADER_H, HEADER_W, 0, 0)))
-		return (free_visu(vm->wins, vm->nb_players)) ;
-	if (!(vm->wins.arena_win = create_newwin(ARENA_H, ARENA_W, HEADER_H, 0)))
-		return (free_visu(vm->wins, vm->nb_players)) ;
-	if (!(vm->wins.stats_win = create_newwin(ARENA_H, STATS_W, HEADER_H, ARENA_W)))
+	if (!(vm->wins.header_win = create_newwin(HEADER_H, HEADER_W, 0, 0))
+		|| !(vm->wins.arena_win = create_newwin(ARENA_H, ARENA_W, HEADER_H, 0))
+		|| !(vm->wins.stats_win = create_newwin(ARENA_H, STATS_W, HEADER_H, ARENA_W)))
 		return (free_visu(vm->wins, vm->nb_players)) ;
 	if (!(vm->wins.children = ft_memalloc(sizeof(WINDOW*) * vm->nb_players)))
 		return (free_visu(vm->wins, vm->nb_players)) ;
