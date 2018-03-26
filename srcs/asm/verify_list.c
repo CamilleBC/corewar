@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/20 18:02:38 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:43:39 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 {
-	if (token->tok == TOK_NEWLINE && prev->tok != TOK_NEWLINE)
+	if (token->tok == TOK_NEWLINE && (!prev || prev->tok != TOK_NEWLINE))
+	{
 		error->line++;
-	else if (prev)
+		return (token);
+	}
+	if (prev)
 	{
 		prev->next = token->next;
 		free(token);
@@ -103,16 +106,16 @@ int		verify_list(t_tok *first, t_error *error)
 	{
 		if (token->tok == TOK_NAME || token->tok == TOK_COMMENT)
 		{
-			if (!(token = check_strline(token)))
+			if (!(token = check_strline(token, error)))
 				return (0);
 		}
 		else if (token->tok == TOK_OP)
 		{
-			if (!(token = check_args(token, first)) || !check_strline(token))
+			if (!(token = check_args(token, first)) ||
+				!check_strline(token, error))
 				return (0);
 		}
-		else if (token->tok == TOK_USELESS || token->tok == TOK_NEWLINE ||
-				(token->tok == TOK_NEWLINE && prev->tok == TOK_NEWLINE))
+		if (token->tok == TOK_USELESS || token->tok == TOK_NEWLINE)
 			token = rm_tok(token, prev, first, error);
 		prev = token;
 		token = token->next;
