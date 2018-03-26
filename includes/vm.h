@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 15:15:33 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/26 11:27:08 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 typedef union	u_arg_val
 {
 	uint32_t	dir;
-	uint16_t	ind;
+	int16_t		ind;
 	uint8_t		reg;
 	uint8_t		arr[4];
 }				t_arg_val;
@@ -121,8 +121,9 @@ struct			s_vm
 	uint8_t			nb_players;
 	uint64_t		dump;
 	uint64_t		total_cycles;
-	uint64_t		cycles_to_die;
+	int64_t			cycles_to_die;
 	struct s_win	wins;
+	uint32_t		last_live_id;
 	uint8_t			verbose;
 };
 
