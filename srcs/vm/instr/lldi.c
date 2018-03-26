@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 16:55:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/26 11:30:22 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int16_t	return_arg_value(int code, t_arg_val arg_value,
 	uint8_t	reg;
 
 	if (code == DIR_CODE)
-		return (arg_value.dir);
+		return ((int16_t)arg_value.dir);
 	else if (code == REG_CODE)
 	{
 		reg = arg_value.reg;
