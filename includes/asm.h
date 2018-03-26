@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:36:00 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/26 12:22:04 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/26 13:39:49 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				is_label(char *line);
 int				is_op(char *line);
 t_tok			*check_file(char *file, t_error *error);
 void			*super_free(t_tok *token, char *line, int fd);
-void			write_header(t_header header, t_error *error);
+void			write_header(t_header header, int fd);
 char			*copy_str(char *line, t_error *error);
 
 #endif
