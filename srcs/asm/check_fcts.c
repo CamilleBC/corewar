@@ -6,18 +6,23 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/20 19:01:21 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:33:43 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_tok	*check_strline(t_tok *token)
+t_tok	*check_strline(t_tok *token, t_error *error)
 {
 	static int	header;
+	int			count;
 
 	if (token->tok != TOK_NAME && token->tok != TOK_COMMENT)
 		return ((header != 3 ? NULL : token));
+	count = 0;
+	while (((char *)(token->next->data))[count])
+		if (((char *)(token->next->data))[count++] == '\n')
+			error->line++;
 	if (token->tok == TOK_NAME)
 	{
 		if (ft_strlen(token->next->data) > PROG_NAME_LENGTH ||

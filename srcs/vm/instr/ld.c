@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 16:35:55 by briviere         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:31:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	instr_ld(t_vm *vm, t_proc *proc)
 {
 	uint8_t	reg;
-	int		addr;
+	int16_t	addr;
 	t_instr	instr;
 
 	instr = proc->instr;

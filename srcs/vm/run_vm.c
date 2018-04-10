@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/23 13:37:19 by cbaillat         ###   ########.fr       */
+/*   Created: 2018/04/10 16:29:49 by cbaillat          #+#    #+#             */
+/*   Updated: 2018/04/10 16:29:51 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,10 @@ void	run_vm(t_vm *vm)
 			if (cycles)
 				--cycles;
 		}
-		cycles = manage_user_input(&run, cycles);
+		if (vm->flags & (1 << VISUAL))
+			cycles = manage_user_input(&run, cycles);
+		else
+			cycles = 1;
 	}
 	ft_deque_delete_data(vm->procs);
 	free_visu(vm->wins, vm->nb_players);
