@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:53 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 12:23:28 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/10 14:48:50 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	instr_aff(t_vm *vm, t_proc *proc)
 	t_instr		instr;
 
 	instr = proc->instr;
-	if (vm->flags & (1 << VISUAL) || instr.op->nb_args != instr.nb_args)
+	if (vm->flags & (1 << VISUAL) || instr.nb_args != 1)
 		return ;
 	if (instr.args[0].code != instr.op->args[0])
 		return ;
