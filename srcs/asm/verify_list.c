@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/26 12:43:39 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/10 16:05:47 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		verify_list(t_tok *first, t_error *error)
 				!check_strline(token, error))
 				return (0);
 		}
-		if (token->tok == TOK_USELESS || token->tok == TOK_NEWLINE)
+		else if (token->tok == TOK_USELESS || token->tok == TOK_NEWLINE)
 			token = rm_tok(token, prev, first, error);
 		prev = token;
 		token = token->next;
