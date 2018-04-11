@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 15:13:52 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:45:19 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 	}
 	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
-	if (proc->pc == old_pc)
+	if (proc->instr.op->opcode != 9)
 	{
 		if (proc->instr.instr_size == 0)
 			proc->pc++;

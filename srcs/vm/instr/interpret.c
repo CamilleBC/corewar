@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 15:14:32 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:38:26 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,16 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 {
 	proc->instr.nb_args = 0;
 	proc->delay = 0;
+	proc->pc %= MEM_SIZE;
 	proc->instr.op = get_op(vm->arena[proc->pc++].hex);
-	proc->instr.instr_size = 1;
+	proc->pc %= MEM_SIZE;
+	proc->instr.instr_size = 0;
 	if (proc->instr.op == 0 || proc->instr.op->str == 0)
 		return (ERROR);
 	proc->delay = proc->instr.op->cycle - 2;
 	proc->instr.fn = get_instr_fn(proc->instr.op->opcode);
-	proc->instr.instr_size += eval_size_args(vm, proc->instr.op, proc->pc--);
+	proc->instr.instr_size += eval_size_args(vm, proc->instr.op, proc->pc--) + 1;
+	proc->pc %= MEM_SIZE;
 	if (vm->flags & (1 << VISUAL))
 		print_player_instr(vm, proc, proc->instr.op);
 	return (SUCCESS);
