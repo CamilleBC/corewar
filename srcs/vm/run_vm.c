@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 10:55:43 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 13:20:49 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ static void	reset_player_period_lives(t_vm *vm)
 	{
 		vm->players[i]->live_in_period = 0;
 		++i;
+	}
+}
+
+static void free_player_proc(t_player *player, t_proc *proc)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (i < player->nb_threads)
+	{
+		if (player->threads[i] == proc)
+			player->threads[i] = NULL;
+			++i;
 	}
 }
 
@@ -47,6 +60,7 @@ static void	entropy(t_vm *vm)
 		else
 		{
 			proc->owner->nb_threads--;
+			free_player_proc(proc->owner, proc);
 			ft_deque_pop_elmt(vm->procs, proc_elmt);
 			free(proc);
 		}
