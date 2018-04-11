@@ -6,20 +6,32 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 10:13:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:55:43 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+static void	reset_player_period_lives(t_vm *vm)
+{
+	int	i;
+
+	i = 0;
+	while (i < vm->nb_players)
+	{
+		vm->players[i]->live_in_period = 0;
+		++i;
+	}
+}
+
 static void	entropy(t_vm *vm)
 {
-	uint64_t		lives;
+	static uint64_t	lives;
 	t_proc			*proc;
 	t_deque_elmt	*queue_elmt;
 	t_deque_elmt	*proc_elmt;
+	static uint64_t	last_check;
 
-	lives = 0;
 	queue_elmt = vm->procs->tail;
 	while (queue_elmt)
 	{
@@ -40,13 +52,22 @@ static void	entropy(t_vm *vm)
 		}
 	}
 	if (lives >= NBR_LIVE)
+	{
 		vm->cycles_to_die -= CYCLE_DELTA;
+		reset_player_period_lives(vm);
+		last_check = 0;
+		lives = 0;
+	}
+	if (!(++last_check % MAX_CHECKS))
+	{
+		vm->cycles_to_die -= CYCLE_DELTA;
+		reset_player_period_lives(vm);
+	}
 }
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 {
 	uint16_t	old_pc;
-
 	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
 	{
 		ft_putchar('(');
@@ -134,7 +155,7 @@ void	run_vm(t_vm *vm)
 	refresh();
 	if (vm->flags & (1 << VISUAL))
 		print_screen(vm, delay);
-	while (vm->dump && vm->procs->head)
+	while (vm->cycles_to_die > 0 && vm->dump && vm->procs->head)
 	{
 		if (run || cycles)
 		{
@@ -144,7 +165,7 @@ void	run_vm(t_vm *vm)
 			if (!(vm->total_cycles % vm->cycles_to_die))
 				entropy(vm);
 			if (loop_procs(vm) == ERROR)
-				return ;
+				break ;
 			if (vm->flags & (1 << VISUAL))
 			{
 				delay = manage_delay(run, cycles);
@@ -158,4 +179,7 @@ void	run_vm(t_vm *vm)
 		else
 			cycles = 1;
 	}
+	ft_deque_delete_data(vm->procs);
+	free_visu(vm->wins, vm->nb_players);
+	ft_print("finished!\n");
 }

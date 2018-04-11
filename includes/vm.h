@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/26 11:27:08 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/10 15:56:56 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ struct			s_player
 	uint32_t	id;
 	uint32_t	colour;
 	uint64_t	live;
+	uint64_t	live_in_period;
+	uint64_t	last_live;
 	t_proc		**threads;
 	size_t		nb_threads;
 };
