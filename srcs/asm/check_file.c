@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 16:06:32 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 17:06:44 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ char		*copy_str(char *line, t_error *error)
 	return (str);
 }
 
-int			move_after_token(char *line, t_tok_type tok)
+int			move_after_token(char *line, t_tok_type tok, int c)
 {
-	int	c;
-
-	c = (tok == TOK_STR || tok == TOK_USELESS ? 2 : 1);
 	if ((tok == TOK_STR || tok == TOK_USELESS))
-		while (line[c - 1] != '"' && line[c] && line[c - 1])
+	{
+		while (line[c] && line[c] != '"')
 			c++;
+		c += (line[c] ? 1 : 0);
+	}
 	else if (tok == TOK_LABEL)
 		while (line[c] && line[c] != LABEL_CHAR)
 			c++;
@@ -74,7 +74,8 @@ int			go_next_token(char *line, t_tok_type tok)
 {
 	int		c;
 
-	c = move_after_token(line, tok);
+	c = 1;
+	c = move_after_token(line, tok, c);
 	if (line[c] == SEP_CHAR || line[c] == LABEL_CHAR)
 		c++;
 	while (line[c] && ft_isspace(line[c]))

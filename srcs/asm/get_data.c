@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 15:42:58 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:44:38 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ char		*first_word(char *line, char c, t_error *error)
 			count++;
 		if (!(str = (char *)ft_memalloc(sizeof(char) * (count + 1))))
 			return (NULL);
-		count = -1;
-		while (line[++count] && line[count] != c)
-			str[count] = line[count];
+		if (!(str = ft_strncpy(str, line, count)))
+			return (NULL);
 		return (str);
 	}
 	if (c == '"')
@@ -97,7 +96,7 @@ char		*first_word(char *line, char c, t_error *error)
 		count++;
 	if (!(str = (char *)ft_memalloc(sizeof(char) * (count + 1))))
 		return (NULL);
-	if (!(str = ft_strncpy(str, line, count - 1)))
+	if (!(str = ft_strncpy(str, line, count)))
 		return (NULL);
 	return (str);
 }
