@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 12:17:27 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/10 16:15:11 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <ncurses.h>
 # include <stdint.h>
 
+# define HIGHLIGHT_TIME 50
 /*
 ** Arena Window
 */
@@ -52,11 +53,12 @@
 ** Player Sub-windows
 */
 
-# define NAME_LINE		1
-# define SIZE_LINE		3
-# define THREADS_LINE	4
-# define LIVES_LINE		5
-# define ID_LINE		6
+# define NAME_LINE			1
+# define SIZE_LINE			3
+# define THREADS_LINE		4
+# define LIVES_LINE			5
+# define PERIOD_LIVES_LINE	6
+# define ID_LINE			7
 
 /*
 ** Colour Pairs
@@ -95,8 +97,6 @@
 # define KEY_ETR	0x0a
 
 struct	s_vm;
-struct	s_proc;
-struct	t_op;
 
 typedef struct	s_win
 {

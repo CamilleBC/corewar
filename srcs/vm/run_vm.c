@@ -5,12 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/10 16:29:49 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/10 16:29:51 by cbaillat         ###   ########.fr       */
+/*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
+/*   Updated: 2018/04/11 10:55:43 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	reset_player_period_lives(t_vm *vm)
+{
+	int	i;
+
+	i = 0;
+	while (i < vm->nb_players)
+	{
+		vm->players[i]->live_in_period = 0;
+		++i;
+	}
+}
 
 static void	entropy(t_vm *vm)
 {
@@ -42,11 +54,15 @@ static void	entropy(t_vm *vm)
 	if (lives >= NBR_LIVE)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
+		reset_player_period_lives(vm);
 		last_check = 0;
 		lives = 0;
 	}
 	if (!(++last_check % MAX_CHECKS))
+	{
 		vm->cycles_to_die -= CYCLE_DELTA;
+		reset_player_period_lives(vm);
+	}
 }
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
@@ -89,7 +105,6 @@ static int8_t	loop_procs(t_vm *vm)
 	while (i < len && queue_elmt)
 	{
 		if (!(proc = (t_proc*)queue_elmt->data))
-			// return (SUCCESS);
 			return (ERROR);
 		if (proc->delay)
 			proc->delay -= 1;
