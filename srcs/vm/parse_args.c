@@ -6,14 +6,14 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 10:20:21 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:30:24 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <fcntl.h>
 
-static int	parse_arg(t_vm *vm, char **av, int i)
+static int	parse_arg(int *fds, t_vm *vm, char **av, int i)
 {
 	static size_t	i_fd;
 
@@ -38,13 +38,13 @@ static int	parse_arg(t_vm *vm, char **av, int i)
 		ft_putendl_fd("invalid file", 2);
 		return (ERROR);
 	}
+	vm->nb_players = i_fd;
 	return (SUCCESS);
 }
 
 int			*parse_args(t_vm *vm, int ac, char **av)
 {
 	int		i;
-	size_t	i_fd;
 	int		*fds;
 
 	i = 1;
@@ -52,10 +52,9 @@ int			*parse_args(t_vm *vm, int ac, char **av)
 		return (NULL);
 	while (i < ac)
 	{
-		if (parse_arg(vm, av, i) == ERROR)
+		if (parse_arg(fds, vm, av, i) == ERROR)
 			return (NULL);
 		++i;
 	}
-	vm->nb_players = i_fd;
 	return (fds);
 }
