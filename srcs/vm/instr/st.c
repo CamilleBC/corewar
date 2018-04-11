@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 13:16:18 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/26 11:27:15 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:20:22 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	instr_st(t_vm *vm, t_proc *proc)
 	uint8_t		reg;
 	uint64_t	val;
 	t_arg		arg;
-	int32_t		addr;
+	uint32_t	addr;
 
 	if (proc->instr.nb_args != 2)
 		return ;
@@ -28,7 +28,7 @@ void	instr_st(t_vm *vm, t_proc *proc)
 	arg = proc->instr.args[1];
 	if (arg.code == IND_CODE)
 	{
-		addr = (proc->pc + (arg.value.ind % IDX_MOD)) % MEM_SIZE;
+		addr = (proc->pc + ((int16_t)arg.value.ind % IDX_MOD)) % MEM_SIZE;
 		write_arena(vm->arena, val, addr, 4, proc->owner->colour);
 	}
 	else if (arg.code == REG_CODE)
