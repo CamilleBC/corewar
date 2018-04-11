@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 15:40:56 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:19:24 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ static int8_t	read_prog(t_player *player, int fd)
 		return (ERROR);
 	player->header.magic = reverse_bits(player->header.magic);
 	player->header.prog_size = reverse_bits(player->header.prog_size);
+	if (player->header.magic != COREWAR_EXEC_MAGIC)
+		return (ERROR);
+	if (player->header.prog_size >= CHAMP_MAX_SIZE)
+		return (ERROR);
 	if (read(fd, &player->prog, CHAMP_MAX_SIZE) < 0)
 		return (ERROR);
 	return (SUCCESS);
@@ -56,7 +60,11 @@ int8_t			init_players(t_vm *vm, int *fds)
 	{
 		vm->players[i]->id = i;
 		vm->players[i]->colour = COLOUR_OFFSET + i;
-		init_player(vm->players[i], vm, address, fds[i]);
+		if (init_player(vm->players[i], vm, address, fds[i]) == ERROR)
+		{
+			ft_print("invalid player %d\n", i + 1);
+			return (ERROR);
+		}
 		if (!(proc = ft_memalloc(sizeof(t_proc))))
 			return (ERROR);
 		proc->owner = vm->players[i];
