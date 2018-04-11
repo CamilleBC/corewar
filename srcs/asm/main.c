@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 16:19:38 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:28:48 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ int			main(int argc, char **argv)
 			super_free(tmp, NULL, -1);
 		count++;
 	}
+	return (0);
 }
