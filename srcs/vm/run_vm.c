@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 13:20:49 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:53:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,15 @@ static void free_player_proc(t_player *player, t_proc *proc)
 	while (i < player->nb_threads)
 	{
 		if (player->threads[i] == proc)
+		{
 			player->threads[i] = NULL;
+			while (i < (player->nb_threads))
+			{
+				player->threads[i] = player->threads[i + 1];
+				i++;
+				return ;
+			}
+		}
 			++i;
 	}
 }
@@ -59,8 +67,8 @@ static void	entropy(t_vm *vm)
 		}
 		else
 		{
-			proc->owner->nb_threads--;
 			free_player_proc(proc->owner, proc);
+			proc->owner->nb_threads--;
 			ft_deque_pop_elmt(vm->procs, proc_elmt);
 			free(proc);
 		}
@@ -82,6 +90,12 @@ static void	entropy(t_vm *vm)
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 {
 	uint16_t	old_pc;
+	old_pc = proc->pc;
+	if (interpret_args(vm, proc) == ERROR)
+	{
+		ft_bzero(&proc->instr, sizeof(t_instr));
+		return (SUCCESS);
+	}
 	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
 	{
 		ft_putchar('(');
@@ -93,12 +107,14 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
 		ft_putchar('\n');
 	}
-	old_pc = proc->pc;
 	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
 	if (proc->pc == old_pc)
 	{
-		proc->pc += proc->instr.instr_size;
+		if (proc->instr.instr_size == 0)
+			proc->pc++;
+		else
+			proc->pc += proc->instr.instr_size;
 		proc->pc %= MEM_SIZE;
 	}
 	ft_bzero(&proc->instr, sizeof(t_instr));

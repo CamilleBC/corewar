@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/20 17:22:14 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:11:10 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct		s_op
 }					t_op;
 
 t_op		*get_ops(void);
+t_op		*get_op(int opcode);
 uint64_t	reverse_bits(uint64_t val);
 
 #endif

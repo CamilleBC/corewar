@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 10:16:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:12:25 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,20 @@ static t_op		g_op_tab[OP_COUNT] =
 t_op		*get_ops(void)
 {
 	return (g_op_tab);
+}
+
+t_op		*get_op(int opcode)
+{
+	size_t	idx;
+	t_op	*ops;
+
+	idx = 0;
+	ops = get_ops();
+	while (idx < OP_COUNT)
+	{
+		if (ops[idx].opcode == opcode)
+			return (ops + idx);
+		idx++;
+	}
+	return (NULL);
 }

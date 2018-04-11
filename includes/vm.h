@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/10 15:56:56 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:22:31 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void			instr_xor(t_vm *vm, t_proc *proc);
 void			instr_zjmp(t_vm *vm, t_proc *proc);
 
 int8_t			interpret_instr(t_vm *vm, t_proc *proc);
+int8_t			interpret_args(t_vm *vm, t_proc *proc);
 
 int8_t			init_vm(t_vm *vm, int *fds);
 int8_t			init_players(t_vm *vm, int *fds);

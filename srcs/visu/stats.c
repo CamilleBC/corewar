@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:35:47 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 13:09:37 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:34:53 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void	print_player_subwin(t_vm *vm, t_player *play)
 	move_and_clear(vm->wins.children[id], vm, THREADS_LINE, 1);
 	print_player_string(vm, play, "Threads: ", ft_itoa(play->nb_threads));
 	move_and_clear(vm->wins.children[id], vm, LIVES_LINE, 1);
-	print_player_string(vm ,play, "Lives: ", ft_itoa(play->live));
+	print_player_string(vm, play, "Lives: ", ft_itoa(play->live));
 	move_and_clear(vm->wins.children[id], vm, PERIOD_LIVES_LINE, 1);
-	print_player_string(vm ,play, "Lives in period: ", ft_itoa(play->live_in_period));
+	print_player_string(vm, play, "Lives in period: ", ft_itoa(play->live_in_period));
 	move_and_clear(vm->wins.children[id], vm, ID_LINE, 1);
 	print_player_string(vm, play, "ID: ", ft_itoa((-1) - play->id));
 	move_and_clear(vm->wins.children[id], vm, 8, 1);
