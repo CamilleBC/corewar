@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 15:45:19 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:39:12 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,4 @@ void	run_vm(t_vm *vm)
 			cycles = 1;
 	}
 	ft_deque_delete_data(vm->procs);
-	free_visu(vm->wins, vm->nb_players);
-	ft_print("finished!\n");
 }
