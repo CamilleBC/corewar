@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 14:22:31 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:55:05 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ struct			s_player
 {
 	t_header	header;
 	uint8_t		prog[CHAMP_MAX_SIZE + 1];
-	uint32_t	id;
+	int64_t		id;
 	uint32_t	colour;
 	uint64_t	live;
 	uint64_t	live_in_period;
@@ -125,7 +125,7 @@ struct			s_vm
 	uint64_t		total_cycles;
 	int64_t			cycles_to_die;
 	struct s_win	wins;
-	uint32_t		last_live_id;
+	int64_t			last_live_id;
 	uint8_t			verbose;
 };
 
