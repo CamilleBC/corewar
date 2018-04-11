@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 17:27:49 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 10:17:47 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 12:48:53 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	clear_win_line(WINDOW *win, t_vm *vm, int y, int x)
 	else if (win == vm->wins.header_win)
 		width = HEADER_W - 1;
 	else
-		return ;
+		width = CHILD_W - 1;
 	i = 0;
 	wattron(vm->wins.stats_win, COLOR_PAIR(BLACK));
 	while (++i < width)

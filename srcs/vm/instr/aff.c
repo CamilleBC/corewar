@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:53 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/10 14:48:50 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:28:49 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	instr_aff(t_vm *vm, t_proc *proc)
 	instr = proc->instr;
 	if (vm->flags & (1 << VISUAL) || instr.nb_args != 1)
 		return ;
-	if (instr.args[0].code != instr.op->args[0])
+	if (instr.args[0].code != T_REG)
 		return ;
 	reg = instr.args[0].value.reg;
 	if (!is_valid_reg(reg))
