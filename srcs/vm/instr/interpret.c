@@ -6,13 +6,13 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/26 11:24:40 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:20:04 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static t_op	get_op(int opcode)
+static t_op		get_op(int opcode)
 {
 	size_t	idx;
 	t_op	*ops;
@@ -28,7 +28,7 @@ static t_op	get_op(int opcode)
 	return (ops[idx - 1]);
 }
 
-static size_t fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
+static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 {
 	if (arg->code == REG_CODE)
 	{
@@ -79,7 +79,7 @@ static size_t	fill_args(t_vm *vm, t_proc *proc, t_op op)
 	return (arg_size);
 }
 
-void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
+void			print_player_instr(t_vm *vm, t_proc *proc, t_op op)
 {
 	int	offset;
 
@@ -101,7 +101,7 @@ void	print_player_instr(t_vm *vm, t_proc *proc, t_op op)
 	wrefresh(vm->wins.stats_win);
 }
 
-int8_t	interpret_instr(t_vm *vm, t_proc *proc)
+int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 {
 	t_op	op;
 

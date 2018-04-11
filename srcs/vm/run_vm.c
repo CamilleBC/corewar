@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 12:33:30 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:13:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	entropy(t_vm *vm)
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 {
 	uint16_t	old_pc;
+
 	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
 	{
 		ft_putchar('(');
@@ -60,7 +61,6 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 	old_pc = proc->pc;
 	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
-	// check if instr wasn't zjmp
 	if (proc->pc == old_pc)
 	{
 		proc->pc += proc->instr.instr_size;
@@ -83,14 +83,13 @@ static int8_t	loop_procs(t_vm *vm)
 	while (i < len && queue_elmt)
 	{
 		if (!(proc = (t_proc*)queue_elmt->data))
-			// return (SUCCESS);
 			return (ERROR);
 		if (proc->delay)
 			proc->delay -= 1;
 		else if (proc->instr.op == NULL)
 			interpret_instr(vm, proc);
 		else if (exec_instr(vm, proc) == ERROR)
-				return (ERROR);
+			return (ERROR);
 		queue_elmt = queue_elmt->prev;
 		++i;
 	}
@@ -132,7 +131,6 @@ void	run_vm(t_vm *vm)
 	run = 0;
 	cycles = 0;
 	delay = 0;
-
 	refresh();
 	if (vm->flags & (1 << VISUAL))
 		print_screen(vm, delay);

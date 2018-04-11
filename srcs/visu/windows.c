@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 17:27:49 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 11:22:11 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:17:47 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ WINDOW	*create_newwin(int height, int width, int starty, int startx)
 	WINDOW *win;
 
 	win = newwin(height, width, starty, startx);
-	return win;
+	return (win);
 }

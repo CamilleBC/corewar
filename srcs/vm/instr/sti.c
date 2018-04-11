@@ -6,13 +6,30 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/26 12:25:48 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:22:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	instr_sti(t_vm *vm, t_proc *proc)
+static uint32_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg)
+{
+	uint32_t	val;
+
+	if (arg->code == DIR_CODE)
+		val = arg->value.dir;
+	else if (arg->code == IND_CODE)
+		val = read_arena(vm->arena, (proc->pc + arg->value.ind) % MEM_SIZE, 4);
+	else
+	{
+		if (!is_valid_reg(arg->value.reg))
+			return (0);
+		val = proc->regs[arg->value.reg - 1];
+	}
+	return (val);
+}
+
+void			instr_sti(t_vm *vm, t_proc *proc)
 {
 	uint8_t	reg;
 	int		reg_val;
@@ -26,17 +43,7 @@ void	instr_sti(t_vm *vm, t_proc *proc)
 	if (!is_valid_reg(reg))
 		return ;
 	reg_val = proc->regs[reg - 1];
-	addr = 0;
-	if (instr.args[1].code == IND_CODE)
-		addr += read_arena(vm->arena, proc->pc + instr.args[1].value.ind, 2);
-	else if (instr.args[1].code == DIR_CODE)
-		addr += instr.args[1].value.dir;
-	else
-	{
-		if (!is_valid_reg(instr.args[1].value.reg))
-			return ;
-		addr += proc->regs[instr.args[1].value.reg - 1];
-	}
+	addr = read_val(vm, proc, instr.args + 1);
 	if (instr.args[2].code == DIR_CODE)
 		addr += (int16_t)instr.args[2].value.dir % IDX_MOD;
 	else if (instr.args[2].code == REG_CODE)
@@ -47,7 +54,6 @@ void	instr_sti(t_vm *vm, t_proc *proc)
 	}
 	else
 		return ;
-	addr %= IDX_MOD;
-	addr = (proc->pc + (int16_t)addr) % MEM_SIZE;
+	addr = (proc->pc + ((int16_t)addr % IDX_MOD)) % MEM_SIZE;
 	write_arena(vm->arena, reg_val, addr, 4, proc->owner->colour);
 }

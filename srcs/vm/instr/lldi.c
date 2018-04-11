@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/26 12:31:25 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:23:49 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static int16_t	return_arg_value(int code, t_arg_val arg_value,
 		return (ERROR);
 }
 
-void	instr_lldi(t_vm *vm, t_proc *proc)
+void			instr_lldi(t_vm *vm, t_proc *proc)
 {
 	int16_t		addr;
 	uint8_t		reg;
 	int16_t		val1;
 	int16_t		val2;
-	t_instr	instr;
+	t_instr		instr;
 
 	instr = proc->instr;
 	if (instr.nb_args != 3 || instr.args[3].code != T_REG)

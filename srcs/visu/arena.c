@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/20 19:32:27 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:27:21 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	display_pc(t_deque_elmt *elem, t_vm *vm)
 static void	print_hex(t_vm *vm, int i)
 {
 	if (vm->arena[i].new_value)
-			wattron(vm->wins.arena_win, A_BOLD);
+		wattron(vm->wins.arena_win, A_BOLD);
 	// init_pair(ARENA, vm->arena[i].colour, vm->arena[i].background);
 	wattron(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));
 	wprintw(vm->wins.arena_win, "%02x", 0xFF & vm->arena[i].hex);
@@ -67,9 +67,9 @@ void		print_arena(t_vm *vm)
 
 	i = 0;
 	j = 2;
-	wattron(vm->wins.arena_win,COLOR_PAIR(WHITEP_BLACK));
-	box(vm->wins.arena_win, '|' , '-');
-	wattroff(vm->wins.arena_win,COLOR_PAIR(WHITEP_BLACK));
+	wattron(vm->wins.arena_win, COLOR_PAIR(WHITEP_BLACK));
+	box(vm->wins.arena_win, '|', '-');
+	wattroff(vm->wins.arena_win, COLOR_PAIR(WHITEP_BLACK));
 	wmove(vm->wins.arena_win, j, 3);
 	while (i < MEM_SIZE)
 	{

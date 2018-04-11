@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:00:51 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/22 11:40:36 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:26:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int8_t	init_user_input(void)
 {
-	if ( nodelay(stdscr, 1) == ERR
+	if (nodelay(stdscr, 1) == ERR
 		|| cbreak() == ERR
- 		|| keypad(stdscr, TRUE) == ERR
+		|| keypad(stdscr, TRUE) == ERR
 		|| define_key(" ", KEY_SPACE) == ERR)
 		return (ERROR);
 	return (SUCCESS);
@@ -54,7 +54,7 @@ int		manage_user_input(uint8_t *run, int old_cycles)
 	cycles = old_cycles;
 	if ((key = getch()) != ERR)
 	{
-		if ((key == KEY_SPACE || key == KEY_ETR)&& *run == 0)
+		if ((key == KEY_SPACE || key == KEY_ETR) && *run == 0)
 			*run = 1;
 		else if (key == KEY_SPACE || key == KEY_ETR)
 			*run = 0;

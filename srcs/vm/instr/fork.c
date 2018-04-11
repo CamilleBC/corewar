@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/22 10:24:28 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:24:34 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void	instr_fork(t_vm *vm, t_proc *proc)
 	proc_f = malloc(sizeof(t_proc));
 	ft_memcpy(proc_f, proc, sizeof(t_proc));
 	ft_bzero(&proc_f->instr, sizeof(t_instr));
-	proc_f->pc = (proc_f->pc + (int16_t)instr.args[0].value.dir % IDX_MOD) % MEM_SIZE;
+	proc_f->pc = (proc_f->pc + (int16_t)instr.args[0].value.dir % IDX_MOD) %
+		MEM_SIZE;
 	if (!(proc_f->owner->nb_threads % THREADS_ALLOC))
 		proc_f->owner->threads = ft_realloc(proc_f->owner->threads,
-				proc_f->owner->nb_threads, proc_f->owner->nb_threads + THREADS_ALLOC);
+				proc_f->owner->nb_threads,
+				proc_f->owner->nb_threads + THREADS_ALLOC);
 	proc_f->owner->threads[proc_f->owner->nb_threads++] = proc_f;
-	if(ft_deque_push_back(vm->procs, proc_f) == ERROR)
+	if (ft_deque_push_back(vm->procs, proc_f) == ERROR)
 		return ;
 }

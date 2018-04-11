@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 17:44:09 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/03/21 16:06:34 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:27:06 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,18 @@ int8_t		init_visu(t_vm *vm)
 	if (init_user_input() == ERROR)
 		return (ERROR);
 	if (!(vm->wins.header_win = create_newwin(HEADER_H, HEADER_W, 0, 0)))
-		return (free_visu(vm->wins, vm->nb_players)) ;
+		return (free_visu(vm->wins, vm->nb_players));
 	if (!(vm->wins.arena_win = create_newwin(ARENA_H, ARENA_W, HEADER_H, 0)))
-		return (free_visu(vm->wins, vm->nb_players)) ;
-	if (!(vm->wins.stats_win = create_newwin(ARENA_H, STATS_W, HEADER_H, ARENA_W)))
-		return (free_visu(vm->wins, vm->nb_players)) ;
+		return (free_visu(vm->wins, vm->nb_players));
+	if (!(vm->wins.stats_win = create_newwin(ARENA_H, STATS_W, HEADER_H,
+					ARENA_W)))
+		return (free_visu(vm->wins, vm->nb_players));
 	if (!(vm->wins.children = ft_memalloc(sizeof(WINDOW*) * vm->nb_players)))
-		return (free_visu(vm->wins, vm->nb_players)) ;
+		return (free_visu(vm->wins, vm->nb_players));
 	i = -1;
 	while (++i < vm->nb_players)
-		if (!(vm->wins.children[i] = derwin(vm->wins.stats_win, CHILD_H ,
+		if (!(vm->wins.children[i] = derwin(vm->wins.stats_win, CHILD_H,
 			CHILD_W, i * CHILD_H + CHILD_OFFSET, 1)))
-			return (free_visu(vm->wins, vm->nb_players)) ;
+			return (free_visu(vm->wins, vm->nb_players));
 	return (SUCCESS);
 }

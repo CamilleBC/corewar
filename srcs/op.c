@@ -6,13 +6,13 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/20 13:30:35 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 10:16:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-static t_op    g_op_tab[OP_COUNT] =
+static t_op		g_op_tab[OP_COUNT] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
