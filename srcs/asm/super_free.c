@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   super_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 12:44:10 by tgunzbur         ###   ########.fr       */
+/*   Created: 2018/04/11 15:44:54 by tgunzbur          #+#    #+#             */
+/*   Updated: 2018/04/11 15:45:56 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			main(int argc, char **argv)
+void	*super_free(t_tok *first_tok, char *line, int fd)
 {
-	t_error error;
 	t_tok	*tmp;
 
-	if (argc != 2)
-		return (0);
-	error.line = 1;
-	if (!(tmp = check_file(argv[1], &error)))
-		ft_print("Error at line [%d]\n", error.line);
-	else
-		super_free(tmp, NULL, -1);
-	return (0);
+	if (line)
+		free(line);
+	while (first_tok)
+	{
+		if (first_tok->data)
+			free(first_tok->data);
+		tmp = first_tok;
+		first_tok = first_tok->next;
+		free(tmp);
+	}
+	if (fd > 0)
+		close(fd);
+	return (NULL);
 }

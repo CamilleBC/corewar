@@ -8,6 +8,7 @@ ASM_SRC_NAME=check_file.c \
 			 compiler.c \
 			 get_label_pos.c \
 			 write.c \
+			 super_free.c \
 			 main.c
 COMMON_SRC_NAME = op.c \
 				  bits.c

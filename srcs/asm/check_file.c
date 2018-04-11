@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/26 12:37:51 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:46:09 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ char		*copy_str(char *line, t_error *error)
 	str = ft_strdup(line);
 	while (!ft_strchr(str, '"'))
 	{
-		if (get_next_line(error->fd, &line) < 0)
+		if (++error->line && get_next_line(error->fd, &line) < 0)
 			return (NULL);
-		error->line++;
 		tmp = str;
 		str = ft_strjoin(tmp, "\n");
 		free(tmp);
@@ -35,40 +34,56 @@ char		*copy_str(char *line, t_error *error)
 	count = 0;
 	while (str[count] != '"')
 		count++;
-	str[count] = '\0';
+	str[count++] = '\0';
+	while (str[count] && str[count] != COMMENT_CHAR)
+		if (!ft_isspace(str[count++]))
+			return (NULL);
 	return (str);
+}
+
+int			move_after_token(char *line, t_tok_type tok)
+{
+	int	c;
+
+	c = (tok == TOK_STR || tok == TOK_USELESS ? 2 : 1);
+	if ((tok == TOK_STR || tok == TOK_USELESS))
+		while (line[c - 1] != '"' && line[c] && line[c - 1])
+			c++;
+	else if (tok == TOK_LABEL)
+		while (line[c] && line[c] != LABEL_CHAR)
+			c++;
+	else if (tok == TOK_OP)
+		while (line[c] && !ft_isspace(line[c]) && line[c] != DIRECT_CHAR)
+			c++;
+	else if (tok == TOK_NAME || tok == TOK_COMMENT)
+		while (line[c] && !ft_isspace(line[c]) && line[c] != '"')
+			c++;
+	else
+	{
+		while (line[c] && !ft_isspace(line[c]) &&
+				line[c] != SEP_CHAR && line[c] != COMMENT_CHAR)
+			c++;
+		if (ft_isspace(line[c]))
+			while (line[c] && ft_isspace(line[c]))
+				c++;
+	}
+	return (c);
 }
 
 int			go_next_token(char *line, t_tok_type tok)
 {
 	int		c;
 
-	c = 1;
-	if (tok == TOK_STR || tok == TOK_USELESS)
-	{
-		while (line[c] && line[c] != '"')
-			c++;
-		if (line[c])
-			c++;
-	}
-	else
-	{
-		while (line[c] && !ft_isspace(line[c]) &&
-				line[c] != SEP_CHAR && line[c] != COMMENT_CHAR)
-			c++;
-		while (line[c] && ft_isspace(line[c]))
-			c++;
-	}
-	if (line[c] == SEP_CHAR)
+	c = move_after_token(line, tok);
+	if (line[c] == SEP_CHAR || line[c] == LABEL_CHAR)
 		c++;
-	while (ft_isspace(line[c]))
+	while (line[c] && ft_isspace(line[c]))
 		c++;
 	return (c);
 }
 
 t_tok		*check_line(t_tok *first_tok, char *line, t_error *error)
 {
-	static int	i = 0;
 	int			count;
 	t_tok		*token;
 
@@ -83,31 +98,11 @@ t_tok		*check_line(t_tok *first_tok, char *line, t_error *error)
 				!get_data(&line[count], token->tok, &(token->data), error))
 			return (NULL);
 		count += go_next_token(&line[count], token->tok);
-		i++;
 	}
 	if (!(token = push_token(token)))
 		return (NULL);
 	token->tok = TOK_NEWLINE;
 	return (token);
-}
-
-void		*super_free(t_tok *first_tok, char *line, int fd)
-{
-	t_tok	*tmp;
-
-	if (line)
-		free(line);
-	while (first_tok)
-	{
-		if (first_tok->data)
-			free(first_tok->data);
-		tmp = first_tok;
-		first_tok = first_tok->next;
-		free(tmp);
-	}
-	if (fd > 0)
-		close(fd);
-	return (NULL);
 }
 
 t_tok		*check_file(char *file, t_error *error)
@@ -125,10 +120,10 @@ t_tok		*check_file(char *file, t_error *error)
 		return (super_free(first_tok, NULL, error->fd));
 	while (get_next_line(error->fd, &line) > 0)
 	{
-		error->line++;
 		if (!line || !(token = check_line(token, line, error)))
 			return (super_free(first_tok, line, error->fd));
 		free(line);
+		error->line++;
 	}
 	if (!first_tok->next || !verify_list(first_tok, error))
 		return (super_free(first_tok, line, error->fd));
