@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 10:20:04 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:25:30 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 	proc->pc %= MEM_SIZE;
 	if (op.str == 0)
 		return (ERROR);
-	proc->delay = op.cycle - 1;
+	proc->delay = op.cycle;
 	proc->instr.fn = get_instr_fn(op.opcode);
 	proc->instr.op = &op;
 	proc->instr.instr_size = fill_args(vm, proc, op) + 1;
