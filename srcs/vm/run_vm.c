@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 16:39:12 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 17:46:56 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,5 @@ void	run_vm(t_vm *vm)
 		else
 			cycles = 1;
 	}
-	ft_deque_delete_data(vm->procs);
+	// ft_deque_delete_data(vm->procs);
 }

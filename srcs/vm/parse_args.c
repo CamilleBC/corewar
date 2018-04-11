@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 10:30:24 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 18:04:02 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int			*parse_args(t_vm *vm, int ac, char **av)
 	while (i < ac)
 	{
 		if (parse_arg(fds, vm, av, i) == ERROR)
+		{
+			free(fds);
 			return (NULL);
+		}
 		++i;
 	}
 	return (fds);
