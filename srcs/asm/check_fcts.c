@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/26 12:33:43 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:37:45 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ t_tok	*check_strline(t_tok *token, t_error *error)
 	if (token->tok != TOK_NAME && token->tok != TOK_COMMENT)
 		return ((header != 3 ? NULL : token));
 	count = 0;
-	while (((char *)(token->next->data))[count])
+	while (token->next->data && ((char *)(token->next->data))[count])
 		if (((char *)(token->next->data))[count++] == '\n')
 			error->line++;
 	if (token->tok == TOK_NAME)
 	{
 		if (ft_strlen(token->next->data) > PROG_NAME_LENGTH ||
-				!(token = find_next_line(token->next)))
+				!(token = find_next_line(token->next, error)))
 			return (NULL);
 		header += 2;
 	}
 	if (token->tok == TOK_COMMENT)
 	{
 		if (ft_strlen(token->next->data) > COMMENT_LENGTH ||
-				!(token = find_next_line(token->next)))
+				!(token = find_next_line(token->next, error)))
 			return (NULL);
 		header += 1;
 	}
@@ -59,25 +59,25 @@ int		is_label(char *line)
 	int	count;
 
 	count = 0;
-	while (line[count] && !ft_isspace(line[count]))
-		count++;
-	if (line[count - 1] == LABEL_CHAR)
-		return (1);
-	return (0);
+	while (line[count] && line[count] != LABEL_CHAR)
+		if (!ft_strchr(LABEL_CHARS, line[count++]))
+			return (0);
+	if (!line[count])
+		return (0);
+	return (1);
 }
 
 int		is_op(char *line)
 {
 	int	count;
 
-	count = 0;
-	while (get_ops()[count].str != NULL)
+	count = OP_COUNT - 2;
+	while (count >= 0)
 	{
 		if (!ft_strncmp(get_ops()[count].str, line,
-					ft_strlen(get_ops()[count].str)) &&
-				ft_isspace(line[ft_strlen(get_ops()[count].str)]))
+				ft_strlen(get_ops()[count].str)))
 			return (count + 1);
-		count++;
+		count--;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/26 12:40:18 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:42:58 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ t_tok		*push_token(t_tok *prev)
 t_tok_type	get_token(char *line)
 {
 	if (!ft_strncmp(NAME_CMD, line, ft_strlen(NAME_CMD)) &&
-		ft_isspace(line[ft_strlen(NAME_CMD)]))
+	(ft_isspace(line[ft_strlen(NAME_CMD)]) || line[ft_strlen(NAME_CMD)] == '"'))
 		return (TOK_NAME);
-	if (!ft_strncmp(COMMENT_CMD, line, ft_strlen(COMMENT_CMD)) &&
-		ft_isspace(line[ft_strlen(COMMENT_CMD)]))
+	if (!ft_strncmp(COMMENT_CMD, line, ft_strlen(COMMENT_CMD))
+		&& (ft_isspace(line[ft_strlen(COMMENT_CMD)])
+		|| line[ft_strlen(COMMENT_CMD)] == '"'))
 		return (TOK_COMMENT);
 	if (!line[0] || line[0] == COMMENT_CHAR || ft_isspace(line[0]))
 		return (TOK_USELESS);
@@ -96,10 +97,8 @@ char		*first_word(char *line, char c, t_error *error)
 		count++;
 	if (!(str = (char *)ft_memalloc(sizeof(char) * (count + 1))))
 		return (NULL);
-	count = -1;
-	while (line[++count] && line[count] != SEP_CHAR &&
-			!ft_isspace(line[count]) && line[count] != COMMENT_CHAR)
-		str[count] = line[count];
+	if (!(str = ft_strncpy(str, line, count - 1)))
+		return (NULL);
 	return (str);
 }
 
@@ -107,17 +106,21 @@ int			get_data(char *line, t_tok_type tok, void **data, t_error *error)
 {
 	if (tok == TOK_DIR_NB || tok == TOK_REG)
 		*data = create_int(ft_atoi(&line[1]));
-	if (tok == TOK_INDIR_NB)
+	else if (tok == TOK_INDIR_NB)
 		*data = create_int(ft_atoi(line));
-	if (tok == TOK_OP)
+	else if (tok == TOK_OP)
 		*data = create_int(is_op(line));
-	if (tok == TOK_DIR_LB)
+	else if (tok == TOK_DIR_LB)
 		*data = first_word(&line[2], SEP_CHAR, error);
-	if (tok == TOK_INDIR_LB)
+	else if (tok == TOK_INDIR_LB)
 		*data = first_word(&line[1], SEP_CHAR, error);
-	if (tok == TOK_LABEL)
+	else if (tok == TOK_LABEL)
 		*data = first_word(line, LABEL_CHAR, error);
-	if (tok == TOK_STR)
+	else if (tok == TOK_STR)
 		*data = first_word(&line[1], '"', error);
+	else
+		return (1);
+	if (!(*data))
+		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: chaydont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:36:00 by chaydont          #+#    #+#             */
-/*   Updated: 2018/03/26 13:39:49 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:46:24 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				get_data(char *line, t_tok_type tok,
 							void **data, t_error *error);
 int				find_label(char *label, t_tok *first);
 t_tok			*check_strline(t_tok *token, t_error *error);
-t_tok			*find_next_line(t_tok *token);
+t_tok			*find_next_line(t_tok *token, t_error *error);
 int				is_label(char *line);
 int				is_op(char *line);
 t_tok			*check_file(char *file, t_error *error);

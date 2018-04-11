@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/10 16:05:47 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:49:50 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 {
-	if (token->tok == TOK_NEWLINE && (!prev || prev->tok != TOK_NEWLINE))
-	{
+	if (token->tok == TOK_NEWLINE)
 		error->line++;
+	if (token->tok == TOK_NEWLINE && (!prev || prev->tok != TOK_NEWLINE))
 		return (token);
-	}
 	if (prev)
 	{
 		prev->next = token->next;
@@ -34,7 +33,7 @@ t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 	return (token);
 }
 
-t_tok	*find_next_line(t_tok *token)
+t_tok	*find_next_line(t_tok *token, t_error *error)
 {
 	t_tok	*prev;
 
@@ -47,6 +46,7 @@ t_tok	*find_next_line(t_tok *token)
 		token = rm_tok(token, prev, token, NULL);
 		token = token->next;
 	}
+	error->line++;
 	return (token);
 }
 
@@ -76,14 +76,14 @@ int		check_arg(t_tok *token, t_tok *first, int args)
 	return (0);
 }
 
-t_tok	*check_args(t_tok *token, t_tok *first)
+t_tok	*check_args(t_tok *token, t_tok *first, t_error *error)
 {
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (*(int *)token->data != get_ops()[i].opcode)
+	while (i < OP_COUNT && *(int *)token->data != get_ops()[i].opcode)
 		i++;
 	while ((size_t)j < get_ops()[i].nb_args)
 	{
@@ -91,7 +91,7 @@ t_tok	*check_args(t_tok *token, t_tok *first)
 		if (!check_arg(token, first, get_ops()[i].args[j++]))
 			return (NULL);
 	}
-	return (find_next_line(token));
+	return (find_next_line(token, error));
 }
 
 int		verify_list(t_tok *first, t_error *error)
@@ -111,7 +111,7 @@ int		verify_list(t_tok *first, t_error *error)
 		}
 		else if (token->tok == TOK_OP)
 		{
-			if (!(token = check_args(token, first)) ||
+			if (!(token = check_args(token, first, error)) ||
 				!check_strline(token, error))
 				return (0);
 		}
