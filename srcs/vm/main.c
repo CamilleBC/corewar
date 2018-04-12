@@ -56,13 +56,26 @@ static void		print_result(t_vm vm)
 	}
 }
 
-int				main(int ac, char **av)
+static int	print_usage(void)
+{
+	ft_print("./corewar [options] [-n X] player [-n X] player...\n");
+	ft_print("options:\n");
+	ft_print("	-n | --ncurses -> displays a visual\n");
+	ft_print("	-d | --dump nb->");
+	ft_print(" dumps the vm state after nb cycles (int32)\n");
+	ft_print("	-v | --verbose -> dumps additional information\n");
+	return (0);
+}
+
+int		main(int ac, char **av)
 {
 	int			*fds;
 	t_vm		vm;
 
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = 1;
+	if (ac == 1)
+		return (print_usage());
 	if (!(fds = parse_args(&vm, ac, av)))
 		return (-1);
 	if (init_vm(&vm, fds) == ERROR)

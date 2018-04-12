@@ -21,8 +21,9 @@ static int	parse_arg(int *fds, t_vm *vm, char **av, int *i)
 		vm->flags |= (1 << VISUAL);
 	else if (ft_strequ(av[*i], "--dump") || ft_strequ(av[*i], "-d"))
 	{
-		if (av[*i + 1])
+		if (ft_strisnum(av[*i + 1]))
 			vm->dump = ft_atoi64(av[++(*i)]);
+		else return (ERROR);
 		if (vm->dump <= INT32_MAX && vm->dump > 0)
 			vm->flags |= (1 << DUMP);
 	}

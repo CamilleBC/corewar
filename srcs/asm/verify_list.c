@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:12:21 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 17:06:31 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:33:08 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 {
+	if (prev == first)
+		prev = NULL;
 	if (token->tok == TOK_NEWLINE)
 		error->line++;
-	if (token->tok == TOK_NEWLINE && (!prev || prev->tok != TOK_NEWLINE))
+	if (token->tok == TOK_NEWLINE && prev && prev->tok != TOK_NEWLINE)
 		return (token);
 	if (prev)
 	{
@@ -28,7 +30,7 @@ t_tok	*rm_tok(t_tok *token, t_tok *prev, t_tok *first, t_error *error)
 	{
 		first->next = token->next;
 		free(token);
-		token = first->next;
+		token = first;
 	}
 	return (token);
 }
