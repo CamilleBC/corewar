@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 13:13:43 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:13:52 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int8_t	main_vm_loop(t_vm *vm, uint32_t *delay, int *cycles,
 			print_screen(vm, *delay);
 		}
 		if (*cycles)
-			*cycles += 1;
+			*cycles -= 1;
 	}
 	return (1);
 }

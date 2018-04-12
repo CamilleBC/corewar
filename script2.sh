@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 us_corewar=corewar
-zaz_corewar=./resources/corewar
+zaz_corewar=resources/corewar
 
-for ((count=1; count < 10000; count += 100))
+for ((count=1; count < 10000; count += 10))
 do
 	./$us_corewar -d $count $1 $2 > us
 	./$zaz_corewar -d $count $1 $2 > zaz
