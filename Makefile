@@ -37,7 +37,6 @@ VISU_SRC_NAME=	arena.c \
 				init_and_free.c \
 				stats.c \
 				user_input.c \
-				visu_ncurses.c \
 				windows.c
 VM_SRC_NAME	= init_players.c \
 				init_vm.c \
@@ -59,7 +58,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -Werror -g $(INC) -fsanitize=address
+CFLAGS=-Wall -Wextra -Werror $(INC)
 LIB=-Llibft -lft -lncurses
 
 
