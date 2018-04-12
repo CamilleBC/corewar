@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:56:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 15:54:38 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:39:10 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void	instr_add(t_vm *vm, t_proc *proc)
 	instr = proc->instr;
 	if (instr.nb_args != 3)
 		return ;
-	regs[0] = instr.args[0].value.reg;
-	regs[1] = instr.args[1].value.reg;
-	regs[2] = instr.args[2].value.reg;
-	if (!are_valid_regs(regs, 3))
-		return ;
-	res = proc->regs[regs[0] - 1];
-	res += proc->regs[regs[1] - 1];
-	proc->regs[regs[2] - 1] = res;
-	proc->carry = !proc->regs[regs[2] - 1];
+	regs[0] = instr.args[0].value.reg - 1;
+	regs[1] = instr.args[1].value.reg - 1;
+	regs[2] = instr.args[2].value.reg - 1;
+	res = proc->regs[regs[0]];
+	res += proc->regs[regs[1]];
+	proc->regs[regs[2]] = res;
+	proc->carry = !proc->regs[regs[2]];
 }

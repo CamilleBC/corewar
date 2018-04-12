@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:54 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 12:58:00 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:34:26 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,18 @@ static int16_t	return_arg_value(int code, t_arg_val arg_value,
 					t_proc *proc, t_vm *vm)
 {
 	int16_t	addr;
-	uint8_t	reg;
 
 	if (code == DIR_CODE)
 		return ((int16_t)arg_value.dir);
 	else if (code == REG_CODE)
-	{
-		reg = arg_value.reg;
-		if (!is_valid_reg(reg))
-			return (ERROR);
-		return (proc->regs[reg - 1]);
-	}
+		return (proc->regs[arg_value.reg - 1]);
 	else if (code == IND_CODE)
 	{
 		addr = (proc->pc + arg_value.ind) % MEM_SIZE;
 		return (read_arena((t_arena_args){vm->arena, addr, 2}));
 	}
 	else
-		return (ERROR);
+		return (0);
 }
 
 void			instr_ldi(t_vm *vm, t_proc *proc)
@@ -52,12 +46,10 @@ void			instr_ldi(t_vm *vm, t_proc *proc)
 	instr = proc->instr;
 	if (instr.nb_args != 3 || instr.args[2].code != T_REG)
 		return ;
-	reg = instr.args[2].value.reg;
-	if (!is_valid_reg(reg))
-		return ;
+	reg = instr.args[2].value.reg - 1;
 	val1 = return_arg_value(instr.args[0].code, instr.args[0].value, proc, vm);
 	val2 = return_arg_value(instr.args[1].code, instr.args[1].value, proc, vm);
 	addr = ((int16_t)(val1 + val2)) % IDX_MOD;
-	proc->regs[reg - 1] = read_arena((t_arena_args){vm->arena,
+	proc->regs[reg] = read_arena((t_arena_args){vm->arena,
 			(proc->pc + addr) % MEM_SIZE, REG_SIZE});
 }

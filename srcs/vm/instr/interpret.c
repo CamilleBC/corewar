@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 16:05:10 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:31:46 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 {
 	if (arg->code == REG_CODE)
 	{
+		if (!is_valid_reg(mem[proc->pc].hex))
+			return (arg->size = 0);
 		arg->value.reg = mem[proc->pc++].hex;
 		arg->size = 1;
 	}

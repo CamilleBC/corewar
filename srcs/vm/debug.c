@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:50:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 14:28:35 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:18:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,18 @@ void		debug_print_proc(const t_vm *vm, const t_proc *proc)
 		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
 		ft_putchar('\n');
 	}
+}
+
+void		debug_print_regs(const t_proc *proc)
+{
+	size_t	reg;
+
+	reg = 0;
+	while (reg < REG_NUMBER)
+	{
+		// TODO: use ft_print
+		dprintf(2, "r%lu: 0x%08x ", reg + 1, proc->regs[reg]);
+		reg++;
+	}
+	dprintf(2, "\n");
 }

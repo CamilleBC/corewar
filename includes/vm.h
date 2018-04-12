@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 14:28:15 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:16:48 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,6 @@ void			dump_arena(const t_arena arena[MEM_SIZE]);
 */
 
 void			debug_print_proc(const t_vm *vm, const t_proc *proc);
+void			debug_print_regs(const t_proc *proc);
 
 #endif
