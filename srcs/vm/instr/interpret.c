@@ -6,12 +6,11 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 15:38:26 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 19:22:47 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
 
 static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 {
@@ -86,12 +85,10 @@ static size_t	eval_size_arg(const int code, int dir_size, size_t *pc)
 	}
 	*pc %= MEM_SIZE;
 	return (arg_size);
-
 }
 
 static size_t	eval_size_args(const t_vm *vm, t_op *op, size_t pc)
 {
-	
 	size_t	idx;
 	int		octal;
 	size_t	arg_size;
@@ -163,7 +160,8 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 		return (ERROR);
 	proc->delay = proc->instr.op->cycle - 2;
 	proc->instr.fn = get_instr_fn(proc->instr.op->opcode);
-	proc->instr.instr_size += eval_size_args(vm, proc->instr.op, proc->pc--) + 1;
+	proc->instr.instr_size += eval_size_args(vm, proc->instr.op,
+								proc->pc--) + 1;
 	proc->pc %= MEM_SIZE;
 	if (vm->flags & (1 << VISUAL))
 		print_player_instr(vm, proc, proc->instr.op);

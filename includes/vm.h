@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 16:55:05 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 18:49:07 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ typedef struct	s_arg
 	size_t		size;
 }				t_arg;
 
-typedef struct	s_player t_player;
-typedef struct	s_vm t_vm;
-typedef struct	s_proc t_proc;
-typedef void	t_instr_fn(t_vm *, t_proc *);
+typedef struct s_player	t_player;
+typedef struct s_vm		t_vm;
+typedef struct s_proc	t_proc;
+typedef void	t_instr_fn(t_vm *vm, t_proc *proc);
 
 typedef struct	s_instr
 {
@@ -78,7 +78,6 @@ typedef struct	s_instr
 	size_t		nb_args;
 	size_t		instr_size;
 }				t_instr;
-
 
 struct			s_proc
 {
@@ -112,7 +111,7 @@ typedef struct	s_arena
 	uint8_t	new_value;
 }				t_arena;
 
-struct			s_win;
+struct s_win;
 
 struct			s_vm
 {
@@ -166,16 +165,17 @@ int8_t			init_players(t_vm *vm, int *fds);
 int				*parse_args(t_vm *vm, int ac, char **av);
 void			run_vm(t_vm *vm);
 
-void		write_arena(t_arena *arena, uint32_t val, size_t idx, size_t len, int colour);
-uint32_t	read_arena(t_arena *arena, size_t idx, size_t len);
-int8_t		is_valid_reg(uint8_t reg);
-int8_t		are_valid_regs(uint8_t *regs, size_t size);
+void			write_arena(t_arena *arena, uint32_t val, size_t idx,
+					size_t len, int colour);
+uint32_t		read_arena(t_arena *arena, size_t idx, size_t len);
+int8_t			is_valid_reg(uint8_t reg);
+int8_t			are_valid_regs(uint8_t *regs, size_t size);
 
 /*
 ** Debug function for verbosity
 */
 
-void		debug_print_arena(t_arena *arena, uint32_t pc, size_t len);
-void		debug_print_pc(uint32_t pc);
+void			debug_print_arena(t_arena *arena, uint32_t pc, size_t len);
+void			debug_print_pc(uint32_t pc);
 
 #endif

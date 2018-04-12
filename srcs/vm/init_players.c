@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 16:19:24 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 19:05:56 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ static int8_t	init_player(t_player *player, t_vm *vm, size_t address, int fd)
 	return (SUCCESS);
 }
 
+static void		set_player_proc(t_vm *vm, t_proc *proc, size_t address,
+					size_t i)
+{
+	proc->owner = vm->players[i];
+	proc->pc = address;
+	proc->regs[0] = -i - 1;
+	vm->players[i]->nb_threads = 1;
+	vm->players[i]->threads = ft_memalloc(sizeof(t_proc) * THREADS_ALLOC);
+	vm->players[i]->threads[0] = proc;
+	ft_deque_push_back(vm->procs, proc);
+}
+
 int8_t			init_players(t_vm *vm, int *fds)
 {
 	size_t	i;
@@ -51,12 +63,12 @@ int8_t			init_players(t_vm *vm, int *fds)
 	long	div;
 	t_proc	*proc;
 
-	i = 0;
+	i = -1;
 	div = 0;
 	if (vm->nb_players)
 		div = MEM_SIZE / vm->nb_players;
 	address = 0;
-	while (i < vm->nb_players)
+	while (++i < vm->nb_players)
 	{
 		vm->players[i]->id = i;
 		vm->players[i]->colour = COLOUR_OFFSET + i;
@@ -67,14 +79,7 @@ int8_t			init_players(t_vm *vm, int *fds)
 		}
 		if (!(proc = ft_memalloc(sizeof(t_proc))))
 			return (ERROR);
-		proc->owner = vm->players[i];
-		proc->pc = address;
-		proc->regs[0] = -i - 1;
-		vm->players[i]->nb_threads = 1;
-		vm->players[i]->threads = ft_memalloc(sizeof(t_proc) * THREADS_ALLOC);
-		vm->players[i]->threads[0] = proc;
-		ft_deque_push_back(vm->procs, proc);
-		i++;
+		set_player_proc(vm, proc, address, i);
 		address += div;
 	}
 	return (SUCCESS);

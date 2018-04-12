@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 22:12:41 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 12:06:29 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/11 18:44:19 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdint.h>
 
 # define HIGHLIGHT_TIME 50
+
 /*
 ** Arena Window
 */
@@ -28,6 +29,7 @@
 # define COLOR_WHITEBLUE	102
 # define COLOR_WHITEYELLOW	103
 # define COLOR_WHITEGREEN	104
+
 /*
 ** HEADER Corewar
 */
@@ -96,7 +98,7 @@
 # define KEY_SPACE	99
 # define KEY_ETR	0x0a
 
-struct	s_vm;
+struct s_vm;
 
 typedef struct	s_win
 {
@@ -106,14 +108,14 @@ typedef struct	s_win
 	WINDOW	*stats_win;
 }				t_win;
 
-void	clear_win_line(WINDOW *win, struct s_vm *vm, int y, int x);
-WINDOW	*create_newwin(int height, int width, int starty, int startx);
-int8_t	free_visu(t_win windows, uint8_t nb_players);
-int8_t	init_user_input(void);
-int8_t	init_visu(struct s_vm *vm);
-int		manage_user_input(uint8_t *run, int old_cycles);
-void	print_arena(struct s_vm *vm);
-void	print_header(struct s_vm *vm);
-void	print_stats(struct s_vm *vm);
+void			clear_win_line(WINDOW *win, struct s_vm *vm, int y, int x);
+WINDOW			*create_newwin(int height, int width, int starty, int startx);
+int8_t			free_visu(t_win windows, uint8_t nb_players);
+int8_t			init_user_input(void);
+int8_t			init_visu(struct s_vm *vm);
+int				manage_user_input(uint8_t *run, int old_cycles);
+void			print_arena(struct s_vm *vm);
+void			print_header(struct s_vm *vm);
+void			print_stats(struct s_vm *vm);
 
 #endif

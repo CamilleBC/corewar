@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 14:11:10 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/11 18:45:05 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_header
 	char			comment[COMMENT_LENGTH + 1];
 }				t_header;
 
-typedef struct		s_op
+typedef struct	s_op
 {
 	char	*str;
 	size_t	nb_args;
@@ -67,10 +67,10 @@ typedef struct		s_op
 	char	*description;
 	int		octal;
 	int		dir_size;
-}					t_op;
+}				t_op;
 
-t_op		*get_ops(void);
-t_op		*get_op(int opcode);
-uint64_t	reverse_bits(uint64_t val);
+t_op			*get_ops(void);
+t_op			*get_op(int opcode);
+uint64_t		reverse_bits(uint64_t val);
 
 #endif

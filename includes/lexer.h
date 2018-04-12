@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:45:26 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/03/26 11:35:56 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/11 18:37:57 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 # define LEXER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include "libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include "libft.h"
 
 typedef enum	e_tok_type
 {
