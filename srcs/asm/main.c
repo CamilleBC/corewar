@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 16:28:48 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:33:53 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int			main(int argc, char **argv)
 	int		count;
 
 	count = 1;
+	if (argc == 1)
+		ft_print("usage: ./asm [file.s]\n");
 	while (count < argc)
 	{
 		error.line = 1;

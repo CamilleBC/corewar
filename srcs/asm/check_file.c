@@ -6,7 +6,7 @@
 /*   By: tgunzbur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:00:49 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 17:06:44 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:26:01 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ int			move_after_token(char *line, t_tok_type tok, int c)
 	else if (tok == TOK_LABEL)
 		while (line[c] && line[c] != LABEL_CHAR)
 			c++;
-	else if (tok == TOK_OP)
-		while (line[c] && !ft_isspace(line[c]) && line[c] != DIRECT_CHAR)
-			c++;
 	else if (tok == TOK_NAME || tok == TOK_COMMENT)
 		while (line[c] && !ft_isspace(line[c]) && line[c] != '"')
 			c++;
@@ -70,12 +67,20 @@ int			move_after_token(char *line, t_tok_type tok, int c)
 	return (c);
 }
 
-int			go_next_token(char *line, t_tok_type tok)
+int			go_next_token(char *line, t_tok_type tok, void *data)
 {
 	int		c;
+	char	*op;
 
 	c = 1;
-	c = move_after_token(line, tok, c);
+	if (tok == TOK_OP)
+	{
+		op = get_ops()[*((int *)data) - 1].str;
+		while (line[c] && op[c] && line[c] == op[c])
+			c++;
+	}
+	else
+		c = move_after_token(line, tok, c);
 	if (line[c] == SEP_CHAR || line[c] == LABEL_CHAR)
 		c++;
 	while (line[c] && ft_isspace(line[c]))
@@ -98,7 +103,7 @@ t_tok		*check_line(t_tok *first_tok, char *line, t_error *error)
 				((token->tok = get_token(&line[count])) == TOK_UNDEFINED) ||
 				!get_data(&line[count], token->tok, &(token->data), error))
 			return (NULL);
-		count += go_next_token(&line[count], token->tok);
+		count += go_next_token(&line[count], token->tok, token->data);
 	}
 	if (!(token = push_token(token)))
 		return (NULL);
