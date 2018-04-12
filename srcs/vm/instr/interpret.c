@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 12:09:49 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:05:10 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 		proc->pc += dir_size;
 		arg->size = dir_size;
 	}
+	else
+		return (arg->size = 0);
 	proc->pc %= MEM_SIZE;
+	proc->instr.nb_args++;
 	return (arg->size);
 }
 
@@ -57,7 +60,6 @@ static size_t	fill_args(t_vm *vm, t_proc *proc, t_op *op)
 			proc->instr.args[idx].code = op->args[idx];
 		arg_size += fill_arg(vm->arena, proc, proc->instr.args + idx,
 				(op->dir_size ? DIR_SIZE / 2 : DIR_SIZE));
-		proc->instr.nb_args++;
 		idx++;
 	}
 	return (arg_size);
@@ -91,7 +93,7 @@ int8_t			interpret_args(t_vm *vm, t_proc *proc)
 		return (ERROR);
 	proc->pc++;
 	proc->pc %= MEM_SIZE;
-	fill_args(vm, proc, proc->instr.op);
+	proc->instr.instr_size = fill_args(vm, proc, proc->instr.op) + 1;
 	proc->pc -= proc->instr.instr_size;
 	proc->pc %= MEM_SIZE;
 	return (SUCCESS);
@@ -109,8 +111,7 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 		return (ERROR);
 	proc->delay = proc->instr.op->cycle - 2;
 	proc->instr.fn = get_instr_fn(proc->instr.op->opcode);
-	proc->instr.instr_size += eval_size_args(vm, proc->instr.op,
-								proc->pc--) + 1;
+	proc->pc--;
 	proc->pc %= MEM_SIZE;
 	if (vm->flags & (1 << VISUAL))
 		print_player_instr(vm, proc, proc->instr.op);

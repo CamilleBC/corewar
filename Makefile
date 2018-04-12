@@ -31,8 +31,7 @@ INSTR_SRC_NAME = interpret.c \
 				 lfork.c \
 				 aff.c \
 				 registers.c \
-				 tab.c \
-				 eval.c
+				 tab.c
 VISU_SRC_NAME=	arena.c \
 				header.c \
 				init_and_free.c \
@@ -62,7 +61,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -Werror $(INC)
+CFLAGS=-Wall -Wextra -Werror $(INC) -fsanitize=address -g
 LIB=-Llibft -lft -lncurses
 
 

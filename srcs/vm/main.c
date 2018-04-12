@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 14:27:58 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:55:21 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void		print_result(t_vm vm)
 	else
 	{
 		winner = get_player_by_id(vm.last_live_id, vm);
-		ft_print("le joueur %d(%s) a gagne\n", vm.last_live_id,
+		if (winner)
+			ft_print("le joueur %d(%s) a gagne\n", vm.last_live_id,
 				winner->header.prog_name);
 	}
 }
