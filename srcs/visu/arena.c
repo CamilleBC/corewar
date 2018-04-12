@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 15:27:19 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:36:17 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	display_pc(t_deque_elmt *elem, t_vm *vm)
 	return (0);
 }
 
-static void	print_hex(t_vm *vm, int i)
+static void	visu_print_hex(t_vm *vm, int i)
 {
 	if (vm->arena[i].new_value)
 		wattron(vm->wins.arena_win, A_BOLD);
@@ -77,7 +77,7 @@ void		print_arena(t_vm *vm)
 			j++;
 			wmove(vm->wins.arena_win, j, 3);
 		}
-		print_hex(vm, i);
+		visu_print_hex(vm, i);
 		i++;
 	}
 	display_pc(vm->procs->head, vm);

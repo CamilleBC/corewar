@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 12:45:34 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:27:58 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_player	*get_player_by_id(int64_t id, t_vm vm)
 	return (NULL);
 }
 
-static void	free_vm(t_vm vm)
+static void		free_vm(t_vm vm)
 {
 	int64_t	i;
 
@@ -39,6 +39,20 @@ static void	free_vm(t_vm vm)
 			free(vm.players[i]);
 		}
 	free(vm.players);
+}
+
+static void		print_result(t_vm vm)
+{
+	t_player	*winner;
+
+	if (vm.flags & (1 << DUMP) && vm.dump == 0)
+		dump_arena(vm.arena);
+	else
+	{
+		winner = get_player_by_id(vm.last_live_id, vm);
+		ft_print("le joueur %d(%s) a gagne\n", vm.last_live_id,
+				winner->header.prog_name);
+	}
 }
 
 static int	print_usage(void)
@@ -56,7 +70,6 @@ int		main(int ac, char **av)
 {
 	int			*fds;
 	t_vm		vm;
-	t_player	*winner;
 
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = 1;
@@ -75,9 +88,7 @@ int		main(int ac, char **av)
 	run_vm(&vm);
 	if (vm.flags & (1 << VISUAL))
 		free_visu(vm.wins, vm.nb_players);
-	winner = get_player_by_id(vm.last_live_id, vm);
-	ft_print("le joueur %d(%s) a gagne\n", vm.last_live_id,
-		winner->header.prog_name);
+	print_result(vm);
 	free_vm(vm);
 	return (0);
 }
