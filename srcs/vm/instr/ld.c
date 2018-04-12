@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 10:14:12 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:55:57 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	instr_ld(t_vm *vm, t_proc *proc)
 	{
 		addr = proc->pc + ((int16_t)instr.args[0].value.ind % IDX_MOD) %
 			MEM_SIZE;
-		proc->regs[reg - 1] = read_arena(vm->arena, addr, REG_SIZE);
+		proc->regs[reg - 1] =
+			read_arena((t_arena_args){vm->arena, addr, REG_SIZE});
 	}
 	proc->carry = !proc->regs[reg - 1];
 }

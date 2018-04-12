@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 12:33:50 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 13:06:51 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,20 @@ int				*parse_args(t_vm *vm, int ac, char **av);
 void			entropy(t_vm *vm);
 void			run_vm(t_vm *vm);
 
-void			write_arena(t_arena *arena, uint32_t val, size_t idx,
-					size_t len, int colour);
-uint32_t		read_arena(t_arena *arena, size_t idx, size_t len);
+typedef struct	s_arena_args
+{
+	t_arena		*arena;
+	size_t		idx;
+	size_t		len;
+}				t_arena_args;
+
+void			write_arena(t_arena_args args, uint32_t val, int colour);
+uint32_t		read_arena(t_arena_args args);
 int8_t			is_valid_reg(uint8_t reg);
 int8_t			are_valid_regs(uint8_t *regs, size_t size);
+
+int8_t			exec_instr(t_vm *vm, t_proc *proc);
+int8_t			loop_procs(t_vm *vm);
 
 /*
 ** Debug function for verbosity

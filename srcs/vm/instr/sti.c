@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 19:08:45 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/12 13:03:40 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static uint32_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg)
 	if (arg->code == DIR_CODE)
 		val = arg->value.dir;
 	else if (arg->code == IND_CODE)
-		val = read_arena(vm->arena,
-				(proc->pc + (int16_t)arg->value.ind) % MEM_SIZE, 4);
+		val = read_arena((t_arena_args){vm->arena,
+				(proc->pc + (int16_t)arg->value.ind) % MEM_SIZE, 4});
 	else
 	{
 		if (!is_valid_reg(arg->value.reg))
@@ -28,6 +28,20 @@ static uint32_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg)
 		val = proc->regs[arg->value.reg - 1];
 	}
 	return (val);
+}
+
+static int16_t	read_val2(t_proc *proc, const t_arg *arg)
+{
+	if (arg->code == DIR_CODE)
+		return ((int16_t)arg->value.dir % IDX_MOD);
+	else if (arg->code == REG_CODE)
+	{
+		if (!is_valid_reg(arg->value.reg))
+			return (0);
+		return ((int16_t)(proc->regs[arg->value.reg - 1]));
+	}
+	else
+		return (0);
 }
 
 void			instr_sti(t_vm *vm, t_proc *proc)
@@ -45,16 +59,8 @@ void			instr_sti(t_vm *vm, t_proc *proc)
 		return ;
 	reg_val = proc->regs[reg - 1];
 	addr = read_val(vm, proc, instr.args + 1);
-	if (instr.args[2].code == DIR_CODE)
-		addr += (int16_t)instr.args[2].value.dir % IDX_MOD;
-	else if (instr.args[2].code == REG_CODE)
-	{
-		if (!is_valid_reg(instr.args[2].value.reg))
-			return ;
-		addr += (int16_t)(proc->regs[instr.args[2].value.reg - 1]);
-	}
-	else
-		return ;
+	addr += read_val2(proc, instr.args + 2);
 	addr = (proc->pc + ((int16_t)addr % IDX_MOD)) % MEM_SIZE;
-	write_arena(vm->arena, reg_val, addr, 4, proc->owner->colour);
+	write_arena((t_arena_args){vm->arena, addr, 4}, reg_val,
+			proc->owner->colour);
 }

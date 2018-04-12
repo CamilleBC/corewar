@@ -47,6 +47,7 @@ VM_SRC_NAME	= init_players.c \
 				debug.c \
 				arena.c \
 				entropy.c \
+				procs.c \
 				$(addprefix instr/, $(INSTR_SRC_NAME))
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))

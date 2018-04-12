@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:54 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 10:23:23 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:58:00 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int16_t	return_arg_value(int code, t_arg_val arg_value,
 	else if (code == IND_CODE)
 	{
 		addr = (proc->pc + arg_value.ind) % MEM_SIZE;
-		return (read_arena(vm->arena, addr, 2));
+		return (read_arena((t_arena_args){vm->arena, addr, 2}));
 	}
 	else
 		return (ERROR);
@@ -58,6 +58,6 @@ void			instr_ldi(t_vm *vm, t_proc *proc)
 	val1 = return_arg_value(instr.args[0].code, instr.args[0].value, proc, vm);
 	val2 = return_arg_value(instr.args[1].code, instr.args[1].value, proc, vm);
 	addr = ((int16_t)(val1 + val2)) % IDX_MOD;
-	proc->regs[reg - 1] = read_arena(vm->arena,
-			(proc->pc + addr) % MEM_SIZE, REG_SIZE);
+	proc->regs[reg - 1] = read_arena((t_arena_args){vm->arena,
+			(proc->pc + addr) % MEM_SIZE, REG_SIZE});
 }
