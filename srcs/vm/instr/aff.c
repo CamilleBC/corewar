@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:53 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 11:28:49 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:19:23 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	instr_aff(t_vm *vm, t_proc *proc)
 	if (!is_valid_reg(reg))
 		return ;
 	val = proc->regs[reg - 1] % 256;
-	write(1, &val, 1);
+	if (!(vm->flags & (1 << VISUAL)))
+		write(1, &val, 1);
 }

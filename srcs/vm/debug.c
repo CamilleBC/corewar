@@ -6,13 +6,13 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:50:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 12:35:12 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:28:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_hex(unsigned char hex)
+void		print_hex(unsigned char hex)
 {
 	unsigned char	decade;
 

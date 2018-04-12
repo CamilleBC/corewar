@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 13:06:51 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:28:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,10 @@ int8_t			are_valid_regs(uint8_t *regs, size_t size);
 
 int8_t			exec_instr(t_vm *vm, t_proc *proc);
 int8_t			loop_procs(t_vm *vm);
+
+void			print_hex(unsigned char hex);
+
+void			dump_arena(const t_arena arena[MEM_SIZE]);
 
 /*
 ** Debug function for verbosity
