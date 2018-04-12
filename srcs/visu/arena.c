@@ -48,7 +48,6 @@ static void	print_hex(t_vm *vm, int i)
 {
 	if (vm->arena[i].new_value)
 		wattron(vm->wins.arena_win, A_BOLD);
-	// init_pair(ARENA, vm->arena[i].colour, vm->arena[i].background);
 	wattron(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));
 	wprintw(vm->wins.arena_win, "%02x", 0xFF & vm->arena[i].hex);
 	wattroff(vm->wins.arena_win, COLOR_PAIR(vm->arena[i].colour));

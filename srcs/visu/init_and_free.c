@@ -13,7 +13,7 @@
 #include "visu.h"
 #include "vm.h"
 
-int8_t	free_visu(t_win windows, uint8_t nb_players)
+int8_t		free_visu(t_win windows, uint8_t nb_players)
 {
 	int32_t	i;
 
@@ -63,10 +63,8 @@ int8_t		init_visu(t_vm *vm)
 {
 	int	i;
 
-	if (!initscr()
-		|| start_color() == ERR
-		|| noecho() == ERR
-		|| curs_set(FALSE) == ERR
+	if (!initscr() || start_color() == ERR
+		|| noecho() == ERR || curs_set(FALSE) == ERR
 		|| clear() == ERR)
 		return (ERROR);
 	init_colors();
