@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:19:25 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 12:49:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:08:16 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ void	instr_live(t_vm *vm, t_proc *proc)
 			vm->players[i]->live++;
 			vm->players[i]->live_in_period++;
 			vm->last_live_id = id;
-			if (!(vm->flags & (1 << VISUAL)))
-				ft_print("player (%d) %s ping live\n", (int64_t)id,
-						vm->players[i]->header.prog_name);
 			break ;
 		}
 		++i;
