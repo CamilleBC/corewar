@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:15 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 10:21:54 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:57:01 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static uint32_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg)
 	if (arg->code == DIR_CODE)
 		val = arg->value.dir;
 	else if (arg->code == IND_CODE)
-		val = read_arena(vm->arena, (proc->pc + arg->value.ind) % MEM_SIZE, 4);
+		val = read_arena((t_arena_args){vm->arena,
+				(proc->pc + arg->value.ind) % MEM_SIZE, 4});
 	else
 	{
 		if (!is_valid_reg(arg->value.reg))

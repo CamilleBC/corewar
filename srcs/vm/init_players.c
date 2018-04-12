@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 19:05:56 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:21:21 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int8_t	read_prog(t_player *player, int fd)
 	player->header.prog_size = reverse_bits(player->header.prog_size);
 	if (player->header.magic != COREWAR_EXEC_MAGIC)
 		return (ERROR);
-	if (player->header.prog_size >= CHAMP_MAX_SIZE)
+	if (player->header.prog_size > CHAMP_MAX_SIZE)
 		return (ERROR);
 	if (read(fd, &player->prog, CHAMP_MAX_SIZE) < 0)
 		return (ERROR);

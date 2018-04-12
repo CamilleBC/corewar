@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:50:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/03/21 12:30:08 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:35:12 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ static void	print_hex(unsigned char hex)
 		ft_putchar(hex + '0');
 }
 
-void		debug_print_pc(uint32_t pc)
+static void	debug_print_pc(uint32_t pc)
 {
 	ft_putstr("0x");
 	print_hex((pc >> 8) & 0xff);
 	print_hex(pc & 0xff);
 }
 
-void		debug_print_arena(t_arena *arena, uint32_t pc, size_t len)
+static void	debug_print_arena(const t_arena arena[MEM_SIZE], uint32_t pc,
+		size_t len)
 {
 	size_t		i;
 
@@ -47,5 +48,20 @@ void		debug_print_arena(t_arena *arena, uint32_t pc, size_t len)
 		if (i < len)
 			ft_putchar(' ');
 		pc = (pc + 1) % MEM_SIZE;
+	}
+}
+
+void		debug_print_proc(const t_vm *vm, const t_proc *proc)
+{
+	if (vm->verbose && !(vm->flags & (1 << VISUAL)))
+	{
+		ft_putchar('(');
+		debug_print_pc(proc->pc);
+		ft_putstr(" -> ");
+		debug_print_pc(proc->pc + proc->instr.instr_size);
+		ft_putchar(')');
+		ft_putchar(' ');
+		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
+		ft_putchar('\n');
 	}
 }
