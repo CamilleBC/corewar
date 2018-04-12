@@ -31,7 +31,8 @@ INSTR_SRC_NAME = interpret.c \
 				 lfork.c \
 				 aff.c \
 				 registers.c \
-				 tab.c
+				 tab.c \
+				 eval.c
 VISU_SRC_NAME=	arena.c \
 				header.c \
 				init_and_free.c \
@@ -46,6 +47,7 @@ VM_SRC_NAME	= init_players.c \
 				main.c \
 				debug.c \
 				arena.c \
+				entropy.c \
 				$(addprefix instr/, $(INSTR_SRC_NAME))
 
 ASM_SRC=$(addprefix srcs/asm/, $(ASM_SRC_NAME))
@@ -59,7 +61,7 @@ COMMON_OBJ=$(patsubst srcs/%.c, obj/%.o, $(COMMON_SRC))
 
 CC=gcc
 INC=-Iincludes -Ilibft/includes
-CFLAGS=-Wall -Wextra -Werror -g $(INC) -fsanitize=address
+CFLAGS=-Wall -Wextra -Werror -g $(INC)
 LIB=-Llibft -lft -lncurses
 
 

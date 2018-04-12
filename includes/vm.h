@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 18:49:07 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:33:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@
 # define MAX_PLAYERS	4
 
 # define THREADS_ALLOC 20
-
-# define VERBOSE_PC		1
-# define VERBOSE_WRITE	2
-# define VERBOSE_READ	3
 
 typedef union	u_arg_val
 {
@@ -159,10 +155,12 @@ void			instr_zjmp(t_vm *vm, t_proc *proc);
 
 int8_t			interpret_instr(t_vm *vm, t_proc *proc);
 int8_t			interpret_args(t_vm *vm, t_proc *proc);
+size_t			eval_size_args(const t_vm *vm, t_op *op, size_t pc);
 
 int8_t			init_vm(t_vm *vm, int *fds);
 int8_t			init_players(t_vm *vm, int *fds);
 int				*parse_args(t_vm *vm, int ac, char **av);
+void			entropy(t_vm *vm);
 void			run_vm(t_vm *vm);
 
 void			write_arena(t_arena *arena, uint32_t val, size_t idx,
@@ -175,7 +173,6 @@ int8_t			are_valid_regs(uint8_t *regs, size_t size);
 ** Debug function for verbosity
 */
 
-void			debug_print_arena(t_arena *arena, uint32_t pc, size_t len);
-void			debug_print_pc(uint32_t pc);
+void			debug_print_proc(const t_vm *vm, const t_proc *proc);
 
 #endif

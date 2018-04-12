@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 19:09:04 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:45:34 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		free_vm(t_vm vm)
 {
 	int64_t	i;
 
-	i = 0;
+	i = -1;
 	if (vm.procs)
 		ft_deque_delete_data(vm.procs);
 	if (vm.players)

@@ -6,86 +6,11 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 17:46:56 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:33:07 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-static void	reset_player_period_lives(t_vm *vm)
-{
-	int	i;
-
-	i = 0;
-	while (i < vm->nb_players)
-	{
-		vm->players[i]->live_in_period = 0;
-		++i;
-	}
-}
-
-static void free_player_proc(t_player *player, t_proc *proc)
-{
-	uint64_t	i;
-
-	i = 0;
-	while (i < player->nb_threads)
-	{
-		if (player->threads[i] == proc)
-		{
-			player->threads[i] = NULL;
-			while (i < (player->nb_threads))
-			{
-				player->threads[i] = player->threads[i + 1];
-				i++;
-				return ;
-			}
-		}
-			++i;
-	}
-}
-
-static void	entropy(t_vm *vm)
-{
-	static uint64_t	lives;
-	t_proc			*proc;
-	t_deque_elmt	*queue_elmt;
-	t_deque_elmt	*proc_elmt;
-	static uint64_t	last_check;
-
-	queue_elmt = vm->procs->tail;
-	while (queue_elmt)
-	{
-		if (!(proc = (t_proc*)queue_elmt->data))
-			break ;
-		proc_elmt = queue_elmt;
-		queue_elmt = queue_elmt->prev;
-		if (proc->live)
-		{
-			lives += proc->live;
-			proc->live = 0;
-		}
-		else
-		{
-			free_player_proc(proc->owner, proc);
-			proc->owner->nb_threads--;
-			ft_deque_pop_elmt(vm->procs, proc_elmt);
-			free(proc);
-		}
-	}
-	if (lives >= NBR_LIVE)
-	{
-		vm->cycles_to_die -= CYCLE_DELTA;
-		reset_player_period_lives(vm);
-		last_check = 0;
-		lives = 0;
-	}
-	if (!(++last_check % MAX_CHECKS))
-	{
-		vm->cycles_to_die -= CYCLE_DELTA;
-		reset_player_period_lives(vm);
-	}
-}
 
 static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 {
@@ -96,17 +21,7 @@ static int8_t	exec_instr(t_vm *vm, t_proc *proc)
 		ft_bzero(&proc->instr, sizeof(t_instr));
 		return (SUCCESS);
 	}
-	if (vm->verbose >= VERBOSE_PC && !(vm->flags & (1 << VISUAL)))
-	{
-		ft_putchar('(');
-		debug_print_pc(proc->pc);
-		ft_putstr(" -> ");
-		debug_print_pc(proc->pc + proc->instr.instr_size);
-		ft_putchar(')');
-		ft_putchar(' ');
-		debug_print_arena(vm->arena, proc->pc, proc->instr.instr_size);
-		ft_putchar('\n');
-	}
+	debug_print_proc(vm, proc);
 	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
 	if (proc->instr.op->opcode != 9)

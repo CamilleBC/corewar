@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:00:30 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 18:06:32 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:43:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int8_t	init_vm(t_vm *vm, int *fds)
 		return (ERROR);
 	i = -1;
 	while (++i < vm->nb_players)
-		if (!(vm->players[i] = ft_memalloc(sizeof(t_player) * vm->nb_players)))
+		if (!(vm->players[i] = ft_memalloc(sizeof(t_player))))
 			return (ERROR);
 	i = -1;
 	while (++i < MEM_SIZE)
