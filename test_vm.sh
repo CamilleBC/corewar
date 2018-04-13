@@ -2,11 +2,11 @@
 us_corewar=corewar
 zaz_corewar=resources/corewar
 
-for ((count=1; count < 10000; count++))
+for ((count=3000; count < 10000; count++))
 do
 	./$us_corewar -d $count $1 $2 > us
 	./$zaz_corewar -d $count $1 $2 > zaz
-	sed '1,3d' zaz > tmp; mv tmp zaz
+	sed -n '/^0x0000/,$p' zaz > tmp; mv tmp zaz
 	diff us zaz
 	if [ $? != 0 ]; then
 		echo "Error on cycle $count"
