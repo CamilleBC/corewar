@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:30:52 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/13 15:33:07 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,9 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 	proc->instr.nb_args = 0;
 	proc->delay = 0;
 	proc->pc %= MEM_SIZE;
-	int opcode = vm->arena[proc->pc].hex;
 	proc->instr.op = get_op(vm->arena[proc->pc++].hex);
 	proc->pc %= MEM_SIZE;
 	proc->instr.instr_size = 0;
-	dprintf(2, "cycles %lu, opcode %d\n", vm->total_cycles, opcode);
 	if (proc->instr.op == 0 || proc->instr.op->str == 0)
 		return (ERROR);
 	proc->pc--;
