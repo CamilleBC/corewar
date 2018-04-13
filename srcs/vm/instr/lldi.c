@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 16:36:20 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/13 12:15:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int16_t	return_arg_value(int code, t_arg_val arg_value,
 	else if (code == IND_CODE)
 	{
 		addr = (proc->pc + arg_value.ind) % MEM_SIZE;
-		return (array_to_int_arena(vm->arena + addr, REG_SIZE));
+		return (read_arena((t_arena_args){vm->arena, addr, 2}));
 	}
 	else
 		return (0);
