@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lldi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 12:15:38 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 01:09:31 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void			instr_lldi(t_vm *vm, t_proc *proc)
 	t_instr		instr;
 
 	instr = proc->instr;
-	if (instr.nb_args != 3 || instr.args[3].code != T_REG)
+	if (instr.nb_args != 3)
+		return ;
+	if (instr.args[2].code != REG_CODE || instr.args[2].value.reg > REG_NUMBER)
 		return ;
 	reg = instr.args[2].value.reg - 1;
 	val1 = return_arg_value(instr.args[0].code, instr.args[0].value, proc, vm);

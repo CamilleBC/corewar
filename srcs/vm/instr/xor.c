@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xor.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:33 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 16:38:37 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 01:12:06 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void			instr_xor(t_vm *vm, t_proc *proc)
 
 	instr = proc->instr;
 	if (instr.nb_args != 3)
+		return ;
+	if (instr.args[2].code != REG_CODE || instr.args[2].value.reg > REG_NUMBER)
 		return ;
 	reg_dst = instr.args[2].value.reg - 1;
 	val = read_val(vm, proc, instr.args + 0);

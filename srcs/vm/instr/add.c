@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:56:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/14 00:00:02 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/14 01:03:47 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	instr_add(t_vm *vm, t_proc *proc)
 	(void)vm;
 	instr = proc->instr;
 	// debug
-	if (instr.nb_args != 3 || instr.args[0].code != REG_CODE || instr.args[1].code != REG_CODE || instr.args[2].code != REG_CODE)
+	if (instr.nb_args != 3)
+		return ;
+	if (instr.args[0].code != REG_CODE || instr.args[1].code != REG_CODE || instr.args[2].code != REG_CODE || instr.args[0].value.reg > REG_NUMBER || instr.args[1].value.reg > REG_NUMBER || instr.args[2].value.reg > REG_NUMBER)
 		return ;
 	regs[0] = instr.args[0].value.reg - 1;
 	regs[1] = instr.args[1].value.reg - 1;

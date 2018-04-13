@@ -6,7 +6,7 @@
 /*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:15 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/14 00:57:04 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/14 01:04:25 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void			instr_and(t_vm *vm, t_proc *proc)
 	t_instr		instr;
 
 	instr = proc->instr;
-	if (instr.nb_args != 3 || instr.args[2].code != REG_CODE || instr.args[2].value.reg > REG_NUMBER)
+	if (instr.nb_args != 3)
+		return ;
+	if (instr.args[2].code != REG_CODE || instr.args[2].value.reg > REG_NUMBER)
 		return ;
 	reg_dst = instr.args[2].value.reg - 1;
 	val = read_val(vm, proc, instr.args + 0);

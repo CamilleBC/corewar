@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:10:48 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 01:11:10 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void			instr_sti(t_vm *vm, t_proc *proc)
 
 	instr = proc->instr;
 	if (instr.nb_args != 3)
+		return ;
+	if (instr.args[0].code != REG_CODE || instr.args[0].value.reg > REG_NUMBER)
 		return ;
 	reg_val = proc->regs[instr.args[0].value.reg - 1];
 	if (read_val(vm, proc, instr.args + 1, &addr) == ERROR)
