@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 13:06:08 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 13:06:13 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/13 09:53:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int8_t			exec_instr(t_vm *vm, t_proc *proc)
 {
-	uint16_t	old_pc;
-
-	old_pc = proc->pc;
 	if (interpret_args(vm, proc) == ERROR)
 	{
 		ft_bzero(&proc->instr, sizeof(t_instr));
