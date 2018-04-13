@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:33:07 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 01:56:43 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int8_t			interpret_args(t_vm *vm, t_proc *proc)
 	proc->pc %= MEM_SIZE;
 	if (error)
 	{
+		if (proc->instr.op->octal)
+			proc->pc++;
 		proc->pc++;
 		return (ERROR);
 	}
