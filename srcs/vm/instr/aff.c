@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:53 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 09:54:23 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/13 19:20:33 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	instr_aff(t_vm *vm, t_proc *proc)
 		return ;
 	reg = instr.args[0].value.reg - 1;
 	val = proc->regs[reg] % 256;
-	if (!(vm->flags & (1 << VISUAL)))
+	if ((!(vm->flags & (1 << VISUAL))) && (!(vm->flags & (1 << DUMP))))
 		write(1, &val, 1);
 }
