@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:53 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 19:20:33 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/14 00:55:52 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	instr_aff(t_vm *vm, t_proc *proc)
 	instr = proc->instr;
 	if (vm->flags & (1 << VISUAL) || instr.nb_args != 1)
 		return ;
-	if (instr.args[0].code != T_REG)
+	if (instr.args[0].code != T_REG || instr.args[0].value.reg > REG_NUMBER)
 		return ;
 	reg = instr.args[0].value.reg - 1;
 	val = proc->regs[reg] % 256;
