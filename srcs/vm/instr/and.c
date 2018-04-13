@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   and.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:57:15 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 16:33:06 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 00:03:52 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			instr_and(t_vm *vm, t_proc *proc)
 	t_instr		instr;
 
 	instr = proc->instr;
-	if (instr.nb_args != 3)
+	if (instr.nb_args != 3 && instr.args[2].opcode == REG_CODE)
 		return ;
 	reg_dst = instr.args[2].value.reg - 1;
 	val = read_val(vm, proc, instr.args + 0);
