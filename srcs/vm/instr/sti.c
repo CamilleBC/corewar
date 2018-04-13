@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 09:54:10 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/13 15:10:48 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void			instr_sti(t_vm *vm, t_proc *proc)
 	if (read_val2(proc, instr.args + 2, &addr) == ERROR)
 		return ;
 	addr = (proc->pc + (addr % IDX_MOD)) % MEM_SIZE;
-	dprintf(2, "cycle: %lu\n", vm->total_cycles);
-	debug_print_regs(proc);
 	write_arena((t_arena_args){vm->arena, addr, 4}, reg_val,
 			proc->owner->colour);
 }
