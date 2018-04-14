@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 us_corewar=corewar
 zaz_corewar=resources/corewar
-add=1000
+add=100
 count=1
 
 for ((count=1; count<10000; count += add))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 17:16:48 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 08:12:54 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef void	t_instr_fn(t_vm *vm, t_proc *proc);
 
 typedef struct	s_instr
 {
-	t_op		*op;
+	t_op		op;
 	t_instr_fn	*fn;
 	t_arg		args[MAX_ARGS_NUMBER];
 	size_t		nb_args;
@@ -155,7 +155,7 @@ void			instr_zjmp(t_vm *vm, t_proc *proc);
 
 int8_t			interpret_instr(t_vm *vm, t_proc *proc);
 int8_t			interpret_args(t_vm *vm, t_proc *proc);
-size_t			eval_size_args(const t_vm *vm, t_op *op, size_t pc);
+size_t			eval_size_args(const t_vm *vm, t_op op, size_t pc);
 
 int8_t			init_vm(t_vm *vm, int *fds);
 int8_t			init_players(t_vm *vm, int *fds);

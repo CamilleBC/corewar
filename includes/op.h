@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:48:19 by tgunzbur          #+#    #+#             */
-/*   Updated: 2018/04/11 18:45:05 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/14 08:14:36 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct	s_op
 }				t_op;
 
 t_op			*get_ops(void);
-t_op			*get_op(int opcode);
+t_op			get_op(int opcode);
 uint64_t		reverse_bits(uint64_t val);
 
 #endif

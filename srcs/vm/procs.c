@@ -6,7 +6,7 @@
 /*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 13:06:08 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/14 06:33:14 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/14 09:29:37 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int8_t			exec_instr(t_vm *vm, t_proc *proc)
 {
-	if (proc->instr.op->opcode == -1)
+	if (proc->instr.op.opcode == -1)
 	{
-		printf("%d\n", proc->instr.op->cycle - 2);
-		proc->pc += 2;
+		proc->pc += proc->instr.instr_size;
+		ft_bzero(&proc->instr, sizeof(t_instr));
 		return (SUCCESS);
 	}
 	if (interpret_args(vm, proc) == ERROR)
-	{	
+	{
 		proc->pc += proc->instr.instr_size;
 		ft_bzero(&proc->instr, sizeof(t_instr));
 		return (SUCCESS);
 	}
 	proc->pc--;
 	debug_print_proc(vm, proc);
-	if (proc->instr.fn && proc->instr.op)
+	if (proc->instr.op.opcode != 0)
 		proc->instr.fn(vm, proc);
 	proc->pc += proc->instr.instr_size + 1;
 	ft_bzero(&proc->instr, sizeof(t_instr));
@@ -49,9 +49,9 @@ int8_t			loop_procs(t_vm *vm)
 	{
 		if (!(proc = (t_proc*)queue_elmt->data))
 			return (ERROR);
-		if (proc->delay > 0)
+		if (proc->delay)
 			proc->delay -= 1;
-		else if (proc->instr.op == NULL)
+		else if (proc->instr.op.opcode == 0)
 			interpret_instr(vm, proc);
 		else if (exec_instr(vm, proc) == ERROR)
 			return (ERROR);

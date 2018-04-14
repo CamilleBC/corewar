@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:52:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/11 14:12:25 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 08:18:36 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_op		*get_ops(void)
 	return (g_op_tab);
 }
 
-t_op		*get_op(int opcode)
+t_op		get_op(int opcode)
 {
 	size_t	idx;
 	t_op	*ops;
@@ -54,8 +54,8 @@ t_op		*get_op(int opcode)
 	while (idx < OP_COUNT)
 	{
 		if (ops[idx].opcode == opcode)
-			return (ops + idx);
+			return (ops[idx]);
 		idx++;
 	}
-	return (NULL);
+	return (ops[idx - 1]);
 }
