@@ -2,8 +2,9 @@
 us_corewar=corewar
 zaz_corewar=resources/corewar
 add=1000
+count=1
 
-for ((count=1; count < 10000; count += add))
+for ((count=1; count<10000; count += add))
 do
 	./$us_corewar -d $count $1 $2 > us
 	./$zaz_corewar -d $count $1 $2 > zaz
@@ -19,4 +20,3 @@ do
 	fi
 	echo $count
 done
-rm us zaz

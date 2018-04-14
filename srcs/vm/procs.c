@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgunzbur <tgunzbur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 13:06:08 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:30:40 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/14 06:33:14 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 int8_t			exec_instr(t_vm *vm, t_proc *proc)
 {
-	if (interpret_args(vm, proc) == ERROR)
+	if (proc->instr.op->opcode == -1)
 	{
+		printf("%d\n", proc->instr.op->cycle - 2);
+		proc->pc += 2;
+		return (SUCCESS);
+	}
+	if (interpret_args(vm, proc) == ERROR)
+	{	
+		proc->pc += proc->instr.instr_size;
 		ft_bzero(&proc->instr, sizeof(t_instr));
 		return (SUCCESS);
 	}
+	proc->pc--;
 	debug_print_proc(vm, proc);
 	if (proc->instr.fn && proc->instr.op)
 		proc->instr.fn(vm, proc);
-	if (proc->instr.op->opcode != 9)
-	{
-		if (proc->instr.instr_size == 0)
-			proc->pc++;
-		else
-			proc->pc += proc->instr.instr_size;
-		proc->pc %= MEM_SIZE;
-	}
+	proc->pc += proc->instr.instr_size + 1;
 	ft_bzero(&proc->instr, sizeof(t_instr));
 	return (SUCCESS);
 }
@@ -48,7 +49,7 @@ int8_t			loop_procs(t_vm *vm)
 	{
 		if (!(proc = (t_proc*)queue_elmt->data))
 			return (ERROR);
-		if (proc->delay)
+		if (proc->delay > 0)
 			proc->delay -= 1;
 		else if (proc->instr.op == NULL)
 			interpret_instr(vm, proc);
