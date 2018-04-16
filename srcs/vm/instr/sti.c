@@ -6,32 +6,28 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 11:23:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:10:02 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int8_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg, int16_t *res)
+static int8_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg, uint16_t *res)
 {
-	uint16_t	val;
-
 	if (arg->code == DIR_CODE)
-		val = arg->value.dir;
+		*res = arg->value.dir;
 	else if (arg->code == IND_CODE)
-		val = read_arena((t_arena_args){vm->arena,
-				(proc->pc + arg->value.ind) % MEM_SIZE, 4});
+		*res = read_arena((t_arena_args){vm->arena,
+				(proc->pc + arg->value.ind) % MEM_SIZE, 2});
 	else if (arg->code == REG_CODE)
-		val = proc->regs[arg->value.reg - 1];
+		*res = proc->regs[arg->value.reg - 1];
 	else
 		return (ERROR);
-	*res = val;
 	return (SUCCESS);
 }
 
-static int8_t	read_val2(t_proc *proc, const t_arg *arg, int16_t *res)
+static int8_t	read_val2(t_proc *proc, const t_arg *arg, uint16_t *res)
 {
-
 	if (arg->code == DIR_CODE)
 		*res += arg->value.dir % IDX_MOD;
 	else if (arg->code == REG_CODE)
@@ -44,11 +40,11 @@ static int8_t	read_val2(t_proc *proc, const t_arg *arg, int16_t *res)
 void			instr_sti(t_vm *vm, t_proc *proc)
 {
 	uint32_t	reg_val;
-	int16_t		addr;
+	uint16_t	addr;
 	t_instr		instr;
 
 	instr = proc->instr;
-	if (instr.nb_args != 3 || instr.args[0].code != REG_CODE)
+	if (instr.nb_args != 3)
 		return ;
 	reg_val = proc->regs[instr.args[0].value.reg - 1];
 	if (read_val(vm, proc, instr.args + 1, &addr) == ERROR)

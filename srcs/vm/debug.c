@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:50:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 17:18:35 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 14:41:23 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,14 @@ void		debug_print_regs(const t_proc *proc)
 	while (reg < REG_NUMBER)
 	{
 		// TODO: use ft_print
-		dprintf(2, "r%lu: 0x%08x ", reg + 1, proc->regs[reg]);
+		ft_putchar('r');
+		ft_putnbr(reg + 1);
+		ft_putstr(": 0x");
+		print_hex(proc->regs[reg] << 24 & 0xff);
+		print_hex(proc->regs[reg] << 16 & 0xff);
+		print_hex(proc->regs[reg] << 8 & 0xff);
+		print_hex(proc->regs[reg] & 0xff);
+		ft_putchar('\n');
 		reg++;
 	}
 	dprintf(2, "\n");

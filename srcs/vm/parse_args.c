@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 14:30:46 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 14:36:57 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	parse_arg(int *fds, t_vm *vm, char **av, int *i)
 	{
 		if (ft_strisnum(av[*i + 1]))
 			vm->dump = ft_atoi64(av[++(*i)]);
-		else return (ERROR);
+		else
+			return (ERROR);
 		if (vm->dump <= INT32_MAX && vm->dump > 0)
 			vm->flags |= (1 << DUMP);
 	}

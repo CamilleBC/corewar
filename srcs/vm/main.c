@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 15:55:21 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 14:37:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void		print_result(t_vm vm)
 	}
 }
 
-static int	print_usage(void)
+static int		print_usage(void)
 {
 	ft_print("./corewar [options] [-n X] player [-n X] player...\n");
 	ft_print("options:\n");
@@ -67,7 +67,7 @@ static int	print_usage(void)
 	return (0);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	int			*fds;
 	t_vm		vm;
