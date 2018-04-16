@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 12:10:49 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 17:24:46 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:03:16 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ static void	free_if_dead_proc(t_vm *vm, t_deque_elmt *proc_elmt,
 
 void		entropy(t_vm *vm)
 {
-	static uint64_t	lives;
+	uint64_t		lives;
 	static uint64_t	last_check;
 	t_deque_elmt	*queue_elmt;
 	t_deque_elmt	*proc_elmt;
 
 	queue_elmt = vm->procs->tail;
+	lives = 0;
 	while (queue_elmt && queue_elmt->data)
 	{
 		proc_elmt = queue_elmt;
@@ -86,9 +87,8 @@ void		entropy(t_vm *vm)
 		vm->cycles_to_die -= CYCLE_DELTA;
 		reset_player_period_lives(vm);
 		last_check = 0;
-		lives = 0;
 	}
-	if (!(++last_check % MAX_CHECKS))
+	if (++last_check > MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
 		reset_player_period_lives(vm);
