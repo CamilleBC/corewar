@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 15:59:14 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:03:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ int8_t			validate_octal(t_vm *vm, const t_proc *proc, size_t pc)
 		else if (code == IND_CODE && !(proc->instr.op->args[idx] & T_IND))
 			return (ERROR);
 		else if (code == DIR_CODE && !(proc->instr.op->args[idx] & T_DIR))
+			return (ERROR);
+		else if (code == 0)
 			return (ERROR);
 		idx++;
 		pc++;
