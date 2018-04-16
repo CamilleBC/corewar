@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:33:07 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 10:51:07 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, int dir_size)
 	}
 	else if (arg->code == IND_CODE)
 	{
-		arg->value.ind = array_to_int_arena(mem + proc->pc, IND_SIZE);
+		arg->value.dir = read_arena((t_arena_args){mem, proc->pc, IND_SIZE});
 		proc->pc += IND_SIZE;
 		arg->size = IND_SIZE;
 	}
 	else if (arg->code == DIR_CODE)
 	{
-		arg->value.dir = array_to_int_arena(mem + proc->pc, dir_size);
+		arg->value.dir = read_arena((t_arena_args){mem, proc->pc, dir_size});
 		proc->pc += dir_size;
 		arg->size = dir_size;
 	}

@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:30 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 12:15:38 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 10:51:54 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void			instr_lldi(t_vm *vm, t_proc *proc)
 	val1 = return_arg_value(instr.args[0].code, instr.args[0].value, proc, vm);
 	val2 = return_arg_value(instr.args[1].code, instr.args[1].value, proc, vm);
 	addr = (int16_t)(val1 + val2);
-	proc->regs[reg] = array_to_int_arena(vm->arena + addr, REG_SIZE);
+	proc->regs[reg] = read_arena((t_arena_args){vm->arena, addr, REG_SIZE});
 	proc->carry = !proc->regs[reg];
 }

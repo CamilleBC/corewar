@@ -13,7 +13,6 @@ ASM_SRC_NAME=check_file.c \
 COMMON_SRC_NAME = op.c \
 				  bits.c
 INSTR_SRC_NAME = interpret.c \
-				 cast.c \
 				 live.c \
 				 ld.c \
 				 st.c \
