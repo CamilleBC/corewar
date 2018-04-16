@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 us_corewar=corewar
 zaz_corewar=resources/corewar
-st=1700
-add=10
+add=1000
+st=$add
 sub=-10
 error=0
 error_count=0

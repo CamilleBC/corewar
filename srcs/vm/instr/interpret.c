@@ -6,11 +6,33 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 13:57:23 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 14:21:04 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void			print_player_instr(t_vm *vm, t_proc *proc, t_op *op)
+{
+	int	offset;
+
+	offset = 6 + (3 * ft_abs32(proc->owner->id));
+	clear_win_line(vm->wins.stats_win, vm, offset, 1);
+	wmove(vm->wins.stats_win, offset, 1);
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
+	wprintw(vm->wins.stats_win, "Proc owner: %d / %s", (-1) - proc->owner->id,
+		proc->owner->header.prog_name);
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
+	clear_win_line(vm->wins.stats_win, vm, offset + 1, 1);
+	wmove(vm->wins.stats_win, offset + 1, 1);
+	wprintw(vm->wins.stats_win, "OP name: %s", op->str);
+	clear_win_line(vm->wins.stats_win, vm, offset + 2, 1);
+	wmove(vm->wins.stats_win, offset + 2, 1);
+	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
+	wprintw(vm->wins.stats_win, "Delay: %u", proc->instr.op->cycle);
+	wattroff(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
+	wrefresh(vm->wins.stats_win);
+}
 
 static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, size_t idx)
 {
@@ -68,26 +90,39 @@ static size_t	fill_args(t_vm *vm, t_proc *proc, t_op *op, int *error)
 	return (arg_size);
 }
 
-void			print_player_instr(t_vm *vm, t_proc *proc, t_op *op)
+static size_t	size_arg_error(int code, int dir_size)
 {
-	int	offset;
+	if (code == REG_CODE)
+		return (1);
+	if (code == DIR_CODE)
+	{
+		if (dir_size)
+			return (DIR_SIZE / 2);
+		else
+			return (DIR_SIZE);
+	}
+	if (code == IND_CODE)
+		return (IND_SIZE);
+	return (0);
+}
 
-	offset = 6 + (3 * ft_abs32(proc->owner->id));
-	clear_win_line(vm->wins.stats_win, vm, offset, 1);
-	wmove(vm->wins.stats_win, offset, 1);
-	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
-	wprintw(vm->wins.stats_win, "Proc owner: %d / %s", (-1) - proc->owner->id,
-		proc->owner->header.prog_name);
-	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
-	clear_win_line(vm->wins.stats_win, vm, offset + 1, 1);
-	wmove(vm->wins.stats_win, offset + 1, 1);
-	wprintw(vm->wins.stats_win, "OP name: %s", op->str);
-	clear_win_line(vm->wins.stats_win, vm, offset + 2, 1);
-	wmove(vm->wins.stats_win, offset + 2, 1);
-	wattron(vm->wins.stats_win, COLOR_PAIR(proc->owner->colour));
-	wprintw(vm->wins.stats_win, "Delay: %u", proc->instr.op->cycle);
-	wattroff(vm->wins.stats_win, COLOR_PAIR(proc->owner->id + 1));
-	wrefresh(vm->wins.stats_win);
+static void		jump_pc_error(t_vm *vm, t_proc *proc, t_op *op)
+{
+	size_t	idx;
+	int		octal;
+	int		code;
+
+	octal = 0;
+	if (op->octal)
+		octal = vm->arena[proc->pc++].hex;
+	idx = 0;
+	while (idx < op->nb_args)
+	{
+		code = octal ? octal >> ((3 - idx) * 2) & 0b11 :
+			op->args[idx];
+		proc->pc += size_arg_error(code, op->dir_size);
+		idx++;
+	}
 }
 
 int8_t			interpret_args(t_vm *vm, t_proc *proc)
@@ -100,10 +135,15 @@ int8_t			interpret_args(t_vm *vm, t_proc *proc)
 	proc->pc++;
 	proc->pc %= MEM_SIZE;
 	proc->instr.instr_size = fill_args(vm, proc, proc->instr.op, &error) + 1;
-	if (error)
-		return (ERROR);
 	proc->pc += -proc->instr.instr_size + MEM_SIZE;
 	proc->pc %= MEM_SIZE;
+	if (error)
+	{
+		proc->pc++;
+		jump_pc_error(vm, proc, proc->instr.op);
+		proc->pc %= MEM_SIZE;
+		return (ERROR);
+	}
 	return (SUCCESS);
 }
 
