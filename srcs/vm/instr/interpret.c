@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 13:33:59 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 13:57:23 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static size_t	fill_arg(t_arena *mem, t_proc *proc, t_arg *arg, size_t idx)
 {
-	if (arg->code == REG_CODE && (proc->instr.op->args[idx] & T_REG) == T_REG)
+	if (arg->code == REG_CODE && (proc->instr.op->args[idx] & T_REG))
 	{
 		if (!is_valid_reg(mem[proc->pc].hex))
 			return (arg->size = 0);
 		arg->value.reg = mem[proc->pc++].hex;
 		arg->size = 1;
 	}
-	else if (arg->code == IND_CODE && (proc->instr.op->args[idx] & T_IND) == T_IND)
+	else if (arg->code == IND_CODE && (proc->instr.op->args[idx] & T_IND))
 	{
 		arg->value.dir = read_arena((t_arena_args){mem, proc->pc, IND_SIZE});
 		proc->pc += IND_SIZE;
 		arg->size = IND_SIZE;
 	}
-	else if (arg->code == DIR_CODE && (proc->instr.op->args[idx] & T_DIR) == T_DIR)
+	else if (arg->code == DIR_CODE && (proc->instr.op->args[idx] & T_DIR))
 	{
 		arg->value.dir = read_arena((t_arena_args){mem, proc->pc, (proc->instr.op->dir_size ? 2 : 4)});
 		proc->pc += (proc->instr.op->dir_size ? 2 : 4);
@@ -100,14 +100,10 @@ int8_t			interpret_args(t_vm *vm, t_proc *proc)
 	proc->pc++;
 	proc->pc %= MEM_SIZE;
 	proc->instr.instr_size = fill_args(vm, proc, proc->instr.op, &error) + 1;
+	if (error)
+		return (ERROR);
 	proc->pc += -proc->instr.instr_size + MEM_SIZE;
 	proc->pc %= MEM_SIZE;
-	if (error)
-	{
-		proc->pc += 1 + proc->instr.op->octal;
-		proc->pc %= MEM_SIZE;
-		return (ERROR);
-	}
 	return (SUCCESS);
 }
 
