@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 13:06:08 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 11:55:45 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 13:32:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int8_t			loop_procs(t_vm *vm)
 			return (ERROR);
 		if (proc->delay)
 			proc->delay -= 1;
-		else if (proc->instr.op == NULL)
+		else if (proc->instr.op == NULL || proc->instr.op->str == NULL)
 			interpret_instr(vm, proc);
 		else
 			exec_instr(vm, proc);

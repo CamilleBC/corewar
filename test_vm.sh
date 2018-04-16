@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 us_corewar=corewar
 zaz_corewar=resources/corewar
+st=1000
 add=100
 sub=-10
 error=0
 to_end=0
 
 echo "comparing vms..."
-for ((count=$add; count < 10000; count += add))
+for ((count=$st; count < 10000; count += add))
 do
 	./$us_corewar -d $count $@ > us
 	./$zaz_corewar -d $count $@ > zaz
