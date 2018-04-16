@@ -8,7 +8,7 @@ do
 	./$us_corewar -d $count $1 $2 > us
 	./$zaz_corewar -d $count $1 $2 > zaz
 	sed -n '/^0x0000/,$p' zaz > tmp; mv tmp zaz
-	colordiff zaz us || break
+	colordiff zaz us
 	#wdiff --no-common zaz us
 	if [ $? != 0 ]; then
 		if [ $add == 1 ]; then
