@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:11 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 16:31:26 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:46:30 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ void	instr_fork(t_vm *vm, t_proc *proc)
 				proc_f->owner->nb_threads,
 				proc_f->owner->nb_threads + THREADS_ALLOC + 1);
 	proc_f->owner->threads[proc_f->owner->nb_threads++] = proc_f;
-	if (ft_deque_push_back(vm->procs, proc_f) == ERROR)
-		return ;
+	ft_deque_push_back(vm->procs, proc_f);
 }

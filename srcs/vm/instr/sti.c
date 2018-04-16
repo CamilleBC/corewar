@@ -6,13 +6,14 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 15:10:02 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:47:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int8_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg, uint16_t *res)
+static int8_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg,
+		uint16_t *res)
 {
 	if (arg->code == DIR_CODE)
 		*res = arg->value.dir;

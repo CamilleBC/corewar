@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:33:20 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 15:08:56 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:59:14 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,31 @@ int8_t			interpret_args(t_vm *vm, t_proc *proc)
 	return (SUCCESS);
 }
 
+int8_t			validate_octal(t_vm *vm, const t_proc *proc, size_t pc)
+{
+	int		code;
+	int		octal;
+	size_t	idx;
+
+	idx = 0;
+	octal = vm->arena[pc++].hex;
+	pc %= MEM_SIZE;
+	while (idx < proc->instr.nb_args)
+	{
+		code = octal >> ((3 - idx) * 2) & 0b11;
+		if (code == REG_CODE && !(proc->instr.op->args[idx] & T_REG))
+			return (ERROR);
+		else if (code == IND_CODE && !(proc->instr.op->args[idx] & T_IND))
+			return (ERROR);
+		else if (code == DIR_CODE && !(proc->instr.op->args[idx] & T_DIR))
+			return (ERROR);
+		idx++;
+		pc++;
+		pc %= MEM_SIZE;
+	}
+	return (SUCCESS);
+}
+
 int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 {
 	proc->instr.nb_args = 0;
@@ -157,6 +182,12 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc)
 	proc->instr.instr_size = 0;
 	if (proc->instr.op == 0 || proc->instr.op->str == 0)
 		return (ERROR);
+	if (validate_octal(vm, proc, proc->pc) == ERROR)
+	{
+		proc->pc++;
+		proc->pc %= MEM_SIZE;
+		return (ERROR);
+	}
 	proc->pc += -1 + MEM_SIZE;
 	proc->pc %= MEM_SIZE;
 	proc->delay = proc->instr.op->cycle - 2;
