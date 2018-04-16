@@ -6,14 +6,14 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 15:47:38 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:29:13 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 static int8_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg,
-		uint16_t *res)
+		int32_t *res)
 {
 	if (arg->code == DIR_CODE)
 		*res = arg->value.dir;
@@ -27,7 +27,7 @@ static int8_t	read_val(t_vm *vm, t_proc *proc, const t_arg *arg,
 	return (SUCCESS);
 }
 
-static int8_t	read_val2(t_proc *proc, const t_arg *arg, uint16_t *res)
+static int8_t	read_val2(t_proc *proc, const t_arg *arg, int32_t *res)
 {
 	if (arg->code == DIR_CODE)
 		*res += arg->value.dir % IDX_MOD;
@@ -41,7 +41,7 @@ static int8_t	read_val2(t_proc *proc, const t_arg *arg, uint16_t *res)
 void			instr_sti(t_vm *vm, t_proc *proc)
 {
 	uint32_t	reg_val;
-	uint16_t	addr;
+	int32_t		addr;
 	t_instr		instr;
 
 	instr = proc->instr;
