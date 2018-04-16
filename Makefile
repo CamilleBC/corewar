@@ -30,7 +30,8 @@ INSTR_SRC_NAME = interpret.c \
 				 lfork.c \
 				 aff.c \
 				 registers.c \
-				 tab.c
+				 tab.c \
+				 eval.c
 VISU_SRC_NAME=	arena.c \
 				header.c \
 				init_and_free.c \

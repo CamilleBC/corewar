@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 14:11:57 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:59:16 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,6 @@ typedef struct	s_instr_def
 	t_instr_fn	*fn;
 }				t_instr_def;
 
-//uint32_t		array_to_int(uint8_t arr[4], size_t size);
-//uint32_t		array_to_int_arena(t_arena arena[4], size_t size);
-//void			int_to_array(uint8_t arr[4], uint32_t val, size_t size);
 t_instr_fn		*get_instr_fn(int opcode);
 
 void			instr_add(t_vm *vm, t_proc *proc);
@@ -173,7 +170,7 @@ typedef struct	s_arena_args
 void			write_arena(t_arena_args args, uint32_t val, int colour);
 uint32_t		read_arena(t_arena_args args);
 int8_t			is_valid_reg(uint8_t reg);
-int8_t			are_valid_regs(uint8_t *regs, size_t size);
+void			jump_pc_error(t_vm *vm, t_proc *proc, t_op *op);
 
 void			exec_instr(t_vm *vm, t_proc *proc);
 int8_t			loop_procs(t_vm *vm);
