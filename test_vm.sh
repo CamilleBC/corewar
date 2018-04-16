@@ -18,5 +18,5 @@ do
 		add=$(($add / 10))
 	fi
 	echo $count
-	rm zaz us
 done
+rm zaz us
