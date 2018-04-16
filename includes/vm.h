@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 16:59:16 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:27:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ struct			s_player
 	uint32_t	colour;
 	uint64_t	live;
 	uint64_t	live_in_period;
-	uint64_t	last_live;
 	t_proc		**threads;
 	size_t		nb_threads;
 };
@@ -117,6 +116,7 @@ struct			s_vm
 	t_player		**players;
 	uint8_t			nb_players;
 	uint64_t		dump;
+	uint64_t		cycles_in_period;
 	uint64_t		total_cycles;
 	int64_t			cycles_to_die;
 	struct s_win	wins;

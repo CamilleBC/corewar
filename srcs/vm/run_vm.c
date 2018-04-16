@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 15:49:41 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:29:32 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ static int8_t	main_vm_loop(t_vm *vm, uint32_t *delay, int *cycles,
 	if (run || *cycles)
 	{
 		vm->total_cycles += 1;
+		vm->cycles_in_period += 1;
 		if (vm->flags & (1 << DUMP))
 			vm->dump -= 1;
-		if (!(vm->total_cycles % vm->cycles_to_die))
+		if ((int64_t)vm->cycles_in_period >= vm->cycles_to_die)
+		{
 			entropy(vm);
+			vm->cycles_in_period = 0;
+		}
 		if (loop_procs(vm) == ERROR)
 			return (0);
 		if (vm->flags & (1 << VISUAL))

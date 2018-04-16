@@ -9,7 +9,7 @@ error_count=0
 to_end=0
 
 echo "comparing vms..."
-for ((count=$st; count < 10000; count += add))
+for ((count=$st; count < 100000; count += add))
 do
 	printf "\33[2K\rcycle: $count"
 	./$us_corewar -d $count $@ > us

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 12:10:49 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/12 12:48:15 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:24:46 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		entropy(t_vm *vm)
 		queue_elmt = queue_elmt->prev;
 		free_if_dead_proc(vm, proc_elmt, &lives);
 	}
-	if (lives >= NBR_LIVE)
+	if (lives > NBR_LIVE)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
 		reset_player_period_lives(vm);
