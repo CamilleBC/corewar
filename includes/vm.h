@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 10:49:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 11:55:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ uint32_t		read_arena(t_arena_args args);
 int8_t			is_valid_reg(uint8_t reg);
 int8_t			are_valid_regs(uint8_t *regs, size_t size);
 
-int8_t			exec_instr(t_vm *vm, t_proc *proc);
+void			exec_instr(t_vm *vm, t_proc *proc);
 int8_t			loop_procs(t_vm *vm);
 
 void			print_hex(unsigned char hex);

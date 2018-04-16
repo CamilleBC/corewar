@@ -6,18 +6,18 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 13:06:08 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:30:40 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 11:55:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int8_t			exec_instr(t_vm *vm, t_proc *proc)
+void			exec_instr(t_vm *vm, t_proc *proc)
 {
 	if (interpret_args(vm, proc) == ERROR)
 	{
 		ft_bzero(&proc->instr, sizeof(t_instr));
-		return (SUCCESS);
+		return ;
 	}
 	debug_print_proc(vm, proc);
 	if (proc->instr.fn && proc->instr.op)
@@ -31,7 +31,6 @@ int8_t			exec_instr(t_vm *vm, t_proc *proc)
 		proc->pc %= MEM_SIZE;
 	}
 	ft_bzero(&proc->instr, sizeof(t_instr));
-	return (SUCCESS);
 }
 
 int8_t			loop_procs(t_vm *vm)
@@ -52,8 +51,8 @@ int8_t			loop_procs(t_vm *vm)
 			proc->delay -= 1;
 		else if (proc->instr.op == NULL)
 			interpret_instr(vm, proc);
-		else if (exec_instr(vm, proc) == ERROR)
-			return (ERROR);
+		else
+			exec_instr(vm, proc);
 		queue_elmt = queue_elmt->prev;
 		++i;
 	}

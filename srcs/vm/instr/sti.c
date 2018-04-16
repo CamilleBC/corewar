@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:58:02 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/13 15:10:48 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/16 11:23:27 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			instr_sti(t_vm *vm, t_proc *proc)
 	t_instr		instr;
 
 	instr = proc->instr;
-	if (instr.nb_args != 3)
+	if (instr.nb_args != 3 || instr.args[0].code != REG_CODE)
 		return ;
 	reg_val = proc->regs[instr.args[0].value.reg - 1];
 	if (read_val(vm, proc, instr.args + 1, &addr) == ERROR)
