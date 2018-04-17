@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 us_corewar=corewar
 zaz_corewar=resources/corewar
-add=100
+add=1000
 st=1000
 sub=-10
 error=0
@@ -9,14 +9,13 @@ error_count=0
 to_end=0
 
 echo "comparing vms..."
-for ((count=$st; count < 100000; count += add))
+for ((count=$st; count >= 0; count += add))
 do
 	printf "\33[2K\rcycle: $count"
 	./$us_corewar -d $count $@ > us
 	./$zaz_corewar -d $count $@ > zaz
 	sed -n '/^0x0000/,$p' zaz > tmp; mv tmp zaz
 	diff zaz us &> log
-	#wdiff --no-common zaz us
 	if [[ $? != 0 && $count > 0 ]]; then
 		if [[ $to_end == 1 ]]; then
 			# phase 3: we have found the smallest cycle
