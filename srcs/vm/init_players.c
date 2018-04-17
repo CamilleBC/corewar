@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/17 14:42:52 by cbaillat         ###   ########.fr       */
+/*   Updated: 2018/04/17 15:32:09 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,19 @@ static int8_t	read_prog(t_player *player, t_fds fd)
 	return (SUCCESS);
 }
 
-static int8_t	init_player(t_player *player, t_vm *vm, size_t address, t_fds fd)
+static int8_t	init_player(t_player *player, t_vm *vm, size_t address,
+					t_fds fd)
 {
-	size_t	i;
+	size_t		i;
+	static int	j;
 
 	if (read_prog(player, fd) == ERROR)
 		return (ERROR);
 	i = 0;
+	if (fd.id > 0)
+		player->id = fd.id;
+	else
+		player->id = --j;
 	while (i < player->header.prog_size)
 	{
 		vm->arena[address + i].hex = player->prog[i];
@@ -59,23 +65,17 @@ static void		set_player_proc(t_vm *vm, t_proc *proc, size_t address,
 int8_t			init_players(t_vm *vm, t_fds *fds)
 {
 	size_t	i;
-	int		j;
 	size_t	address;
 	long	div;
 	t_proc	*proc;
 
 	i = -1;
-	j = -1;
 	div = 0;
 	if (vm->nb_players)
 		div = MEM_SIZE / vm->nb_players;
 	address = 0;
 	while (++i < vm->nb_players)
 	{
-		if (fds[i].id > 0)
-			vm->players[i]->id = fds[i].id;
-		else
-			vm->players[i]->id = j--;
 		vm->players[i]->index = i;
 		vm->players[i]->colour = COLOUR_OFFSET + i;
 		if (init_player(vm->players[i], vm, address, fds[i]) == ERROR)
