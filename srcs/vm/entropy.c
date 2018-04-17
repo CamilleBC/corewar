@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 12:10:49 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 18:03:16 by tgunzbur         ###   ########.fr       */
+/*   Updated: 2018/04/17 13:08:57 by tgunzbur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,10 @@ void		entropy(t_vm *vm)
 		reset_player_period_lives(vm);
 		last_check = 0;
 	}
-	if (++last_check > MAX_CHECKS)
+	else if (++last_check >= MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
 		reset_player_period_lives(vm);
+		last_check = 0;
 	}
 }
