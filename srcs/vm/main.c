@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/17 13:34:43 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 13:41:36 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static void		print_result(t_vm vm)
 {
 	t_player	*winner;
 
-	if (vm.flags & (1 << DUMP) && vm.dump == 0)
-		dump_arena(vm.arena);
-	else
+	if (vm.procs->head == 0 || vm.cycles_to_die <= 0)
 	{
 		winner = get_player_by_id(vm.last_live_id, vm);
 		if (winner)
@@ -57,6 +55,8 @@ static void		print_result(t_vm vm)
 				winner->header.prog_name);
 		}
 	}
+	else if (vm.flags & (1 << DUMP) && vm.dump == 0)
+		dump_arena(vm.arena);
 }
 
 static int		print_usage(void)

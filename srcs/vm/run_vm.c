@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 11:49:53 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 17:29:32 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 13:41:04 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			run_vm(t_vm *vm)
 	refresh();
 	if (vm->flags & (1 << VISUAL))
 		print_screen(vm, delay);
-	while (vm->cycles_to_die > 0 && vm->dump && vm->procs->head)
+	while ((vm->cycles_to_die > 0 || vm->procs->head) && vm->dump)
 	{
 		if (!main_vm_loop(vm, &delay, &cycles, run))
 			break ;
