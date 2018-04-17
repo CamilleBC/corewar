@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:36:10 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 14:12:27 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 15:05:32 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	display_pc(t_deque_elmt *elem, t_vm *vm)
 	while (elem)
 	{
 		i = ((t_proc *)elem->data)->pc % MEM_SIZE;
-		player = ((t_proc *)elem->data)->owner->id;
+		player = ((t_proc *)elem->data)->owner->index;
 		wmove(vm->wins.arena_win, i / 64 + 2, (i % 64 + 1) * 3);
 		wattron(vm->wins.arena_win, create_color(vm->arena[i].colour, player));
 		wprintw(vm->wins.arena_win, "%02x", 0xFF & vm->arena[i].hex);

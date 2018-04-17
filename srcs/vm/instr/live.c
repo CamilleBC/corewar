@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:19:25 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/16 17:25:12 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 14:38:55 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	instr_live(t_vm *vm, t_proc *proc)
 {
 	size_t		i;
 	int32_t		id;
-	int32_t		id_player;
 
 	proc->live++;
 	if (proc->instr.nb_args != 1)
@@ -25,8 +24,7 @@ void	instr_live(t_vm *vm, t_proc *proc)
 	i = 0;
 	while (i < vm->nb_players)
 	{
-		id_player = -vm->players[i]->id - 1;
-		if (id == id_player)
+		if (id == vm->players[i]->id)
 		{
 			vm->players[i]->live++;
 			vm->players[i]->live_in_period++;

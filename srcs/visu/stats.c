@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 14:35:47 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/11 15:50:26 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 14:58:00 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ static void	move_and_clear(WINDOW *windows, t_vm *vm, int x, int y)
 static void	print_player_string(t_vm *vm, t_player *player,
 				const char *title, const char *content)
 {
-	wattron(vm->wins.children[player->id], COLOR_PAIR(WHITEP_BLACK));
-	wprintw(vm->wins.children[player->id], title);
-	wattroff(vm->wins.children[player->id], COLOR_PAIR(WHITEP_BLACK));
-	wattron(vm->wins.children[player->id], COLOR_PAIR(player->colour));
-	wprintw(vm->wins.children[player->id], "%s", content);
-	wattroff(vm->wins.children[player->id], COLOR_PAIR(player->colour));
+	wattron(vm->wins.children[player->index], COLOR_PAIR(WHITEP_BLACK));
+	wprintw(vm->wins.children[player->index], title);
+	wattroff(vm->wins.children[player->index], COLOR_PAIR(WHITEP_BLACK));
+	wattron(vm->wins.children[player->index], COLOR_PAIR(player->colour));
+	wprintw(vm->wins.children[player->index], "%s", content);
+	wattroff(vm->wins.children[player->index], COLOR_PAIR(player->colour));
 }
 
 static void	print_player_subwin(t_vm *vm, t_player *play)
 {
 	uint8_t	id;
 
-	id = play->id;
-	wattron(vm->wins.stats_win, COLOR_PAIR(play->id + 1));
+	id = play->index;
+	wattron(vm->wins.stats_win, COLOR_PAIR(play->index + 1));
 	box(vm->wins.children[id], '|', '-');
-	wattroff(vm->wins.children[id], COLOR_PAIR(play->id + 1));
+	wattroff(vm->wins.children[id], COLOR_PAIR(play->index + 1));
 	move_and_clear(vm->wins.children[id], vm, NAME_LINE, 1);
 	print_player_string(vm, play, "Name: ", play->header.prog_name);
 	move_and_clear(vm->wins.children[id], vm, SIZE_LINE, 1);
@@ -50,7 +50,7 @@ static void	print_player_subwin(t_vm *vm, t_player *play)
 	print_player_string(vm, play, "Lives in period: ",
 			ft_itoa(play->live_in_period));
 	move_and_clear(vm->wins.children[id], vm, ID_LINE, 1);
-	print_player_string(vm, play, "ID: ", ft_itoa((-1) - play->id));
+	print_player_string(vm, play, "ID: ", ft_itoa(play->id));
 	move_and_clear(vm->wins.children[id], vm, 8, 1);
 	wrefresh(vm->wins.children[id]);
 }

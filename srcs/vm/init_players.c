@@ -6,16 +6,16 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:41:36 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 12:21:21 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 14:42:52 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "visu.h"
 
-static int8_t	read_prog(t_player *player, int fd)
+static int8_t	read_prog(t_player *player, t_fds fd)
 {
-	if (read(fd, &player->header, sizeof(t_header)) < 0)
+	if (read(fd.fd, &player->header, sizeof(t_header)) < 0)
 		return (ERROR);
 	player->header.magic = reverse_bits(player->header.magic);
 	player->header.prog_size = reverse_bits(player->header.prog_size);
@@ -23,12 +23,12 @@ static int8_t	read_prog(t_player *player, int fd)
 		return (ERROR);
 	if (player->header.prog_size > CHAMP_MAX_SIZE)
 		return (ERROR);
-	if (read(fd, &player->prog, CHAMP_MAX_SIZE) < 0)
+	if (read(fd.fd, &player->prog, CHAMP_MAX_SIZE) < 0)
 		return (ERROR);
 	return (SUCCESS);
 }
 
-static int8_t	init_player(t_player *player, t_vm *vm, size_t address, int fd)
+static int8_t	init_player(t_player *player, t_vm *vm, size_t address, t_fds fd)
 {
 	size_t	i;
 
@@ -49,28 +49,34 @@ static void		set_player_proc(t_vm *vm, t_proc *proc, size_t address,
 {
 	proc->owner = vm->players[i];
 	proc->pc = address;
-	proc->regs[0] = -i - 1;
+	proc->regs[0] = vm->players[i]->id;
 	vm->players[i]->nb_threads = 1;
 	vm->players[i]->threads = ft_memalloc(sizeof(t_proc) * THREADS_ALLOC);
 	vm->players[i]->threads[0] = proc;
 	ft_deque_push_back(vm->procs, proc);
 }
 
-int8_t			init_players(t_vm *vm, int *fds)
+int8_t			init_players(t_vm *vm, t_fds *fds)
 {
 	size_t	i;
+	int		j;
 	size_t	address;
 	long	div;
 	t_proc	*proc;
 
 	i = -1;
+	j = -1;
 	div = 0;
 	if (vm->nb_players)
 		div = MEM_SIZE / vm->nb_players;
 	address = 0;
 	while (++i < vm->nb_players)
 	{
-		vm->players[i]->id = i;
+		if (fds[i].id > 0)
+			vm->players[i]->id = fds[i].id;
+		else
+			vm->players[i]->id = j--;
+		vm->players[i]->index = i;
 		vm->players[i]->colour = COLOUR_OFFSET + i;
 		if (init_player(vm->players[i], vm, address, fds[i]) == ERROR)
 		{

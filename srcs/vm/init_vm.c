@@ -6,13 +6,13 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:00:30 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/12 12:43:50 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 14:28:02 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int8_t	init_vm(t_vm *vm, int *fds)
+int8_t	init_vm(t_vm *vm, t_fds *fds)
 {
 	int64_t	i;
 

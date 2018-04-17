@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/17 13:41:36 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 14:39:25 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_player	*get_player_by_id(int64_t id, t_vm vm)
 
 	i = -1;
 	while (++i < vm.nb_players)
-		if (-vm.players[i]->id - 1 == id)
+		if (vm.players[i]->id  == id)
 			return (vm.players[i]);
 	return (NULL);
 }
@@ -72,8 +72,8 @@ static int		print_usage(void)
 
 int				main(int ac, char **av)
 {
-	int			*fds;
-	t_vm		vm;
+	t_fds	*fds;
+	t_vm	vm;
 
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = 1;

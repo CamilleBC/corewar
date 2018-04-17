@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:58:20 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/17 13:41:09 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 14:47:06 by cbaillat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ struct			s_player
 	t_header	header;
 	uint8_t		prog[CHAMP_MAX_SIZE + 1];
 	int64_t		id;
+	int64_t		index;
 	uint32_t	colour;
 	uint64_t	live;
 	uint64_t	live_in_period;
@@ -130,6 +131,12 @@ typedef struct	s_instr_def
 	t_instr_fn	*fn;
 }				t_instr_def;
 
+typedef struct	s_fds
+{
+	int	fd;
+	int	id;
+}				t_fds;
+
 t_instr_fn		*get_instr_fn(int opcode);
 
 void			instr_add(t_vm *vm, t_proc *proc);
@@ -154,9 +161,9 @@ int8_t			interpret_instr(t_vm *vm, t_proc *proc);
 int8_t			interpret_args(t_vm *vm, t_proc *proc);
 size_t			eval_size_args(const t_vm *vm, t_op *op, size_t pc);
 
-int8_t			init_vm(t_vm *vm, int *fds);
-int8_t			init_players(t_vm *vm, int *fds);
-int				*parse_args(t_vm *vm, int ac, char **av);
+int8_t			init_vm(t_vm *vm, t_fds *fds);
+int8_t			init_players(t_vm *vm, t_fds *fds);
+t_fds			*parse_args(t_vm *vm, int ac, char **av);
 void			entropy(t_vm *vm);
 void			run_vm(t_vm *vm);
 
