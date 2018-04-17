@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:17:37 by cbaillat          #+#    #+#             */
-/*   Updated: 2018/04/16 14:36:57 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 13:34:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	parse_arg(int *fds, t_vm *vm, char **av, int *i)
 {
 	static size_t	i_fd;
 
-	if (ft_strequ(av[*i], "--ncurses") || ft_strequ(av[*i], "-n"))
+	if (ft_strequ(av[*i], "--ncurses") || ft_strequ(av[*i], "-nc"))
 		vm->flags |= (1 << VISUAL);
 	else if (ft_strequ(av[*i], "--dump") || ft_strequ(av[*i], "-d"))
 	{

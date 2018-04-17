@@ -6,7 +6,7 @@
 /*   By: cbaillat <cbaillat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 19:50:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/04/17 12:20:53 by briviere         ###   ########.fr       */
+/*   Updated: 2018/04/17 13:34:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int		print_usage(void)
 {
 	ft_print("./corewar [options] [-n X] player [-n X] player...\n");
 	ft_print("options:\n");
-	ft_print("	-n | --ncurses -> displays a visual\n");
+	ft_print("	-nc | --ncurses -> displays a visual\n");
 	ft_print("	-d | --dump nb->");
 	ft_print(" dumps the vm state after nb cycles (int32)\n");
 	ft_print("	-v | --verbose -> dumps additional information\n");
